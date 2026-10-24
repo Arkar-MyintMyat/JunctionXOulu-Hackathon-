@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -110,11 +111,21 @@ def run(match_id: str, audiences: list[str], provider: str, inject: bool, worker
             if not writer_failed(s):
                 kept[(s["event_idx"], s["team"], s["audience"])] = s
 
+    todo = sum(job not in kept for job in jobs)
+    done = [0]
+
     def work(job: tuple[int, str, str]) -> dict[str, Any]:
         if job in kept:
             return kept[job]
         idx, team, audience = job
+        started = time.monotonic()
         draft = writer.write_story(facts[str(idx)][team], audience, names, provider)
+        done[0] += 1
+        # Live progress on stderr: slow free-tier runs should not look stuck.
+        state = "ok" if not draft.problems else ("API failed" if draft.problems[0].startswith("writer failed")
+                                                 else "held by checker")
+        print(f"  [{done[0]}/{todo}] e{idx} {team} {audience}: {state} ({time.monotonic() - started:.0f}s)",
+              file=sys.stderr, flush=True)
         return {"event_idx": idx, "team": team, "audience": audience, "text": draft.text,
                 "facts_used": draft.facts_used, "problems": draft.problems,
                 "writer": draft.writer, "attempts": draft.attempts}
