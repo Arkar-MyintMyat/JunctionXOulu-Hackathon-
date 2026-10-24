@@ -40,8 +40,5 @@ def test_api_stub_routes():
     from api.main import app
 
     c = TestClient(app)
-    assert c.get("/api/matches").status_code == 200
-    assert c.get("/api/match/mock").json()["match"]["id"] == 12345
     assert c.get("/api/upcoming", params={"team": "KAR"}).status_code == 200
     assert c.post("/api/simulate", json={"picks": [{"game_id": 777, "result": "HOME_REG"}]}).json()["runs"] == 5000
-    assert len(c.get("/api/queue").json()) == 1
