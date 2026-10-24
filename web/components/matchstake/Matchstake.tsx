@@ -166,7 +166,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   useEffect(() => {
     const el = shakeScope.current as HTMLElement | null;
     if (!el) return;
-    const ro = new ResizeObserver(([entry]) => setChartW(Math.max(320, Math.round(entry.contentRect.width))));
+    const ro = new ResizeObserver(([entry]) => setChartW(Math.max(260, Math.round(entry.contentRect.width))));
     ro.observe(el);
     return () => ro.disconnect();
   }, [shakeScope]);
@@ -335,15 +335,16 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
               Current match
             </div>
-            <div className="flex items-center justify-center gap-4">
-              <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" />
-              <span className="text-5xl font-black tabular-nums">{sh}</span>
-              <span className="rounded-md border px-3 py-1 text-sm font-bold tabular-nums"
+            {/* Names take the leftover width and wrap on phones, so the row never runs off the card. */}
+            <div className="flex w-full items-center justify-center gap-2 sm:gap-4">
+              <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" fill />
+              <span className="text-4xl font-black tabular-nums sm:text-5xl">{sh}</span>
+              <span className="shrink-0 rounded-md border px-2 py-1 text-xs font-bold tabular-nums sm:px-3 sm:text-sm"
                     style={{ borderColor: ui.border, background: ui.panel }}>
                 {finished ? "FINAL" : fmtClock(clock)}
               </span>
-              <span className="text-5xl font-black tabular-nums">{sa}</span>
-              <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" />
+              <span className="text-4xl font-black tabular-nums sm:text-5xl">{sa}</span>
+              <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" fill />
             </div>
           </div>
         )}
@@ -469,7 +470,8 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           {[1200, 2400].map((s) => (
             <line key={`period-${s}`} x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM} stroke={ui.grid} strokeDasharray="4 6" />
           ))}
-          {minutes.filter((s) => s % 600 === 0).map((s) => (
+          {/* Phone widths: a label every 20 minutes instead of every 10, so they keep their size without colliding. */}
+          {minutes.filter((s) => s % (W < 560 ? 1200 : 600) === 0).map((s) => (
             <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} fontSize={16} fill={ui.muted}
                   textAnchor={s === 0 ? "start" : s >= endSeconds - 1 ? "end" : "middle"}>{fmtClock(s)}</text>
           ))}
@@ -723,17 +725,22 @@ function MatchImpact({ playing, teamName, before, now, finished, clockLabel, ton
   );
 }
 
-function TeamName({ name, color, align, small }: {
+function TeamName({ name, color, align, small, fill }: {
   name: string;
   color?: string;
   align: "left" | "right";
   small?: boolean;
+  /** Take the leftover width of the row (and wrap inside it) instead of the name's natural width. */
+  fill?: boolean;
 }) {
   return (
-    <div className={`flex items-center gap-2 ${align === "right" ? "flex-row-reverse text-right" : ""}`}>
-      <span className={`inline-block rounded-full ring-1 ring-black/15 ${small ? "size-2" : "size-3"}`}
+    <div className={`flex items-center gap-1.5 sm:gap-2 ${align === "right" ? "flex-row-reverse text-right" : ""}
+                     ${fill ? `min-w-0 flex-1 ${align === "right" ? "justify-start" : ""}` : ""}`}>
+      <span className={`inline-block shrink-0 rounded-full ring-1 ring-black/15 ${small ? "size-2" : "size-2.5 sm:size-3"}`}
             style={{ background: color }} />
-      <span className={`${small ? "text-sm" : "text-lg"} font-black uppercase tracking-wide`}>{name}</span>
+      <span className={`${small ? "text-sm" : "text-sm leading-tight sm:text-lg"} min-w-0 break-words font-black uppercase tracking-wide`}>
+        {name}
+      </span>
     </div>
   );
 }
