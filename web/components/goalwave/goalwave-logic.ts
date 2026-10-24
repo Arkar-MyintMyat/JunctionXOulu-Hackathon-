@@ -1,3 +1,4 @@
+import { points } from "@/lib/format";
 import { goalImpact } from "@/lib/match";
 import type { Match, MatchEvent, Team } from "@/lib/types";
 
@@ -35,18 +36,24 @@ function tableOrder(match: Match, event: MatchEvent): string[] {
     .sort((a, b) => playoff(b) - playoff(a) || direct(b) - direct(a) || a.localeCompare(b));
 }
 
-/** All teams at the given event, sorted by playoff chance (highest first). */
+/**
+ * All teams at the given event, sorted by playoff chance (highest first).
+ * At full time, change and places are for the whole match (against kick-off), like the full-time summary; the
+ * change is taken between the rounded percentages shown, so "34% → 29%" always reads as −5.
+ */
 export function buildRows(match: Match, eventPos: number): GoalwaveRow[] {
   const event = match.events[eventPos];
-  const prev = eventPos > 0 ? match.events[eventPos - 1] : null;
+  const wholeMatch = event.kind === "end";
+  const prev = eventPos === 0 ? null : wholeMatch ? match.events[0] : match.events[eventPos - 1];
   const prevOrder = prev ? tableOrder(match, prev) : null;
+  const shown = (e: MatchEvent, code: string) => points(e.odds[code]?.playoff ?? 0) / 100;
 
   return tableOrder(match, event).map((code, i): GoalwaveRow => {
     const team = match.teams.find((t) => t.code === code)!;
     return {
       team,
       playoff: event.odds[code]?.playoff ?? 0,
-      delta: prev ? goalImpact(match, eventPos, code) : null,
+      delta: !prev ? null : wholeMatch ? shown(event, code) - shown(prev, code) : goalImpact(match, eventPos, code),
       rankMove: prevOrder ? prevOrder.indexOf(code) - i : null,
     };
   });

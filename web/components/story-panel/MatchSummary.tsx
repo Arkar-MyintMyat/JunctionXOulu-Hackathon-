@@ -20,9 +20,9 @@ export function MatchSummary({ match, team }: { match: Match; team: TeamCode }) 
   const playing = team === match.match.home || team === match.match.away;
 
   return (
-    <div className="space-y-3">
-      <h3 className="text-lg font-bold">Summary</h3>
-      <p className="font-medium">{result(match, team, name)}</p>
+    <div className="space-y-3 lg:space-y-2">
+      {/* The result is the heading: the panel header already says "Full time". */}
+      <h3 className="text-base font-semibold">{result(match, team, name)}</h3>
       {playing ? (
         <PlayingSummary match={match} team={team} goals={goals} name={name} />
       ) : (
@@ -179,8 +179,10 @@ function WhatNext({ match, team }: { match: Match; team: TeamCode }) {
 
 function GoalTable({ goals, team, name }: { goals: Goal[]; team: TeamCode; name: Props["name"] }) {
   if (goals.length === 0) return null;
+  // Wide screens show Matchstake's goal cards (same clock, score and change) right above, so the table is for
+  // phones only; that also keeps the widget within one laptop screen at full time.
   return (
-    <div>
+    <div className="lg:hidden">
       <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
         Goal by goal · effect on {name(team)}
       </p>

@@ -5,21 +5,29 @@
 // on phones the order is Matchstake, Goalwave, story (the DOM order).
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Goalwave } from "@/components/goalwave";
 import { Matchstake } from "@/components/matchstake";
 import { StoryPanel } from "@/components/story-panel";
+import { PageNav } from "@/components/ui/page-nav";
 import { getMatch } from "@/lib/api";
 import { PlaybackProvider } from "@/lib/playback";
 import type { Match } from "@/lib/types";
 
+import { useReportHeight } from "./report-height";
 import { withTeamColors } from "./team-colors";
 
 export function EmbedWidget() {
-  const id = useSearchParams().get("match") ?? "mock";
+  const params = useSearchParams();
+  const id = params.get("match") ?? "mock";
+  // ?frame=1: inside a host page (the Kaleva mock-up). The host sets the width and margins, so the widget
+  // drops its own; 4 px of padding keeps the card shadows from being cut off at the frame edge.
+  const framed = params.get("frame") === "1";
   const [match, setMatch] = useState<Match | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const mainRef = useRef<HTMLElement>(null);
+  useReportHeight(mainRef, !!match);
 
   useEffect(() => {
     getMatch(id)
@@ -27,13 +35,30 @@ export function EmbedWidget() {
       .catch((e: Error) => setError(e.message));
   }, [id]);
 
-  if (error) return <main className="p-8 text-red-700">{error}</main>;
-  if (!match) return <main className="p-8 text-muted-foreground">Loading…</main>;
+  // Opened as a page of its own (from the home page), not inside the Kaleva article: give it a way back.
+  const nav = framed ? null : <PageNav />;
+  const shell = framed ? "w-full p-1" : "mx-auto w-full max-w-6xl px-4 py-6";
+
+  if (error)
+    return (
+      <main className={shell}>
+        {nav}
+        <p className="text-red-700">{error}</p>
+      </main>
+    );
+  if (!match)
+    return (
+      <main className={shell}>
+        {nav}
+        <p className="text-muted-foreground">Loading…</p>
+      </main>
+    );
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-6">
+    <main ref={mainRef} className={shell}>
+      {nav}
       <PlaybackProvider match={match}>
         <div className="grid gap-4 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
-          <Matchstake match={match} className="lg:col-start-1 lg:row-start-1" />
+          <Matchstake match={match} compact className="lg:col-start-1 lg:row-start-1" />
           <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <Goalwave match={match} />
           </div>
