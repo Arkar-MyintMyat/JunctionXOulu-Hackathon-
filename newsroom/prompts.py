@@ -59,7 +59,9 @@ OUTPUT_SCHEMA: dict[str, Any] = {
 
 
 def system_prompt() -> str:
-    return SYSTEM.format(max_words=config.MAX_WORDS)
+    # Plain replace, not str.format: format() would turn every {{fact_id}} example into {fact_id}
+    # and teach the model the wrong placeholder syntax.
+    return SYSTEM.replace("{max_words}", str(config.MAX_WORDS))
 
 
 def user_prompt(team_facts: dict[str, Any], audience: str, lang: str = config.STORY_LANG) -> str:
