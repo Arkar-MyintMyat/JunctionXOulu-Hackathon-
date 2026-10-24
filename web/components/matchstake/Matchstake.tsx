@@ -65,20 +65,25 @@ function useTween(value: number, durationMs: number): number {
   return shown;
 }
 
-/** Zoom the axis to where the trace goes (labelled as zoomed), at least 20 points tall. */
+/** Smallest axis height: small movers (often teams that were not playing) still get a visible beat. */
+const MIN_SPAN = 0.1;
+
+/** Zoom the axis to where the trace goes (labelled as zoomed), at least MIN_SPAN tall. */
 function zoomedDomain(values: number[]): { lo: number; hi: number; step: number } {
   const min = Math.min(...values);
   const max = Math.max(...values);
-  const pad = Math.max(0.03, (max - min) * 0.12);
-  let lo = Math.max(0, (Math.floor(((min - pad) * 100) / 5) * 5) / 100);
-  let hi = Math.min(1, (Math.ceil(((max + pad) * 100) / 5) * 5) / 100);
-  if (hi - lo < 0.2) {
-    lo = Math.max(0, (hi + lo) / 2 - 0.1);
-    hi = Math.min(1, lo + 0.2);
-    lo = Math.max(0, hi - 0.2);
+  const pad = Math.max(0.015, (max - min) * 0.12);
+  const unit = max - min < 0.08 ? 2 : 5; // round small ranges to 2%, larger ones to 5%
+  let lo = Math.max(0, (Math.floor(((min - pad) * 100) / unit) * unit) / 100);
+  let hi = Math.min(1, (Math.ceil(((max + pad) * 100) / unit) * unit) / 100);
+  if (hi - lo < MIN_SPAN) {
+    lo = Math.max(0, (hi + lo) / 2 - MIN_SPAN / 2);
+    hi = Math.min(1, lo + MIN_SPAN);
+    lo = Math.max(0, hi - MIN_SPAN);
   }
   const span = hi - lo;
-  return { lo, hi, step: span <= 0.3 ? 0.05 : span <= 0.6 ? 0.1 : 0.2 };
+  const step = span <= 0.12 ? 0.02 : span <= 0.3 ? 0.05 : span <= 0.6 ? 0.1 : 0.2;
+  return { lo, hi, step };
 }
 
 function parseScore(s: string): [number, number] {
@@ -162,11 +167,20 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const home = teamOf(match, match.match.home);
   const away = teamOf(match, match.match.away);
   const goals = events.filter((e) => e.kind === "goal");
+  const revealedCount = goals.filter((g) => g.idx <= pb.eventIdx).length;
+  const notPlaying = match.teams
+    .filter((t) => t.code !== match.match.home && t.code !== match.match.away)
+    .sort((a, b) => a.name.localeCompare(b.name, "fi"));
   const prob = (e: MatchEvent) => e.odds[team.code]?.playoff ?? 0;
 
   // Trace and axes.
   const { points, settle } = heartbeatTrace(match, team.code);
-  const endSeconds = Math.max(3600, points[points.length - 1].seconds, events[events.length - 1].seconds);
+  // The time axis covers regulation, and grows into overtime only once playback gets there (no spoiler).
+  const shownUntil = pb.travel
+    ? events[pb.travel.to].seconds
+    : settle.get(current.idx) ?? current.seconds;
+  const endSeconds = Math.max(3600, shownUntil);
+  const otShown = (pb.travel ? events[pb.travel.to].seconds : current.seconds) > 3600;
   const x = (sec: number) => PAD_L + (sec / endSeconds) * PLOT_W;
   const { lo, hi, step } = zoomedDomain(points.map((p) => p.p));
   const y = (p: number) => TOP + ((hi - p) / (hi - lo)) * (BOTTOM - TOP);
@@ -323,7 +337,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           {minutes.filter((s) => s % 600 === 0).map((s) => (
             <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={16} fill={ui.muted}>{fmtClock(s)}</text>
           ))}
-          {endSeconds > 3600 && (
+          {otShown && (
             <>
               <rect x={x(3600)} y={TOP} width={x(endSeconds) - x(3600)} height={BOTTOM - TOP} fill={ui.muted} opacity={0.06} />
               <text x={(x(3600) + x(endSeconds)) / 2} y={TOP + 18} textAnchor="middle" fontSize={15} fontWeight={700}
@@ -422,41 +436,55 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         </svg>
       </div>
 
-      {/* Goal cards. */}
-      <div className="mx-3 mt-4 flex gap-3 overflow-x-auto pb-1 sm:mx-5">
-        {callouts.map(({ g, d, label }) => {
-          const revealed = g.idx <= pb.eventIdx;
-          const isNow = g.idx === pb.eventIdx && !travelling;
-          const c = tone(d);
-          const scoringTeam = teamOf(match, g.team);
-          return (
-            <button key={`card-${g.idx}`} type="button" onClick={() => pb.seek(g.idx)}
-                    className="min-w-44 flex-1 rounded-lg border px-3 py-2.5 text-left transition-transform hover:-translate-y-0.5"
-                    style={{
-                      borderTopColor: isNow ? c : ui.border,
-                      borderRightColor: isNow ? c : ui.border,
-                      borderBottomColor: isNow ? c : ui.border,
-                      borderLeftColor: revealed ? c : ui.border,
-                      borderLeftWidth: 4,
-                      background: isNow ? `${c}0d` : ui.card,
-                      opacity: revealed ? 1 : 0.5,
-                      boxShadow: isNow ? `0 6px 18px ${c}26` : undefined,
-                    }}>
-              <div className="flex items-center justify-between text-xs font-bold tabular-nums" style={{ color: ui.muted }}>
-                <span>{g.clock}</span>
-                <span className="text-sm" style={{ color: ui.text }}>{fmtScore(g.score)}</span>
-              </div>
-              <div className="mt-1.5 text-sm font-black tracking-wide">{revealed ? label : "UPCOMING"}</div>
-              <div className="flex items-center gap-1.5 text-xs" style={{ color: ui.muted }}>
-                <span className="inline-block size-2 rounded-full ring-1 ring-black/10" style={{ background: scoringTeam?.color }} />
-                {scoringTeam?.name}{g.scorer ? ` · ${g.scorer}` : ""}
-              </div>
-              <div className="mt-1 text-lg font-black tabular-nums" style={{ color: revealed ? c : ui.muted }}>
-                {revealed ? `${d >= 0 ? "▲" : "▼"} ${signedPoints(d)} pts` : "—"}
-              </div>
-            </button>
-          );
-        })}
+      {/* Goal cards: a card drops in only when its goal is scored. No spoilers. */}
+      <div className="mx-3 mt-4 flex min-h-[104px] gap-3 overflow-x-auto pb-1 sm:mx-5">
+        {revealedCount === 0 && (
+          <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed text-sm"
+               style={{ borderColor: ui.border, color: ui.muted }}>
+            {goals.length === 0 && finished ? "No goals in this match" : "Goals appear here as they are scored"}
+          </div>
+        )}
+        <AnimatePresence initial={false}>
+          {callouts.filter(({ g }) => g.idx <= pb.eventIdx).map(({ g, d, label }) => {
+            const isNow = g.idx === pb.eventIdx && !travelling;
+            const c = tone(d);
+            const scoringTeam = teamOf(match, g.team);
+            return (
+              <motion.button
+                key={`card-${g.idx}`}
+                type="button"
+                onClick={() => pb.seek(g.idx)}
+                layout
+                initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                className="w-48 shrink-0 rounded-lg border px-3 py-2.5 text-left hover:-translate-y-0.5"
+                style={{
+                  borderTopColor: isNow ? c : ui.border,
+                  borderRightColor: isNow ? c : ui.border,
+                  borderBottomColor: isNow ? c : ui.border,
+                  borderLeftColor: c,
+                  borderLeftWidth: 4,
+                  background: isNow ? `${c}0d` : ui.card,
+                  boxShadow: isNow ? `0 6px 18px ${c}26` : undefined,
+                }}>
+                <div className="flex items-center justify-between text-xs font-bold tabular-nums" style={{ color: ui.muted }}>
+                  <span>{g.clock}</span>
+                  <span className="text-sm" style={{ color: ui.text }}>{fmtScore(g.score)}</span>
+                </div>
+                <div className="mt-1.5 text-sm font-black tracking-wide">{label}</div>
+                <div className="flex items-center gap-1.5 text-xs" style={{ color: ui.muted }}>
+                  <span className="inline-block size-2 rounded-full ring-1 ring-black/10" style={{ background: scoringTeam?.color }} />
+                  {scoringTeam?.name}{g.scorer ? ` · ${g.scorer}` : ""}
+                </div>
+                <div className="mt-1 text-lg font-black tabular-nums" style={{ color: c }}>
+                  {Math.abs(d) < 0.005 ? "±0 pts" : `${d > 0 ? "▲" : "▼"} ${signedPoints(d)} pts`}
+                </div>
+              </motion.button>
+            );
+          })}
+        </AnimatePresence>
       </div>
 
       {/* Controls. */}
@@ -493,12 +521,22 @@ export function Matchstake({ match, className }: { match: Match; className?: str
               </button>
             );
           })}
-          {pb.selectedTeam !== match.match.home && pb.selectedTeam !== match.match.away && (
-            <span className="rounded-lg border px-3 py-1.5 text-xs font-bold"
-                  style={{ background: team.color, color: textOn(team.color), borderColor: team.color }}>
-              {team.name} (not playing)
-            </span>
-          )}
+          {/* Every other team: its own heartbeat and impact for this match. */}
+          <label className="sr-only" htmlFor={`team-${uid}`}>Teams not playing</label>
+          <select
+            id={`team-${uid}`}
+            value={notPlaying.some((t) => t.code === pb.selectedTeam) ? pb.selectedTeam : ""}
+            onChange={(e) => e.target.value && pb.selectTeam(e.target.value)}
+            className="rounded-lg border py-1.5 pr-7 pl-3 text-xs font-bold"
+            style={notPlaying.some((t) => t.code === pb.selectedTeam)
+              ? { background: team.color, color: textOn(team.color), borderColor: team.color }
+              : { borderColor: ui.border, color: ui.muted, background: ui.card }}
+          >
+            <option value="" disabled>Other teams…</option>
+            {notPlaying.map((t) => (
+              <option key={t.code} value={t.code}>{t.name} (not playing)</option>
+            ))}
+          </select>
         </div>
       </div>
       <div className="px-5 pb-4 text-[11px]" style={{ color: ui.muted }}>
