@@ -76,21 +76,29 @@ export async function simulate(req: SimulateRequest): Promise<SimulateResponse> 
   });
 }
 
-/** Blocked stories. Falls back to the blocked stories inside the offline/mock match. */
+/**
+ * Blocked stories. Without the API: the blocked stories inside every match the offline list names
+ * (/data/matches.json, e.g. 345), not only the bundled mock. A match that fails to load is skipped.
+ */
 export async function getQueue(): Promise<Loaded<QueueItem[]>> {
   try {
     return { data: await getJson<QueueItem[]>(`${API_URL}/api/queue`), source: "api" };
   } catch {
-    const { data: match, source } = await getMatch(MOCK.match.id);
-    const items = match.stories
-      .filter((s) => s.status === "blocked")
-      .map((s) => ({
-        match_id: match.match.id,
-        event_idx: s.event_idx,
-        team: s.team,
-        text: s.text,
-        problems: s.problems,
-      }));
+    const { data: summaries, source: listSource } = await getMatches();
+    const loaded = await Promise.allSettled(summaries.map((m) => getMatch(m.id)));
+    const matches = loaded.flatMap((r) => (r.status === "fulfilled" ? [r.value] : []));
+    const items = matches.flatMap(({ data: match }) =>
+      match.stories
+        .filter((s) => s.status === "blocked")
+        .map((s) => ({
+          match_id: match.match.id,
+          event_idx: s.event_idx,
+          team: s.team,
+          text: s.text,
+          problems: s.problems,
+        })),
+    );
+    const source = matches.some((m) => m.source === "offline") ? "offline" : listSource;
     return { data: items, source };
   }
 }
