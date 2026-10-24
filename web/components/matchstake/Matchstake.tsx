@@ -4,7 +4,7 @@ import { AnimatePresence, animate, motion, useAnimate, useReducedMotion } from "
 import { Pause, Play, RotateCcw, SkipBack, SkipForward } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
-import { pct, score as fmtScore, signedPoints } from "@/lib/format";
+import { pct, score as fmtScore, signedPct } from "@/lib/format";
 import { eventAt, goalImpact, playoffBefore, teamOf } from "@/lib/match";
 import { SPEEDS, usePlayback } from "@/lib/playback";
 import type { Match, MatchEvent, TeamCode } from "@/lib/types";
@@ -17,8 +17,10 @@ import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 
 const W = 960;
 const H = 400;
-const PAD_L = 64;
-const PAD_R = 24;
+// The plot spans the full width so it lines up with the strip above and the goal cards below;
+// the % labels sit inside the plot, just above their gridlines.
+const PAD_L = 4;
+const PAD_R = 4;
 const PLOT_W = W - PAD_L - PAD_R;
 const TOP = 30;
 const BOTTOM = 344;
@@ -253,7 +255,8 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           </div>
         </div>
 
-        <div className="flex grow flex-col items-center gap-1">
+        {/* Not playing: the small current-match line sits lower, level with the bottom of the header row. */}
+        <div className={`flex grow flex-col items-center gap-1 ${isPlaying ? "" : "mt-4 self-end pb-1"}`}>
           <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
             Current match
           </div>
@@ -342,7 +345,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                     className="rounded-full px-2.5 py-0.5 text-lg font-black tabular-nums"
                     style={{ background: tone(delta), color: "#fff" }}
                   >
-                    {delta > 0 ? "▲" : "▼"} {signedPoints(delta)}
+                    {delta > 0 ? "▲" : "▼"} {signedPct(delta)}
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -353,7 +356,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                           style={{ background: tone(vsKickoff) }} />
             </div>
             <div className="text-right text-xs font-bold tabular-nums" style={{ color: tone(vsKickoff) }}>
-              {signedPoints(vsKickoff)} pts
+              {signedPct(vsKickoff)}
               <div className="text-[11px] font-normal" style={{ color: ui.muted }}>since kick-off</div>
             </div>
           </div>
@@ -401,14 +404,16 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           {ticks.map((p) => (
             <g key={p}>
               <line x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.grid} />
-              <text x={PAD_L - 12} y={y(p) + 5} textAnchor="end" fontSize={16} fill={ui.muted}>{pct(p)}</text>
+              <text x={PAD_L + 2} y={y(p) - 6} fontSize={15} fill={ui.muted} stroke="#ffffff" strokeWidth={4}
+                    paintOrder="stroke" strokeLinejoin="round">{pct(p)}</text>
             </g>
           ))}
           {[1200, 2400].map((s) => (
             <line key={`period-${s}`} x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM} stroke={ui.grid} strokeDasharray="4 6" />
           ))}
           {minutes.filter((s) => s % 600 === 0).map((s) => (
-            <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={16} fill={ui.muted}>{fmtClock(s)}</text>
+            <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} fontSize={16} fill={ui.muted}
+                  textAnchor={s === 0 ? "start" : s >= endSeconds - 1 ? "end" : "middle"}>{fmtClock(s)}</text>
           ))}
           {otShown && (
             <>
@@ -421,7 +426,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
 
           {/* Kick-off baseline. */}
           <line x1={PAD_L} x2={W - PAD_R} y1={baseY} y2={baseY} stroke={ui.neutral} strokeOpacity={0.5} strokeDasharray="6 6" />
-          <text x={PAD_L + 8} y={baseY - 10} fontSize={15} fontWeight={600} fill={ui.muted}>
+          <text x={PAD_L + 56} y={baseY - 10} fontSize={15} fontWeight={600} fill={ui.muted}>
             Kick-off {pct(baseline)}
           </text>
 
@@ -480,7 +485,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                     <rect x={bx} y={by} width={BOX_W} height={BOX_H} rx={8} fill="#ffffff" stroke={c} strokeWidth={2.5}
                           style={{ filter: `drop-shadow(0 4px 10px ${c}40)` }} />
                     <text x={bx + BOX_W / 2} y={by + 18} textAnchor="middle" fontSize={14} fill={c} fontWeight={700}>
-                      {g.clock} · {signedPoints(d)} pts
+                      {g.clock} · {signedPct(d)}
                     </text>
                     <text x={bx + BOX_W / 2} y={by + 40} textAnchor="middle" fontSize={19} fontWeight={900} fill={ui.text}
                           letterSpacing={0.5}>{label}</text>
@@ -494,7 +499,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                     <rect x={gx - 24} y={d >= 0 ? gy - 34 : gy + 12} width={48} height={22} rx={11} fill="#ffffff"
                           stroke={c} strokeWidth={1.5} />
                     <text x={gx} y={d >= 0 ? gy - 18 : gy + 28} textAnchor="middle" fontSize={13} fontWeight={800}
-                          fill={c}>{signedPoints(d)}</text>
+                          fill={c}>{signedPct(d)}</text>
                   </g>
                 )}
                 {isNow && (
@@ -562,7 +567,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                   {scoringTeam?.name}{g.scorer ? ` · ${g.scorer}` : ""}
                 </div>
                 <div className="mt-1 text-lg font-black tabular-nums" style={{ color: c }}>
-                  {Math.abs(d) < 0.005 ? "±0 pts" : `${d > 0 ? "▲" : "▼"} ${signedPoints(d)} pts`}
+                  {Math.abs(d) < 0.005 ? "±0%" : `${d > 0 ? "▲" : "▼"} ${signedPct(d)}`}
                 </div>
               </motion.button>
             );
@@ -634,7 +639,7 @@ function MatchImpact({ teamName, before, now, finished, clockLabel, tone }: {
                     className="text-right">
           <span className="rounded-full px-3 py-1 text-lg font-black tabular-nums"
                 style={{ background: tone(change), color: "#fff" }}>
-            {Math.abs(change) < 0.005 ? "±0" : `${change > 0 ? "▲" : "▼"} ${signedPoints(change)}`} pts
+            {Math.abs(change) < 0.005 ? "±0%" : `${change > 0 ? "▲" : "▼"} ${signedPct(change)}`}
           </span>
           <div className="mt-1 text-xs" style={{ color: ui.muted }}>
             {finished ? "because of this match" : "from this match so far"}
