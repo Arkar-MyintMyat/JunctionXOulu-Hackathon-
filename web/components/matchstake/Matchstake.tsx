@@ -4,6 +4,7 @@ import { AnimatePresence, animate, motion, useAnimate, useReducedMotion } from "
 import { Pause, Play, RotateCcw, SkipBack, SkipForward } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
+import { TeamPicker } from "./TeamPicker";
 import { pct, score as fmtScore, signedPct } from "@/lib/format";
 import { eventAt, goalImpact, playoffBefore, teamOf } from "@/lib/match";
 import { SPEEDS, usePlayback } from "@/lib/playback";
@@ -171,9 +172,6 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const away = teamOf(match, match.match.away);
   const goals = events.filter((e) => e.kind === "goal");
   const revealedCount = goals.filter((g) => g.idx <= pb.eventIdx).length;
-  const notPlaying = match.teams
-    .filter((t) => t.code !== match.match.home && t.code !== match.match.away)
-    .sort((a, b) => a.name.localeCompare(b.name, "fi"));
   const prob = (e: MatchEvent) => e.odds[team.code]?.playoff ?? 0;
 
   // Trace and axes.
@@ -255,51 +253,50 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           </div>
         </div>
 
-        {/* Not playing: the small current-match line sits lower, level with the bottom of the header row. */}
-        <div className={`flex grow flex-col items-center gap-1 ${isPlaying ? "" : "mt-4 self-end pb-1"}`}>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
-            Current match
+        {/* Playing team: the big scoreboard in the middle. */}
+        {isPlaying && (
+          <div className="flex grow flex-col items-center gap-1">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
+              Current match
+            </div>
+            <div className="flex items-center justify-center gap-4">
+              <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" />
+              <span className="text-5xl font-black tabular-nums">{sh}</span>
+              <span className="rounded-md border px-3 py-1 text-sm font-bold tabular-nums"
+                    style={{ borderColor: ui.border, background: ui.panel }}>
+                {finished ? "FINAL" : fmtClock(clock)}
+              </span>
+              <span className="text-5xl font-black tabular-nums">{sa}</span>
+              <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" />
+            </div>
           </div>
-          {/* Big for the playing teams; small for a team that is not playing (its headline below is the focus). */}
-          <div className={`flex items-center justify-center ${isPlaying ? "gap-4" : "gap-2"}`}>
-            <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" small={!isPlaying} />
-            <span className={`${isPlaying ? "text-5xl" : "text-xl"} font-black tabular-nums`}>{sh}</span>
-            <span className={`rounded-md border font-bold tabular-nums ${isPlaying ? "px-3 py-1 text-sm" : "px-2 py-0.5 text-xs"}`}
-                  style={{ borderColor: ui.border, background: ui.panel }}>
-              {finished ? "FINAL" : fmtClock(clock)}
-            </span>
-            <span className={`${isPlaying ? "text-5xl" : "text-xl"} font-black tabular-nums`}>{sa}</span>
-            <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" small={!isPlaying} />
-          </div>
-        </div>
+        )}
 
-        {/* Team picker: any team in the league, playing or not. */}
-        <label className="flex shrink-0 flex-col gap-1">
+        {/* Team picker (with logos); for a team that is not playing, the small current-match line sits under it. */}
+        <div className="ml-auto flex shrink-0 flex-col items-end gap-1">
           <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
             Show team
           </span>
-          <span className="relative flex items-center">
-            <span className="pointer-events-none absolute left-3 size-3 rounded-full ring-1 ring-black/15"
-                  style={{ background: team.color }} />
-            <select
-              value={pb.selectedTeam}
-              onChange={(e) => pb.selectTeam(e.target.value)}
-              className="min-w-52 rounded-lg border py-2 pr-8 pl-8 text-sm font-bold"
-              style={{ borderColor: ui.text, background: ui.card, color: ui.text }}
-            >
-              <optgroup label="Playing this match">
-                {[match.match.home, match.match.away].map((code) => (
-                  <option key={code} value={code}>{teamOf(match, code)?.name ?? code}</option>
-                ))}
-              </optgroup>
-              <optgroup label="Not playing: impact of this match">
-                {notPlaying.map((t) => (
-                  <option key={t.code} value={t.code}>{t.name}</option>
-                ))}
-              </optgroup>
-            </select>
-          </span>
-        </label>
+          <TeamPicker teams={match.teams} playing={[match.match.home, match.match.away]}
+                      value={pb.selectedTeam} onChange={pb.selectTeam} />
+          {!isPlaying && (
+            <div className="mt-2 flex flex-col items-end gap-0.5">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
+                Current match
+              </span>
+              <div className="flex items-center gap-2">
+                <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" small />
+                <span className="text-xl font-black tabular-nums">{sh}</span>
+                <span className="rounded-md border px-2 py-0.5 text-xs font-bold tabular-nums"
+                      style={{ borderColor: ui.border, background: ui.panel }}>
+                  {finished ? "FINAL" : fmtClock(clock)}
+                </span>
+                <span className="text-xl font-black tabular-nums">{sa}</span>
+                <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" small />
+              </div>
+            </div>
+          )}
+        </div>
 
         {!isPlaying && (
           <div className="basis-full rounded-xl border px-5 py-4"
