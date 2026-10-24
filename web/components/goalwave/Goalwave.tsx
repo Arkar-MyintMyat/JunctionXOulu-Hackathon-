@@ -38,6 +38,8 @@ const ROW_SPRING = { type: "spring", stiffness: 220, damping: 28 } as const;
 const COUNT_MS = 900;
 const FLASH_S = 1.8;
 /** Columns: rank, team, playoff %, change. Shared by the header and every card. */
+// Wide screens (lg, Goalwave beside Matchstake) use tighter rows and spacing so the whole widget fits on a
+// laptop screen without scrolling; phones keep the taller rows as tap targets.
 // Narrower number columns on phones, so the team name keeps the room.
 const COLUMNS =
   "grid grid-cols-[2.25rem_minmax(0,1fr)_3.25rem_4.25rem] sm:grid-cols-[2.75rem_minmax(0,1fr)_5.5rem_5.5rem] items-center gap-x-1";
@@ -95,7 +97,7 @@ export function Goalwave({ match, onTeamClick }: GoalwaveProps) {
         className="w-full rounded-2xl border bg-card text-card-foreground shadow-sm"
         aria-label="Goalwave: every team's playoff chance"
       >
-        <header className="flex items-baseline justify-between border-b px-4 py-3">
+        <header className="flex items-baseline justify-between border-b px-4 py-3 lg:py-2.5">
           <h2 className="text-base font-semibold">Goalwave · Liiga playoff race</h2>
           <span className="text-xs text-muted-foreground">Model estimate</span>
         </header>
@@ -106,7 +108,7 @@ export function Goalwave({ match, onTeamClick }: GoalwaveProps) {
           {/* Same grid and border width as the cards, so the headers line up with the columns. */}
           <div
             aria-hidden
-            className={`${COLUMNS} border-2 border-transparent px-3 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground`}
+            className={`${COLUMNS} border-2 border-transparent px-3 py-2 text-xs font-medium uppercase lg:py-1 tracking-wide text-muted-foreground`}
           >
             <span>#</span>
             <span>Team</span>
@@ -117,7 +119,7 @@ export function Goalwave({ match, onTeamClick }: GoalwaveProps) {
             <span className="text-center">Change</span>
           </div>
 
-          <ol className="flex flex-col gap-1.5">
+          <ol className="flex flex-col gap-1.5 lg:gap-0.5">
             {rows.map((row, i) => (
               <Row
                 key={row.team.code}
@@ -134,7 +136,7 @@ export function Goalwave({ match, onTeamClick }: GoalwaveProps) {
             ))}
           </ol>
 
-          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 px-1 text-xs text-muted-foreground">
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 px-1 text-xs text-muted-foreground lg:mt-2">
             <ZoneKey zone="direct">{places(1, direct)}: straight to the quarterfinals</ZoneKey>
             <ZoneKey zone="playin">{places(direct + 1, playoff)}: play-in round</ZoneKey>
             {playoutFrom > playoff + 1 && (
@@ -192,7 +194,7 @@ function Row({
         type="button"
         onClick={onClick}
         aria-pressed={selected}
-        className={`${COLUMNS} relative isolate w-full overflow-hidden rounded-xl border-2 border-transparent px-3 py-1.5 text-left text-sm tabular-nums transition-colors duration-700 hover:brightness-95 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${ZONES[zone].bg}`}
+        className={`${COLUMNS} relative isolate w-full overflow-hidden rounded-xl border-2 border-transparent px-3 py-1.5 text-left text-sm lg:py-0.5 tabular-nums transition-colors duration-700 hover:brightness-95 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${ZONES[zone].bg}`}
         style={
           selected || opponent
             ? {
@@ -315,7 +317,7 @@ function Banner({ banner, teamName }: { banner: GoalwaveBanner; teamName: (code:
 
   return (
     // Fixed height: if the banner grew after a goal, the list would jump while its cards are sliding.
-    <div className="h-[5.25rem] overflow-hidden border-b bg-muted/50 px-4 py-3">
+    <div className="h-[5.25rem] overflow-hidden border-b bg-muted/50 px-4 py-3 lg:h-[4.5rem] lg:py-2">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={event.idx}

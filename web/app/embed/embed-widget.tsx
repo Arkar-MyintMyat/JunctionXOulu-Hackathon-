@@ -49,7 +49,7 @@ export function EmbedWidget() {
     <main className={framed ? "w-full p-1" : "mx-auto w-full max-w-6xl px-4 py-6"}>
       <PlaybackProvider match={match}>
         <div className="grid gap-4 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
-          <Matchstake match={match} className="lg:col-start-1 lg:row-start-1" />
+          <Matchstake match={match} compact className="lg:col-start-1 lg:row-start-1" />
           <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <Goalwave match={match} />
           </div>
