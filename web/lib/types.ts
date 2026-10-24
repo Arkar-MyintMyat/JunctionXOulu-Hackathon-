@@ -26,6 +26,7 @@ export interface Team {
   code: TeamCode;
   name: string;
   color: string;
+  logo?: string; // optional: Liiga logo URL (light background), filled by the API from teams.json
 }
 
 /** Rank lines from Liiga's playoffsLines. Never hard-code them in the UI. */
