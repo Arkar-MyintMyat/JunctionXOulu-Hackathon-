@@ -13,7 +13,7 @@ import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 // Heartbeat-style playoff-chance trace for one team (the selected team).
 // Between goals the line drifts with the model (odds_before); at each goal it jumps steeply, and only
 // in the direction of the change: a drop never flicks up, a rise never flicks down. Every point on
-// the line is a model value. Blue while the team is better off than at kick-off, red while worse off.
+// the line is a model value. Green while the team is better off than at kick-off, red while worse off.
 
 // The chart is drawn at its real on-screen width (measured), so text keeps its true size in any column.
 const DEFAULT_W = 960;
@@ -29,16 +29,18 @@ const BEAT_SECONDS = 95;
 /** A swing this large flashes and shakes the chart. */
 const BIG_SWING = 0.08;
 
+// The product's one style (ARCHITECTURE.md 4.10) as hex, because SVG strokes need real colours:
+// neutral greys from the theme, and green-700 / red-700 for better / worse, the same as Goalwave.
 const ui = {
   card: "#ffffff",
-  panel: "#f8fafc",
-  border: "#e2e8f0",
-  grid: "#eef1f5",
-  text: "#0f172a",
-  muted: "#64748b",
-  neutral: "#475569",
-  better: "#2563eb",
-  worse: "#e11d48",
+  panel: "#f5f5f5",
+  border: "#e5e5e5",
+  grid: "#efefef",
+  text: "#171717",
+  muted: "#737373",
+  neutral: "#525252",
+  better: "#15803d",
+  worse: "#b91c1c",
 };
 
 function fmtClock(seconds: number): string {
@@ -521,7 +523,7 @@ export function Matchstake({ match, className, compact = false }: { match: Match
             Kick-off {pct(baseline)}
           </text>
 
-          {/* The trace, drawn by the sweep; blue above kick-off, red below, slate on it. */}
+          {/* The trace, drawn by the sweep; green above kick-off, red below, grey on it. */}
           <g clipPath={`url(#reveal-${uid})`}>
             <path d={areaToBase} fill={`url(#fillUp-${uid})`} clipPath={`url(#above-${uid})`} />
             <path d={areaToBase} fill={`url(#fillDown-${uid})`} clipPath={`url(#below-${uid})`} />
@@ -701,9 +703,9 @@ export function Matchstake({ match, className, compact = false }: { match: Match
       </div>
       <div className={`px-5 text-[11px] ${compact ? "pb-2.5" : "pb-4"}`} style={{ color: ui.muted }}>
         {showChart
-          ? <>Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · blue = better off than
+          ? <>Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · green = better off than
             at kick-off, red = worse off</>
-          : <>Model estimate from simulated seasons · blue = better off than before the match, red = worse off</>}
+          : <>Model estimate from simulated seasons · green = better off than before the match, red = worse off</>}
       </div>
     </section>
   );
