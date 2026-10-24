@@ -15,17 +15,17 @@ import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 // we never draw movement the data does not have.
 
 const W = 960;
-const H = 360;
-const PAD_L = 58;
+const H = 400;
+const PAD_L = 64;
 const PAD_R = 24;
 const PLOT_W = W - PAD_L - PAD_R;
-const TOP = 26;
-const BOTTOM = 310;
-const AXIS_Y = BOTTOM + 24;
+const TOP = 30;
+const BOTTOM = 344;
+const AXIS_Y = BOTTOM + 28;
 const BETTER = "#3b9eff";
 const WORSE = "#ff3b5c";
-const BOX_W = 104;
-const BOX_H = 52;
+const BOX_W = 136;
+const BOX_H = 66;
 /** A swing this large flashes and shakes the chart. */
 const BIG_SWING = 0.08;
 
@@ -287,27 +287,27 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           {ticks.map((p) => (
             <g key={p}>
               <line x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.line} />
-              <text x={PAD_L - 10} y={y(p) + 4} textAnchor="end" fontSize={13} fill={ui.muted}>{pct(p)}</text>
+              <text x={PAD_L - 12} y={y(p) + 5} textAnchor="end" fontSize={16} fill={ui.muted}>{pct(p)}</text>
             </g>
           ))}
           {minuteTicks.map((s) => (
             <g key={s}>
               <line x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM} stroke={ui.line} strokeDasharray={s % 1200 ? "2 6" : undefined} />
-              <text x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={13} fill={ui.muted}>{fmtClock(s)}</text>
+              <text x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={16} fill={ui.muted}>{fmtClock(s)}</text>
             </g>
           ))}
           {maxSeconds > 3600 && (
             <>
               <rect x={x(3600)} y={TOP} width={x(maxSeconds) - x(3600)} height={BOTTOM - TOP} fill="#ffffff" opacity={0.04} />
-              <text x={(x(3600) + x(maxSeconds)) / 2} y={TOP + 16} textAnchor="middle" fontSize={12} fontWeight={700}
+              <text x={(x(3600) + x(maxSeconds)) / 2} y={TOP + 18} textAnchor="middle" fontSize={15} fontWeight={700}
                     fill={ui.muted}>OT</text>
             </>
           )}
-          <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={11} letterSpacing={3} fill={ui.muted}>MATCH TIME</text>
+          <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={13} letterSpacing={3} fill={ui.muted}>MATCH TIME</text>
 
           {/* Kick-off baseline. */}
           <line x1={PAD_L} x2={W - PAD_R} y1={baseY} y2={baseY} stroke={ui.muted} strokeOpacity={0.6} strokeDasharray="6 6" />
-          <text x={PAD_L + 6} y={baseY - 8} fontSize={12} fontWeight={600} fill={ui.muted}>
+          <text x={PAD_L + 8} y={baseY - 10} fontSize={15} fontWeight={600} fill={ui.muted}>
             Kick-off {pct(baseline)}
           </text>
 
@@ -338,24 +338,48 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             const c = d >= 0 ? BETTER : WORSE;
             const gx = x(g.seconds);
             const gy = y(prob(g));
-            const bx = Math.min(W - PAD_R - BOX_W, Math.max(PAD_L, gx - BOX_W / 2));
-            const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2, above ? gy - BOX_H - 22 : gy + 22));
+            const gyBefore = y(prob(g) - d);
+            const overshoot = gy + (gy - gyBefore) * 0.35;
+            // Prefer the chosen side; flip when the box would not fit there, so it never covers its own dot.
+            const fitsAbove = gy - BOX_H - 22 >= TOP + 2;
+            const fitsBelow = gy + 22 + BOX_H <= BOTTOM - 4;
+            const placeAbove = above ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
+            // The cliff runs above the dot after a drop and below it after a rise. A box on that side would
+            // hide the spike, so it moves beside the dot instead.
+            const besideDot = placeAbove === d < 0;
+            const fitsRight = gx + 18 + BOX_W <= W - PAD_R;
+            const bx = besideDot
+              ? (fitsRight ? gx + 18 : gx - 18 - BOX_W)
+              : Math.min(W - PAD_R - BOX_W, Math.max(PAD_L, gx - BOX_W / 2));
+            const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2,
+              besideDot ? gy - BOX_H / 2 : placeAbove ? gy - BOX_H - 22 : gy + 22));
+            const link = besideDot
+              ? { x: fitsRight ? bx : bx + BOX_W, y: Math.min(by + BOX_H, Math.max(by, gy)) }
+              : { x: gx, y: placeAbove ? by + BOX_H : by };
             const code = g.team ?? "";
             return (
               <g key={`goal-${g.idx}`} className="cursor-pointer" onClick={() => pb.seek(g.idx)}>
                 <title>{`${g.clock} ${label} ${teamOf(match, g.team)?.name ?? ""}${g.scorer ? `, ${g.scorer}` : ""}`}</title>
                 <line x1={gx} x2={gx} y1={gy} y2={BOTTOM} stroke={c} strokeOpacity={0.5} strokeDasharray="3 4" />
-                <motion.g initial={{ opacity: 0, y: above ? 8 : -8 }} animate={{ opacity: 1, y: 0 }}
+                {/* The spike: shoots from the old value past the new one and snaps back (display only). */}
+                {isNow && !reduceMotion && (
+                  <motion.line key={`spike-${g.idx}-${team.code}`} x1={gx} x2={gx} y1={gyBefore}
+                               stroke="#ffffff" strokeWidth={6} strokeLinecap="round" filter={`url(#glow-${uid})`}
+                               initial={{ y2: gyBefore, opacity: 1 }}
+                               animate={{ y2: [gyBefore, overshoot, gy], opacity: [1, 1, 0] }}
+                               transition={{ duration: 0.8, times: [0, 0.45, 1], ease: "easeOut" }} />
+                )}
+                <motion.g initial={{ opacity: 0, y: placeAbove ? 8 : -8 }} animate={{ opacity: 1, y: 0 }}
                           transition={{ type: "spring", stiffness: 380, damping: 22 }}>
-                  <line x1={gx} x2={gx} y1={above ? by + BOX_H : by} y2={gy} stroke={c} strokeWidth={1.5} />
+                  <line x1={link.x} x2={gx} y1={link.y} y2={gy} stroke={c} strokeWidth={1.5} />
                   <rect x={bx} y={by} width={BOX_W} height={BOX_H} rx={6} fill="#0a1220" fillOpacity={0.92}
                         stroke={c} strokeWidth={isNow ? 2.5 : 1.5} filter={isNow ? `url(#glow-${uid})` : undefined} />
-                  <text x={bx + BOX_W / 2} y={by + 14} textAnchor="middle" fontSize={11} fill={c} fontWeight={600}>
+                  <text x={bx + BOX_W / 2} y={by + 18} textAnchor="middle" fontSize={14} fill={c} fontWeight={700}>
                     {g.clock} · {signedPoints(d)} pts
                   </text>
-                  <text x={bx + BOX_W / 2} y={by + 32} textAnchor="middle" fontSize={15} fontWeight={900} fill={ui.text}
+                  <text x={bx + BOX_W / 2} y={by + 40} textAnchor="middle" fontSize={19} fontWeight={900} fill={ui.text}
                         letterSpacing={0.5}>{label}</text>
-                  <text x={bx + BOX_W / 2} y={by + 46} textAnchor="middle" fontSize={11} fontWeight={700} fill={ui.muted}>
+                  <text x={bx + BOX_W / 2} y={by + 58} textAnchor="middle" fontSize={14} fontWeight={700} fill={ui.muted}>
                     {fmtScore(g.score)} · {code}
                   </text>
                 </motion.g>
@@ -364,9 +388,14 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                                  initial={{ r: 8, opacity: 0.9 }} animate={{ r: 38, opacity: 0 }}
                                  transition={{ duration: 1, repeat: 2, ease: "easeOut" }} />
                 )}
-                <circle cx={gx} cy={gy} r={isNow ? 9 : 7} fill="#0a1220" stroke={c} strokeWidth={3.5}
-                        filter={`url(#glow-${uid})`} />
-                <circle cx={gx} cy={gy} r={3} fill="#ffffff" />
+                <motion.g key={`dot-${g.idx}-${team.code}-${isNow}`}
+                          initial={isNow && !reduceMotion ? { y: gyBefore - gy } : false}
+                          animate={{ y: 0 }}
+                          transition={{ type: "spring", stiffness: 520, damping: 13 }}>
+                  <circle cx={gx} cy={gy} r={isNow ? 10 : 7} fill="#0a1220" stroke={c} strokeWidth={3.5}
+                          filter={`url(#glow-${uid})`} />
+                  <circle cx={gx} cy={gy} r={3.5} fill="#ffffff" />
+                </motion.g>
               </g>
             );
           })}
