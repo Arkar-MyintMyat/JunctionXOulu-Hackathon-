@@ -7,14 +7,14 @@ from api.main import app
 from engine import config
 from engine.model import Match, QueueItem
 
-DEMO = 480
+DEMO = 345
 
 
 @pytest.fixture(scope="module")
 def b_output(tmp_path_factory):
     """Real facts + stories for the demo game, made by B's code with the mock writer."""
     if not (config.ODDS / f"{DEMO}.json").exists():
-        pytest.skip("run python -m engine.replay 480 first")
+        pytest.skip("run python -m engine.replay 345 first")
     from newsroom import factsheet, run
 
     tmp = tmp_path_factory.mktemp("newsroom")
@@ -70,6 +70,6 @@ def test_routes():
     listed = c.get("/api/matches").json()
     assert all(set(x) == {"id", "season", "date", "home", "away", "label"} for x in listed)
     if (config.ODDS / f"{DEMO}.json").exists():
-        assert any(x["id"] == DEMO and x["label"] == "TPS 3–4 KooKoo" for x in listed)
+        assert any(x["id"] == DEMO and x["label"] == "Kärpät 2–3 Pelicans" for x in listed)
         assert c.get(f"/api/match/{DEMO}").status_code == 200
     assert c.get("/api/queue").status_code == 200
