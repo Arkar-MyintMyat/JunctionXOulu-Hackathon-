@@ -23,8 +23,11 @@ direction in words, using the context's playoff_direction: rose, fell, gained, l
   `playoff_drift`, if present, is how the chance moved as the clock ran before the goal; the context's
   drift_direction says which way. You may tell both, e.g. a chance that slipped while trailing and then
   rose with the equaliser.
-- If the context says season_over is true, this team has no regular-season game left: say so, and
-  never mention a next game.
+- If the context says season_over is true, this team (not playing) has no regular-season game left:
+  say so, and never mention a next game.
+- If the context says last_game is true, this game is the team's last regular-season game and it is
+  still being played: never say the season is over and never call a number "final" before the
+  event_kind is "end".
 - Use only facts from the fact sheet. List every fact id you used in facts_used, and only those.
 - Mention only names from allowed_names. No other teams, players, coaches or places.
 - 2 to 3 sentences, at most {max_words} words.
@@ -59,7 +62,9 @@ OUTPUT_SCHEMA: dict[str, Any] = {
 
 
 def system_prompt() -> str:
-    return SYSTEM.format(max_words=config.MAX_WORDS)
+    # Plain replace, not str.format: format() would turn every {{fact_id}} example into {fact_id}
+    # and teach the model the wrong placeholder syntax.
+    return SYSTEM.replace("{max_words}", str(config.MAX_WORDS))
 
 
 def user_prompt(team_facts: dict[str, Any], audience: str, lang: str = config.STORY_LANG) -> str:

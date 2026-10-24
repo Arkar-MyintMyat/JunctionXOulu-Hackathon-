@@ -22,7 +22,7 @@ export default function DevPage() {
     getMatches().then((r) => {
       setMatches(r.data);
       const fromUrl = new URLSearchParams(window.location.search).get("match");
-      setMatchId(fromUrl ?? (r.source === "api" && r.data[0] ? String(r.data[0].id) : "mock"));
+      setMatchId(fromUrl ?? (r.source !== "mock" && r.data[0] ? String(r.data[0].id) : "mock"));
     });
   }, []);
 

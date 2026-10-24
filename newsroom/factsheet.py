@@ -42,7 +42,8 @@ class TeamContext(BaseModel):
     scoring_team_name: str | None = None
     scorer: str | None = None
     overtime: bool = False
-    season_over: bool = False  # the schedule has no later regular-season game for this team
+    season_over: bool = False  # not playing, and the schedule has no later regular-season game for this team
+    last_game: bool = False    # playing, and this is the team's last regular-season game (not over until the end)
     playoff_direction: Literal["up", "down", "unchanged"]  # what this moment itself did
     # How the chance moved as the clock ran since the previous event (from odds_before); None if negligible.
     drift_direction: Literal["up", "down", "unchanged"] | None = None
@@ -194,7 +195,8 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]],
                 scoring_team_name=names.get(event.get("team", "")) if event["kind"] == "goal" else None,
                 scorer=event.get("scorer") if event["kind"] == "goal" else None,
                 overtime=event["kind"] == "goal" and event["seconds"] > REGULATION_SECONDS,
-                season_over=schedule_known and code not in upcoming,
+                season_over=schedule_known and code not in upcoming and code not in (home, away),
+                last_game=schedule_known and code not in upcoming and code in (home, away),
                 playoff_direction=direction(delta),
                 drift_direction=direction(drift) if abs(drift) >= DRIFT_MIN else None,
             )
