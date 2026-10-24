@@ -5,7 +5,7 @@ earlier is in the table, everything else (including games played the same evenin
 Each event re-simulates with this game's score so far and the time left. The same seed is used at
 every event, so differences between events come from the game, not from Monte Carlo noise.
 
-Run: python -m engine.replay 480 [--season 2026] [--runs 2000]
+Run: python -m engine.replay 345 [--season 2026] [--runs 2000]
 """
 import argparse
 

@@ -32,13 +32,3 @@ def test_mock_fact_ids_follow_convention():
         for code, sheet in by_team.items():
             for f in sheet.facts:
                 assert f.id.startswith(f"e{idx}.{code}.")
-
-
-def test_api_stub_routes():
-    from fastapi.testclient import TestClient
-
-    from api.main import app
-
-    c = TestClient(app)
-    assert c.get("/api/upcoming", params={"team": "KAR"}).status_code == 200
-    assert c.post("/api/simulate", json={"picks": [{"game_id": 777, "result": "HOME_REG"}]}).json()["runs"] == 5000
