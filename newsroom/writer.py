@@ -66,12 +66,18 @@ def template_story(team_facts: dict[str, Any], audience: str) -> tuple[str, list
 
     if ctx["playoff_direction"] == "unchanged":
         middle = f"{subject} barely moved and stays at {after}."
+    elif ctx["role"] == "scored" and ctx["playoff_direction"] == "down":
+        # A goal that hurt the team that scored it (e.g. a draw that is not enough): say so plainly.
+        lowered = subject[0].lower() + subject[1:] if subject.startswith(("Your", "The ")) else subject
+        middle = f"Even so, {lowered} fell by {delta} to {after}."
     else:
         middle = f"{subject} {moved} by {delta} to {after}."
 
     parts = [lead, middle]
     if nxt_opp and nxt_date:
         parts.append(f"Next up: {nxt_opp} on {nxt_date}.")
+    elif ctx.get("season_over"):
+        parts.append("Your regular season is over." if you else f"{possessive(team)} regular season is over.")
     text = " ".join(parts)
     return text, verifier.placeholders(text)
 

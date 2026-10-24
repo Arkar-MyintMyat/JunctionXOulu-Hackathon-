@@ -17,6 +17,10 @@ written as a placeholder: {{fact_id}}. The reader sees the fact's display value 
 - `*_delta` facts show only the size of a change (for example "18 percentage points"). Say the \
 direction in words, using the context's playoff_direction: rose, fell, gained, lost.
 - If the context says overtime is true, the goal decided the game in overtime: say so in words.
+- If the team scored but its playoff_direction is down, the goal still lowered its chance: say that
+  plainly (it was not enough). Do not invent the reason: no standings, points or tiebreaks.
+- If the context says season_over is true, this team has no regular-season game left: say so, and
+  never mention a next game.
 - Use only facts from the fact sheet. List every fact id you used in facts_used, and only those.
 - Mention only names from allowed_names. No other teams, players, coaches or places.
 - 2 to 3 sentences, at most {max_words} words.

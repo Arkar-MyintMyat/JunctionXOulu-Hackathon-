@@ -51,6 +51,8 @@ LLM_HTTP_TIMEOUT = 120                                       # seconds per reque
 LLM_RATE_LIMIT_RETRIES = 4                                   # free tiers rate-limit / overload often: wait and retry
 # Tried in order when the main model stays overloaded or is unavailable (comma-separated model ids).
 LLM_FALLBACK_MODELS = [m.strip() for m in os.environ.get("LLM_FALLBACK_MODELS", "").split(",") if m.strip()]
+# Extra API keys (comma-separated), e.g. teammates' Gemini keys: each has its own daily quota per model.
+LLM_EXTRA_KEYS = [k.strip() for k in os.environ.get("LLM_API_KEYS", "").split(",") if k.strip()]
 LLM_EFFORT = os.environ.get("LLM_EFFORT", "low")             # short, fact-bound text: low effort is enough
 LLM_MAX_TOKENS = 4000
 STORY_LANG = os.environ.get("STORY_LANG", "en")              # "en" (Level 1) or "fi" (Level 2)

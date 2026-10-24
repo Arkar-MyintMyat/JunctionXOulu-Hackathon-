@@ -41,6 +41,7 @@ class TeamContext(BaseModel):
     scoring_team_name: str | None = None
     scorer: str | None = None
     overtime: bool = False
+    season_over: bool = False  # the schedule has no later regular-season game for this team
     playoff_direction: Literal["up", "down", "unchanged"]
 
 
@@ -120,8 +121,13 @@ def team_role(code: str, event: dict[str, Any], home: str, away: str) -> str:
     return "scored" if event.get("team") == code else "conceded"
 
 
-def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> dict[str, dict[str, dict[str, Any]]]:
-    """{event_idx: {team_code: TeamFacts}} for every event and every team."""
+def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]],
+                schedule_known: bool = False) -> dict[str, dict[str, dict[str, Any]]]:
+    """{event_idx: {team_code: TeamFacts}} for every event and every team.
+
+    `schedule_known`: the season schedule was loaded, so a team without an upcoming game really has no
+    regular-season game left (season_over). Without a schedule nothing is claimed.
+    """
     names = {t["code"]: t["name"] for t in odds["teams"]}
     home, away = odds["match"]["home"], odds["match"]["away"]
     direct_line = odds["thresholds"]["direct"]  # read from the data, never hard-coded
@@ -171,6 +177,7 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
                 scoring_team_name=names.get(event.get("team", "")) if event["kind"] == "goal" else None,
                 scorer=event.get("scorer") if event["kind"] == "goal" else None,
                 overtime=event["kind"] == "goal" and event["seconds"] > REGULATION_SECONDS,
+                season_over=schedule_known and code not in upcoming,
                 playoff_direction=direction(delta),
             )
             per_team[code] = TeamFacts(allowed_names=sorted(allowed), context=context, facts=facts).model_dump()
@@ -208,13 +215,14 @@ def main(argv: list[str] | None = None) -> int:
     odds = json.loads(odds_path.read_text(encoding="utf-8"))
 
     schedule_path = args.schedule or default_schedule_path(odds["match"]["season"])
-    upcoming = next_games(load_schedule(schedule_path), load_team_ids(args.teams), odds["match"]["date"])
+    schedule = load_schedule(schedule_path)
+    upcoming = next_games(schedule, load_team_ids(args.teams), odds["match"]["date"])
     if not upcoming:
         print("warning: no schedule/teams data found, next-game facts are left out", file=sys.stderr)
 
     out_path = args.out or config.FACTS_DIR / f"{args.match}.json"
     write_json_atomic(out_path, {"schema_version": 1, "match_id": odds["match"]["id"],
-                                 "facts": build_facts(odds, upcoming)})
+                                 "facts": build_facts(odds, upcoming, schedule_known=bool(schedule))})
     print(f"wrote {out_path}")
     return 0
 

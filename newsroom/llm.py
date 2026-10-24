@@ -134,6 +134,20 @@ def _short_error(response: httpx.Response) -> str:
     return str(err)[:160] or response.text[:160]
 
 
+#: (model, key index) pairs whose daily quota ran out during this run.
+_used_up: set[tuple[str, int]] = set()
+
+
+def _api_keys() -> list[str]:
+    """LLM_API_KEY first, then LLM_API_KEYS (teammates' keys), without duplicates."""
+    keys: list[str] = []
+    for key in [os.environ.get("LLM_API_KEY", ""), *config.LLM_EXTRA_KEYS]:
+        key = key.strip()
+        if key and key not in keys:
+            keys.append(key)
+    return keys
+
+
 def _quota_used_up(response: httpx.Response) -> bool:
     """A 429 for a used-up daily quota (Gemini free tier: requests per day per model). Waiting won't help."""
     if response.status_code != 429:
@@ -176,17 +190,21 @@ def _openai_compatible_json(messages: list[dict[str, str]], system: str, schema:
         raise LLMError("LLM_BASE_URL is not set (for Gemini: https://generativelanguage.googleapis.com/v1beta/openai)")
     if not config.LLM_MODEL_SET:
         raise LLMError("LLM_MODEL is not set (use a model id from your provider, e.g. from Google AI Studio)")
-    api_key = os.environ.get("LLM_API_KEY")
-    if not api_key:
+    keys = _api_keys()
+    if not keys:
         raise LLMError("LLM_API_KEY is not set")
 
     url = f"{config.LLM_BASE_URL}/chat/completions"
-    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     models = [config.LLM_MODEL_SET, *[m for m in config.LLM_FALLBACK_MODELS if m != config.LLM_MODEL_SET]]
     failures: list[str] = []
+    response: httpx.Response | None = None
 
+    # Best model first; for each model every key (each key has its own daily quota per model).
     with _http_client() as client:
-        for model in models:
+        for model, (k, key) in ((m, kk) for m in models for kk in enumerate(keys)):
+            if (model, k) in _used_up:
+                continue
+            headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
             body: dict[str, Any] = {
                 "model": model,
                 "messages": [{"role": "system", "content": system}, *messages],
@@ -196,11 +214,17 @@ def _openai_compatible_json(messages: list[dict[str, str]], system: str, schema:
             response, problem = _post_with_retries(client, url, headers, body)
             if response is not None and response.status_code < 400:
                 break
-            if response is not None and response.status_code not in NEXT_MODEL and not problem:
+            if response is not None and _quota_used_up(response):
+                _used_up.add((model, k))  # skip this pair for the rest of the run
+            elif response is not None and response.status_code in (401, 403):
+                problem = f"key {k + 1} rejected ({response.status_code})"
+            elif response is not None and response.status_code not in NEXT_MODEL and not problem:
                 raise LLMError(f"LLM API error {response.status_code}: {_short_error(response)}")
-            failures.append(f"{model}: {problem or response.status_code}")
+            failures.append(f"{model} key {k + 1}: {problem or response.status_code}")
         else:
-            raise LLMError("all models failed (" + "; ".join(failures) + "); try again later or use --retry-failed")
+            if not failures:
+                failures = ["every model's daily quota is used up on every key"]
+            raise LLMError("all models failed (" + "; ".join(failures[-4:]) + "); try again later or use --retry-failed")
 
     try:
         choice = response.json()["choices"][0]

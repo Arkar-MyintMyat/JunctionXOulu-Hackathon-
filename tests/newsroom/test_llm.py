@@ -19,6 +19,8 @@ def gemini(monkeypatch):
     monkeypatch.setattr(config, "LLM_BASE_URL", "https://example.test/v1beta/openai")
     monkeypatch.setattr(config, "LLM_MODEL_SET", "gemini-test")
     monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", [])  # independent of the developer's .env
+    monkeypatch.setattr(config, "LLM_EXTRA_KEYS", [])
+    monkeypatch.setattr(llm, "_used_up", set())
     monkeypatch.setenv("LLM_API_KEY", "test-key")
     monkeypatch.setattr(llm.time, "sleep", lambda s: None)
     seen, replies = [], []
@@ -116,6 +118,36 @@ def test_daily_quota_skips_to_next_model_without_waiting(gemini, monkeypatch):
     assert waits == []  # no pointless waiting on a daily quota
 
 
+USED_UP = [{"error": {"code": 429, "message": "You exceeded your current quota",
+                      "details": [{"violations": [{"quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]}]}}]
+
+
+def test_teammate_key_takes_over_the_same_model(gemini, monkeypatch):
+    seen, replies = gemini
+    monkeypatch.setattr(config, "LLM_EXTRA_KEYS", ["team-key"])
+    replies += [(429, USED_UP), (200, completion(json.dumps(STORY)))]
+    assert ask() == STORY
+    assert [(r["body"]["model"], r["auth"]) for r in seen] == [("gemini-test", "Bearer test-key"),
+                                                               ("gemini-test", "Bearer team-key")]
+
+
+def test_used_up_pairs_are_skipped_for_the_rest_of_the_run(gemini, monkeypatch):
+    seen, replies = gemini
+    monkeypatch.setattr(config, "LLM_EXTRA_KEYS", ["team-key"])
+    replies += [(429, USED_UP), (200, completion(json.dumps(STORY))), (200, completion(json.dumps(STORY)))]
+    ask()
+    ask()
+    assert [r["auth"] for r in seen] == ["Bearer test-key", "Bearer team-key", "Bearer team-key"]
+
+
+def test_rejected_key_is_skipped(gemini, monkeypatch):
+    seen, replies = gemini
+    monkeypatch.setattr(config, "LLM_EXTRA_KEYS", ["team-key"])
+    replies += [(401, {"error": {"message": "API key not valid"}}), (200, completion(json.dumps(STORY)))]
+    assert ask() == STORY
+    assert seen[-1]["auth"] == "Bearer team-key"
+
+
 def test_bad_key_is_not_retried(gemini):
     seen, replies = gemini
     replies.append((401, {"error": {"message": "API key not valid"}}))
@@ -128,6 +160,8 @@ def test_timeout_is_retried(monkeypatch):
     monkeypatch.setattr(config, "LLM_BASE_URL", "https://example.test/v1beta/openai")
     monkeypatch.setattr(config, "LLM_MODEL_SET", "gemini-test")
     monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", [])
+    monkeypatch.setattr(config, "LLM_EXTRA_KEYS", [])
+    monkeypatch.setattr(llm, "_used_up", set())
     monkeypatch.setenv("LLM_API_KEY", "test-key")
     monkeypatch.setattr(llm.time, "sleep", lambda s: None)
     calls = []
