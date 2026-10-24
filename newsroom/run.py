@@ -126,7 +126,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Write and verify fan stories for one match.")
     ap.add_argument("--match", required=True, help="game id (reads data/facts/{id}.json)")
     ap.add_argument("--audience", default="fan", choices=[*config.AUDIENCES, "all"])
-    ap.add_argument("--provider", default=config.LLM_PROVIDER, choices=["anthropic", "mock"])
+    ap.add_argument("--provider", default=config.LLM_PROVIDER, choices=list(config.LLM_PROVIDERS))
     ap.add_argument("--inject-error", action="store_true", help="put a raw wrong number in one story")
     ap.add_argument("--workers", type=int, default=4, help="parallel LLM calls")
     ap.add_argument("--facts", type=Path, help="override the facts file path")

@@ -63,7 +63,7 @@ def test_llm_retry_fixes_a_bad_draft(facts, monkeypatch):
     good = {"text": "You are now at {{e3.ILV.playoff_after}}.", "facts_used": ["e3.ILV.playoff_after"]}
     bad = {"text": "You are now at 41%.", "facts_used": []}
 
-    def fake(messages, *, system, schema):
+    def fake(messages, *, system, schema, provider=None):
         calls.append(messages)
         return bad if len(calls) == 1 else good
 
@@ -74,7 +74,7 @@ def test_llm_retry_fixes_a_bad_draft(facts, monkeypatch):
 
 
 def test_llm_failure_blocks_instead_of_crashing(facts, monkeypatch):
-    def boom(messages, *, system, schema):
+    def boom(messages, *, system, schema, provider=None):
         raise llm.LLMError("could not reach the LLM API")
 
     monkeypatch.setattr(llm, "complete_json", boom)

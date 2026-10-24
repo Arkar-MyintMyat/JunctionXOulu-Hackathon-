@@ -92,7 +92,7 @@ def write_story(team_facts: dict[str, Any], audience: str, known_names: set[str]
     draft: Draft | None = None
     for attempt in (1, 2):
         try:
-            data = llm.complete_json(messages, system=system, schema=prompts.OUTPUT_SCHEMA)
+            data = llm.complete_json(messages, system=system, schema=prompts.OUTPUT_SCHEMA, provider=provider)
         except llm.LLMError as e:
             return Draft(draft.text if draft else "", draft.facts_used if draft else [],
                          [f"writer failed: {e}"], attempts=attempt)
