@@ -38,7 +38,9 @@ const ROW_SPRING = { type: "spring", stiffness: 220, damping: 28 } as const;
 const COUNT_MS = 900;
 const FLASH_S = 1.8;
 /** Columns: rank, team, playoff %, change. Shared by the header and every card. */
-const COLUMNS = "grid grid-cols-[2.75rem_minmax(0,1fr)_5.5rem_5.5rem] items-center gap-x-1";
+// Narrower number columns on phones, so the team name keeps the room.
+const COLUMNS =
+  "grid grid-cols-[2.25rem_minmax(0,1fr)_3.25rem_4.25rem] sm:grid-cols-[2.75rem_minmax(0,1fr)_5.5rem_5.5rem] items-center gap-x-1";
 
 /** Counts a number towards its new value instead of swapping it (same tween as Matchstake). */
 function useTween(value: number, durationMs: number): number {
@@ -213,9 +215,19 @@ function Row({
           <TeamLogo team={row.team} />
           <span className="truncate">{row.team.name}</span>
           {playing && (
-            <span className="shrink-0 rounded bg-card px-1.5 text-[10px] font-semibold uppercase text-muted-foreground">
-              Playing
-            </span>
+            <>
+              <span className="hidden shrink-0 rounded bg-card px-1.5 text-[10px] font-semibold uppercase text-muted-foreground sm:inline">
+                Playing
+              </span>
+              {/* Phones: a dot in the team colour instead of the word, so the name is not cut off. */}
+              <span
+                role="img"
+                aria-label="Playing in this match"
+                title="Playing in this match"
+                className="size-2 shrink-0 rounded-full ring-2 ring-card sm:hidden"
+                style={{ backgroundColor: color }}
+              />
+            </>
           )}
         </span>
 

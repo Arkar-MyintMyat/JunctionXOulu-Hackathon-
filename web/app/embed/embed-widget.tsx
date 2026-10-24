@@ -17,7 +17,11 @@ import type { Match } from "@/lib/types";
 import { withTeamColors } from "./team-colors";
 
 export function EmbedWidget() {
-  const id = useSearchParams().get("match") ?? "mock";
+  const params = useSearchParams();
+  const id = params.get("match") ?? "mock";
+  // ?frame=1: inside a host page (the Kaleva mock-up). The host sets the width and margins, so the widget
+  // drops its own; 4 px of padding keeps the card shadows from being cut off at the frame edge.
+  const framed = params.get("frame") === "1";
   const [match, setMatch] = useState<Match | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,7 +46,7 @@ export function EmbedWidget() {
   if (error) return <main className="p-8 text-red-700">{error}</main>;
   if (!match) return <main className="p-8 text-muted-foreground">Loading…</main>;
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-6">
+    <main className={framed ? "w-full p-1" : "mx-auto w-full max-w-6xl px-4 py-6"}>
       <PlaybackProvider match={match}>
         <div className="grid gap-4 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
           <Matchstake match={match} className="lg:col-start-1 lg:row-start-1" />
