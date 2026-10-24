@@ -114,6 +114,8 @@ export interface Match {
   facts: Record<string, Record<TeamCode, TeamFacts>>;
   stories: Story[];
   timeline?: TimelinePoint[]; // optional extra; without it the line is flat between events
+  /** Optional extra: before face-off, every team's odds if this game ends in each result (engine/replay.py). */
+  stakes?: Partial<Record<PickResult, Record<TeamCode, TeamOdds>>>;
 }
 
 export interface UpcomingGame {

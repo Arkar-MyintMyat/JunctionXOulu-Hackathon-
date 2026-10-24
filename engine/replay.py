@@ -8,6 +8,7 @@ every event, so differences between events come from the game, not from Monte Ca
 Run: python -m engine.replay 345 [--season 2026] [--runs 2000]
 """
 import argparse
+from typing import get_args
 
 from engine import config
 from engine.loader import load_games, load_teams, raw_path, read_json, write_json
@@ -82,6 +83,10 @@ def replay(game_id: int, season: int, n_runs: int) -> dict:
                    "score": f"{g.home_goals}-{g.away_goals}",
                    "odds": odds_at(state, g, reg_h, reg_a, end_seconds, n_runs, final_result(g))})
 
+    # Before face-off: each possible result of this game, with the rest of the season simulated.
+    # stakes[team wins] - stakes[team loses] = what tonight is worth for that team.
+    stakes = {r: odds_at(state, g, 0, 0, 0, n_runs, r) for r in get_args(Result)}
+
     return {
         "schema_version": 1,
         "match": {"id": g.id, "season": g.season, "date": g.start[:10], "home": g.home, "away": g.away,
@@ -90,6 +95,7 @@ def replay(game_id: int, season: int, n_runs: int) -> dict:
                   for t in season_ids],
         "thresholds": {"direct": lines[0], "playoff": lines[1]},
         "events": events,
+        "stakes": stakes,
     }
 
 

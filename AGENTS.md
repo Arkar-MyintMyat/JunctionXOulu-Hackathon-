@@ -278,6 +278,9 @@ Optional on goal events: `odds_before` (same shape as `odds`) = odds at the same
 before the goal. `odds - odds_before` is what the goal itself was worth; `odds - previous event's odds`
 also includes time passing (a team trailing for 20 minutes drifts down before it equalises).
 Team count is not fixed: season 2026 has 16 teams, season 2027 (current) has 17.
+Optional on Match: `stakes` = `{ "HOME_REG": odds, "HOME_OT": odds, "AWAY_OT": odds, "AWAY_REG": odds }` (each the
+same shape as `odds`): before face-off, every team's odds if this game ends in that result. Team's win minus loss =
+what tonight is worth (`web/components/stakes-card/`, `/embed/stakes?match=ID`).
 Optional on every team (Match `teams[]` and simulate `teams[]`): `logo` = Liiga logo URL (light background).
 Team `color` and `logo` are filled from `data/teams.json` when the API serves the response.
 Probabilities are 0–1 floats. Exactly 1 or 0 means mathematically decided on points (`engine/simulate.py`

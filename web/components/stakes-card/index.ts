@@ -1,0 +1,1 @@
+export { StakesCard } from "./StakesCard";
