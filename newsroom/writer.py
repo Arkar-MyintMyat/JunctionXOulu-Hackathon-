@@ -31,6 +31,9 @@ def _ph(team_facts: dict[str, Any], name: str) -> str | None:
     return None
 
 
+TEMPLATE_DRIFT_MIN = 0.03  # the template mentions drift only when the clock moved the chance by 3+ points
+
+
 def possessive(name: str) -> str:
     return name + ("'" if name.endswith("s") else "'s")
 
@@ -77,7 +80,9 @@ def template_story(team_facts: dict[str, Any], audience: str) -> tuple[str, list
     # Drift while the clock ran before the goal (from odds_before), e.g. a trailing team sliding towards 0%.
     before = _ph(team_facts, "playoff_before")
     drift = _ph(team_facts, "playoff_drift")
-    if drift and before and ctx.get("drift_direction") in ("up", "down") and ctx["role"] != "not playing":
+    drift_size = abs(next((f["value"] for f in team_facts["facts"] if f["id"].endswith(".playoff_drift")), 0))
+    if (drift and before and drift_size >= TEMPLATE_DRIFT_MIN and ctx.get("drift_direction") in ("up", "down")
+            and ctx["role"] != "not playing"):
         verb = "had slipped" if ctx["drift_direction"] == "down" else "had climbed"
         owner = "your" if you else possessive(team)
         parts.insert(0, f"While the clock ran, {owner} playoff chance {verb} to {before}.")

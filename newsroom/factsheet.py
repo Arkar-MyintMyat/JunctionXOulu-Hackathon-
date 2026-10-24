@@ -235,8 +235,11 @@ def main(argv: list[str] | None = None) -> int:
     schedule_path = args.schedule or default_schedule_path(odds["match"]["season"])
     schedule = load_schedule(schedule_path)
     upcoming = next_games(schedule, load_team_ids(args.teams), odds["match"]["date"])
-    if not upcoming:
-        print("warning: no schedule/teams data found, next-game facts are left out", file=sys.stderr)
+    if not schedule:
+        print("warning: no schedule found, next-game facts are left out", file=sys.stderr)
+    elif not upcoming:
+        print("note: no team has a game after this one (season over), so there are no next-game facts",
+              file=sys.stderr)
 
     out_path = args.out or config.FACTS_DIR / f"{args.match}.json"
     write_json_atomic(out_path, {"schema_version": 1, "match_id": odds["match"]["id"],
