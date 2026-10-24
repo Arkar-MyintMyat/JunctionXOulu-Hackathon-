@@ -68,6 +68,21 @@ def test_next_games_skips_same_day_and_unknown_teams():
                                                        "AAA": {"opponent": "BBB", "date": "2026-03-16"}}
 
 
+def test_overtime_goal_is_flagged_and_written_as_overtime(odds):
+    import copy
+
+    from newsroom.factsheet import build_facts
+    from newsroom.writer import template_story
+
+    ot = copy.deepcopy(odds)
+    ot["events"][3]["seconds"], ot["events"][3]["clock"] = 3869, "64:29"
+    facts = build_facts(ot, {})
+    assert facts["3"]["KAR"]["context"]["overtime"] is True
+    assert facts["2"]["KAR"]["context"]["overtime"] is False
+    text, _ = template_story(facts["3"]["KAR"], "fan")
+    assert "in overtime" in text and "{{e3.KAR.clock}}" not in text
+
+
 def test_formatting():
     assert fmt_pct(0.414) == "41%"
     assert fmt_points(-0.18) == "18 percentage points"

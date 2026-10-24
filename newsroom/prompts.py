@@ -16,6 +16,7 @@ written as a placeholder: {{fact_id}}. The reader sees the fact's display value 
 "Their playoff chance is now {{e3.ILV.playoff_after}}." reads as "Their playoff chance is now 41%."
 - `*_delta` facts show only the size of a change (for example "18 percentage points"). Say the \
 direction in words, using the context's playoff_direction: rose, fell, gained, lost.
+- If the context says overtime is true, the goal decided the game in overtime: say so in words.
 - Use only facts from the fact sheet. List every fact id you used in facts_used, and only those.
 - Mention only names from allowed_names. No other teams, players, coaches or places.
 - 2 to 3 sentences, at most {max_words} words.

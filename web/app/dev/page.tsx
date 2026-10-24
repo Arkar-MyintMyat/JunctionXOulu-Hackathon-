@@ -66,7 +66,9 @@ export default function DevPage() {
   const [source, setSource] = useState<DataSource | null>(null);
 
   useEffect(() => {
-    getMatch("mock").then((r) => {
+    // /dev?match=ID loads a real match (API or offline copy); default is the bundled mock.
+    const id = new URLSearchParams(window.location.search).get("match") ?? "mock";
+    getMatch(id).then((r) => {
       setMatch(r.data);
       setSource(r.source);
     });

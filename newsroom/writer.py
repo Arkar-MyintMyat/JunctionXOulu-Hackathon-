@@ -56,9 +56,11 @@ def template_story(team_facts: dict[str, Any], audience: str) -> tuple[str, list
         lead = (f"You didn't play tonight, but {scorers} goal still reached you."
                 if you else f"{team} were not playing, but {scorers} goal still mattered to them.")
     elif ctx["role"] == "scored":
-        lead = f"{possessive(ctx['scorer'] or team)} goal at {clock} made it {score}."
+        when = "in overtime" if ctx.get("overtime") else f"at {clock}"
+        lead = f"{possessive(ctx['scorer'] or team)} goal {when} made it {score}."
     elif ctx["role"] == "conceded":
-        lead = f"The goal against {'you' if you else team} at {clock} made it {score}."
+        when = "in overtime" if ctx.get("overtime") else f"at {clock}"
+        lead = f"The goal against {'you' if you else team} {when} made it {score}."
     else:
         lead = f"The game finished {score}."
 

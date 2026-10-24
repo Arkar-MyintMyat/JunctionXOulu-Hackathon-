@@ -20,6 +20,7 @@ from pydantic import BaseModel
 from newsroom import config
 
 Source = Literal["simulation", "game events", "schedule"]
+REGULATION_SECONDS = 3600
 
 
 class Fact(BaseModel):
@@ -39,6 +40,7 @@ class TeamContext(BaseModel):
     away_name: str
     scoring_team_name: str | None = None
     scorer: str | None = None
+    overtime: bool = False
     playoff_direction: Literal["up", "down", "unchanged"]
 
 
@@ -166,6 +168,7 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
                 home_name=names[home], away_name=names[away],
                 scoring_team_name=names.get(event.get("team", "")) if event["kind"] == "goal" else None,
                 scorer=event.get("scorer") if event["kind"] == "goal" else None,
+                overtime=event["kind"] == "goal" and event["seconds"] > REGULATION_SECONDS,
                 playoff_direction=direction(delta),
             )
             per_team[code] = TeamFacts(allowed_names=sorted(allowed), context=context, facts=facts).model_dump()

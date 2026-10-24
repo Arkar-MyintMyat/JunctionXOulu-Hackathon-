@@ -68,6 +68,7 @@ export interface TeamContext {
   away_name: string;
   scoring_team_name: string | null;
   scorer: string | null;
+  overtime?: boolean;
   playoff_direction: "up" | "down" | "unchanged";
 }
 
