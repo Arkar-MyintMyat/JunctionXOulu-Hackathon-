@@ -51,6 +51,8 @@ export interface MatchEvent {
   team?: TeamCode;
   scorer?: string;
   odds: Record<TeamCode, TeamOdds>;
+  /** Optional (goal events): odds at the same clock just before the goal. odds − odds_before = the goal's worth. */
+  odds_before?: Record<TeamCode, TeamOdds>;
 }
 
 export interface Fact {
