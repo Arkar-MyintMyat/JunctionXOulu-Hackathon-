@@ -288,7 +288,7 @@ Request:
 Response:
 ```json
 { "runs": 5000,
-  "teams": [ { "code": "KAR", "points_now": 21, "rank_now": 8, "direct": 0.44, "playoff": 0.77, "avg_rank": 7.1 } ] }
+  "teams": [ { "code": "KAR", "name": "Kärpät", "color": "#FFD100", "points_now": 21, "rank_now": 8, "direct": 0.44, "playoff": 0.77, "avg_rank": 7.1 } ] }
 ```
 Must answer in under 3 seconds (use 5,000 runs here).
 

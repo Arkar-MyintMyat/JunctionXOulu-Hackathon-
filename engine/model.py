@@ -109,6 +109,8 @@ class SimulateRequest(BaseModel):
 
 class TeamOutlook(BaseModel):
     code: str
+    name: str
+    color: str
     points_now: int
     rank_now: int
     direct: float = Field(ge=0, le=1)
