@@ -4,7 +4,7 @@ import { AnimatePresence, animate, motion, useAnimate, useReducedMotion } from "
 import { Pause, Play, RotateCcw, SkipBack, SkipForward } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
-import { TeamPicker } from "./TeamPicker";
+import { TeamLogo, TeamPicker } from "./TeamPicker";
 import { pct, score as fmtScore, signedPct } from "@/lib/format";
 import { eventAt, goalImpact, playoffBefore, teamOf } from "@/lib/match";
 import { SPEEDS, usePlayback } from "@/lib/playback";
@@ -156,7 +156,12 @@ function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; s
   return { points, settle };
 }
 
-export function Matchstake({ match, className }: { match: Match; className?: string }) {
+/**
+ * `compact`: about 500 px tall instead of about 800, for the embed where Goalwave and the story panel must
+ * fit on a laptop screen too. Title, score and team picker share one row, the chart is 200 px tall, and
+ * the goal cards are two lines.
+ */
+export function Matchstake({ match, className, compact = false }: { match: Match; className?: string; compact?: boolean }) {
   const pb = usePlayback();
   const uid = useId().replace(/:/g, "");
   const reduceMotion = useReducedMotion();
@@ -171,10 +176,11 @@ export function Matchstake({ match, className }: { match: Match; className?: str
     return () => ro.disconnect();
   }, [shakeScope]);
   const W = chartW;
-  const H = Math.round(Math.min(400, Math.max(320, W * 0.5)));
+  const H = compact ? 200 : Math.round(Math.min(400, Math.max(320, W * 0.5)));
   const PLOT_W = W - PAD_L - PAD_R;
-  const BOTTOM = H - 56;
-  const AXIS_Y = BOTTOM + 28;
+  // Compact drops the "MATCH TIME" caption under the axis, which gives the plot back its room.
+  const BOTTOM = compact ? H - 30 : H - 56;
+  const AXIS_Y = BOTTOM + (compact ? 22 : 28);
   const team = teamOf(match, pb.selectedTeam) ?? match.teams[0];
   const events = match.events;
   const current = eventAt(match, pb.eventIdx);
@@ -275,15 +281,36 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       aria-label="Matchstake: playoff chance during the match"
     >
       {/* Scoreboard header. */}
-      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 px-5 pt-5">
+      <div className={`flex flex-wrap items-center justify-between ${compact
+        ? "gap-x-4 gap-y-2 px-4 pt-3"
+        : "gap-x-6 gap-y-4 px-5 pt-5"}`}>
+        {/* Compact: title, small scoreboard and team picker in one row (it wraps on phones). */}
+        {compact && (
+          <>
+            <Title className="shrink-0 text-lg" />
+            {/* Logos instead of names: the names do not fit between title and picker in the embed column
+                (they broke mid-word), and the picker beside it names the teams anyway. */}
+            <div className="flex min-w-0 flex-1 items-center justify-center gap-2" role="group"
+                 aria-label={`${home?.name ?? match.match.home} ${sh}, ${away?.name ?? match.match.away} ${sa}`}>
+              <span title={home?.name}><TeamLogo team={home} size={28} /></span>
+              <span className="text-2xl font-black tabular-nums">{sh}</span>
+              <span className="shrink-0 rounded-md border px-2 py-0.5 text-xs font-bold tabular-nums"
+                    style={{ borderColor: ui.border, background: ui.panel }}>
+                {finished ? "FINAL" : fmtClock(clock)}
+              </span>
+              <span className="text-2xl font-black tabular-nums">{sa}</span>
+              <span title={away?.name}><TeamLogo team={away} size={28} /></span>
+            </div>
+            <div className="ml-auto shrink-0">
+              <TeamPicker teams={match.teams} playing={[match.match.home, match.match.away]}
+                          value={pb.selectedTeam} onChange={pb.selectTeam} />
+            </div>
+          </>
+        )}
+
+        {!compact && (<>
         <div className="shrink-0">
-          <div className="flex items-center gap-2 text-xl font-black tracking-tight">
-            <svg viewBox="0 0 28 16" className="h-4 w-7" aria-hidden>
-              <polyline points="1,9 8,9 10,11 13,2 16,13 18,8 27,8" fill="none" stroke={ui.worse} strokeWidth={2.2}
-                        strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Matchstake
-          </div>
+          <Title className="text-xl" />
           <div className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
             The heartbeat of the playoff race
           </div>
@@ -348,9 +375,10 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             </div>
           </div>
         )}
+        </>)}
 
         {!showChart && (
-          <div className="basis-full rounded-xl border px-5 py-4"
+          <div className={`basis-full rounded-xl border ${compact ? "px-4 py-2" : "px-5 py-4"}`}
                style={{ borderColor: team.color, borderLeftWidth: 6, background: ui.panel }}>
             <div className="flex flex-wrap items-center gap-2">
               {finished ? (
@@ -364,11 +392,11 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                   LIVE
                 </span>
               )}
-              <h2 className="text-2xl font-black tracking-tight sm:text-3xl">
+              <h2 className={`font-black tracking-tight ${compact ? "text-lg" : "text-2xl sm:text-3xl"}`}>
                 {decided ? `${team.name}: nothing at stake` : `${team.name} is not playing`}
               </h2>
             </div>
-            <p className="mt-1 text-base sm:text-lg" style={{ color: ui.neutral }}>
+            <p className={`mt-1 ${compact ? "text-sm" : "text-base sm:text-lg"}`} style={{ color: ui.neutral }}>
               {decided ? (
                 baseline >= 0.995
                   ? <>{possessiveName(team.name)} playoff place was already decided before this game, so no goal in it can change their chance.</>
@@ -383,7 +411,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           </div>
         )}
         <div className={showChart ? "basis-full" : "hidden"}>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border px-4 py-3"
+          <div className={`flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border px-4 ${compact ? "py-1.5" : "py-3"}`}
                style={{ borderColor: ui.border, background: ui.panel }}>
             <div className="text-[11px] font-semibold uppercase leading-tight tracking-[0.15em]" style={{ color: ui.muted }}>
               {team.name}
@@ -391,7 +419,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
               playoff chance
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-black tabular-nums">{pct(shownProb)}</span>
+              <span className={`font-black tabular-nums ${compact ? "text-3xl" : "text-4xl"}`}>{pct(shownProb)}</span>
               <AnimatePresence mode="popLayout">
                 {showPop && (
                   <motion.span
@@ -430,11 +458,12 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           finished={finished}
           clockLabel={fmtClock(current.seconds)}
           tone={tone}
+          compact={compact}
         />
       )}
 
       {/* The heartbeat chart (playing teams only). */}
-      <div ref={shakeScope} className={showChart ? "relative mx-3 mt-4 sm:mx-5" : "hidden"}>
+      <div ref={shakeScope} className={showChart ? `relative mx-3 sm:mx-5 ${compact ? "mt-2" : "mt-4"}` : "hidden"}>
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full select-none overflow-visible" role="img"
              aria-label={`${team.name} playoff chance: ${pct(prob(current))} at ${current.clock}`}>
           <defs>
@@ -482,7 +511,9 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                     fill={ui.muted}>OT</text>
             </>
           )}
-          <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={13} letterSpacing={3} fill={ui.muted}>MATCH TIME</text>
+          {!compact && (
+            <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={13} letterSpacing={3} fill={ui.muted}>MATCH TIME</text>
+          )}
 
           {/* Kick-off baseline. */}
           <line x1={PAD_L} x2={W - PAD_R} y1={baseY} y2={baseY} stroke={ui.neutral} strokeOpacity={0.5} strokeDasharray="6 6" />
@@ -577,7 +608,9 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       </div>
 
       {/* Goal cards: a card drops in only when its goal is scored. No spoilers. Playing teams only. */}
-      <div className={showChart ? "mx-3 mt-4 flex min-h-[104px] gap-3 overflow-x-auto pb-1 sm:mx-5" : "hidden"}>
+      <div className={showChart
+        ? `mx-3 flex gap-3 overflow-x-auto pb-1 sm:mx-5 ${compact ? "mt-1 min-h-[60px]" : "mt-4 min-h-[104px]"}`
+        : "hidden"}>
         {revealedCount === 0 && (
           <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed text-sm"
                style={{ borderColor: ui.border, color: ui.muted }}>
@@ -599,7 +632,8 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                className="w-48 shrink-0 rounded-lg border px-3 py-2.5 text-left hover:-translate-y-0.5"
+                title={compact ? `${scoringTeam?.name ?? ""}${g.scorer ? ` · ${g.scorer}` : ""}` : undefined}
+                className={`shrink-0 rounded-lg border px-3 text-left hover:-translate-y-0.5 ${compact ? "w-[11.5rem] py-1.5" : "w-48 py-2.5"}`}
                 style={{
                   borderTopColor: isNow ? c : ui.border,
                   borderRightColor: isNow ? c : ui.border,
@@ -610,17 +644,34 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                   boxShadow: isNow ? `0 6px 18px ${c}26` : undefined,
                 }}>
                 <div className="flex items-center justify-between text-xs font-bold tabular-nums" style={{ color: ui.muted }}>
-                  <span>{g.clock}</span>
+                  <span className="flex items-center gap-1.5">
+                    {/* Compact: the scoring team is the dot here (name + scorer in the tooltip). */}
+                    {compact && (
+                      <span className="inline-block size-2 rounded-full ring-1 ring-black/10" style={{ background: scoringTeam?.color }} />
+                    )}
+                    {g.clock}
+                  </span>
                   <span className="text-sm" style={{ color: ui.text }}>{fmtScore(g.score)}</span>
                 </div>
-                <div className="mt-1.5 text-sm font-black tracking-wide">{label}</div>
-                <div className="flex items-center gap-1.5 text-xs" style={{ color: ui.muted }}>
-                  <span className="inline-block size-2 rounded-full ring-1 ring-black/10" style={{ background: scoringTeam?.color }} />
-                  {scoringTeam?.name}{g.scorer ? ` · ${g.scorer}` : ""}
-                </div>
-                <div className="mt-1 text-lg font-black tabular-nums" style={{ color: c }}>
-                  {Math.abs(d) < 0.005 ? "±0%" : `${d > 0 ? "▲" : "▼"} ${signedPct(d)}`}
-                </div>
+                {compact ? (
+                  <div className="mt-0.5 flex items-baseline justify-between gap-2">
+                    <span className="truncate text-sm font-black">{label}</span>
+                    <span className="shrink-0 text-base font-black tabular-nums" style={{ color: c }}>
+                      {Math.abs(d) < 0.005 ? "±0%" : `${d > 0 ? "▲" : "▼"} ${signedPct(d)}`}
+                    </span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="mt-1.5 text-sm font-black tracking-wide">{label}</div>
+                    <div className="flex items-center gap-1.5 text-xs" style={{ color: ui.muted }}>
+                      <span className="inline-block size-2 rounded-full ring-1 ring-black/10" style={{ background: scoringTeam?.color }} />
+                      {scoringTeam?.name}{g.scorer ? ` · ${g.scorer}` : ""}
+                    </div>
+                    <div className="mt-1 text-lg font-black tabular-nums" style={{ color: c }}>
+                      {Math.abs(d) < 0.005 ? "±0%" : `${d > 0 ? "▲" : "▼"} ${signedPct(d)}`}
+                    </div>
+                  </>
+                )}
               </motion.button>
             );
           })}
@@ -628,7 +679,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       </div>
 
       {/* Controls. */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-5 pt-4 pb-3">
+      <div className={`flex flex-wrap items-center justify-between gap-2 px-5 ${compact ? "pt-2 pb-1.5" : "pt-4 pb-3"}`}>
         <div className="flex items-center gap-1.5">
           <ControlButton onClick={pb.toggle} label={pb.playing ? "Pause" : "Play"} primary>
             {pb.playing ? <Pause className="size-4" /> : <Play className="size-4" />}
@@ -648,13 +699,26 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           </div>
         </div>
       </div>
-      <div className="px-5 pb-4 text-[11px]" style={{ color: ui.muted }}>
+      <div className={`px-5 text-[11px] ${compact ? "pb-2.5" : "pb-4"}`} style={{ color: ui.muted }}>
         {showChart
           ? <>Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · blue = better off than
             at kick-off, red = worse off</>
           : <>Model estimate from simulated seasons · blue = better off than before the match, red = worse off</>}
       </div>
     </section>
+  );
+}
+
+/** The heartbeat mark + "Matchstake". */
+function Title({ className }: { className?: string }) {
+  return (
+    <div className={`flex items-center gap-2 font-black tracking-tight ${className ?? ""}`}>
+      <svg viewBox="0 0 28 16" className="h-4 w-7" aria-hidden>
+        <polyline points="1,9 8,9 10,11 13,2 16,13 18,8 27,8" fill="none" stroke={ui.worse} strokeWidth={2.2}
+                  strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      Matchstake
+    </div>
   );
 }
 
@@ -667,7 +731,7 @@ function possessiveName(name: string): string {
  * playoff chance before the match and after it.
  * During the replay the second bar is "Now" and moves with the match (no spoiler of the result).
  */
-function MatchImpact({ playing, teamName, before, now, finished, clockLabel, tone }: {
+function MatchImpact({ playing, teamName, before, now, finished, clockLabel, tone, compact }: {
   playing: boolean;
   teamName: string;
   before: number;
@@ -675,6 +739,7 @@ function MatchImpact({ playing, teamName, before, now, finished, clockLabel, ton
   finished: boolean;
   clockLabel: string;
   tone: (d: number) => string;
+  compact?: boolean;
 }) {
   const shownNow = useTween(now, 700);
   const change = now - before;
@@ -684,7 +749,8 @@ function MatchImpact({ playing, teamName, before, now, finished, clockLabel, ton
     { label: afterLabel, value: shownNow, color: tone(change) },
   ];
   return (
-    <div className="mx-3 mt-4 rounded-xl border px-5 py-6 sm:mx-5" style={{ borderColor: ui.border }}>
+    <div className={`mx-3 rounded-xl border px-5 sm:mx-5 ${compact ? "mt-2 py-3" : "mt-4 py-6"}`}
+         style={{ borderColor: ui.border }}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div className="text-sm font-semibold" style={{ color: ui.muted }}>
           {possessiveName(teamName)} playoff chance
@@ -700,15 +766,16 @@ function MatchImpact({ playing, teamName, before, now, finished, clockLabel, ton
           </div>
         </motion.div>
       </div>
-      <div className="mt-5 space-y-5">
+      <div className={compact ? "mt-2 space-y-2" : "mt-5 space-y-5"}>
         {rows.map((r) => (
           <div key={r.label}>
             <div className="mb-1.5 flex items-baseline justify-between">
               <span className="text-sm font-bold">{r.label}</span>
-              <span className="text-3xl font-black tabular-nums">{pct(r.value)}</span>
+              <span className={`font-black tabular-nums ${compact ? "text-xl" : "text-3xl"}`}>{pct(r.value)}</span>
             </div>
-            <div className="h-5 rounded-full" style={{ background: ui.panel, boxShadow: `inset 0 0 0 1px ${ui.border}` }}>
-              <motion.div className="h-5 rounded-full" initial={false}
+            <div className={`rounded-full ${compact ? "h-3" : "h-5"}`}
+                 style={{ background: ui.panel, boxShadow: `inset 0 0 0 1px ${ui.border}` }}>
+              <motion.div className={`rounded-full ${compact ? "h-3" : "h-5"}`} initial={false}
                           animate={{ width: `${Math.max(0.5, r.value * 100)}%` }}
                           transition={{ duration: 0.7, ease: "easeOut" }}
                           style={{ background: r.color }} />
@@ -716,7 +783,7 @@ function MatchImpact({ playing, teamName, before, now, finished, clockLabel, ton
           </div>
         ))}
       </div>
-      <div className="mt-4 text-xs" style={{ color: ui.muted }}>
+      <div className={`text-xs ${compact ? "mt-2" : "mt-4"}`} style={{ color: ui.muted }}>
         {playing
           ? <>Model estimate. {teamName} played, but their playoff place was already decided before the game.</>
           : <>Model estimate. {teamName} did not play: this change comes only from the result of the current match.</>}

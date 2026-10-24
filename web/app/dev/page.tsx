@@ -1,7 +1,7 @@
 "use client";
 
 // B's dev sandbox: Matchstake only. Pick any match the API lists (A precomputes them);
-// /dev?match=ID opens one directly. Goalwave and the story panel are C's and live on the embed page.
+// /dev?match=ID opens one directly; add &compact=1 for the embed's compact size. Goalwave and the story panel are C's and live on the embed page.
 
 import { useEffect, useState } from "react";
 
@@ -16,12 +16,15 @@ export default function DevPage() {
   const [match, setMatch] = useState<Match | null>(null);
   const [source, setSource] = useState<DataSource | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [compact, setCompact] = useState(false);
 
   // The list of demo matches, and which one to open first.
   useEffect(() => {
     getMatches().then((r) => {
       setMatches(r.data);
-      const fromUrl = new URLSearchParams(window.location.search).get("match");
+      const params = new URLSearchParams(window.location.search);
+      setCompact(params.get("compact") === "1");
+      const fromUrl = params.get("match");
       setMatchId(fromUrl ?? (r.source !== "mock" && r.data[0] ? String(r.data[0].id) : "mock"));
     });
   }, []);
@@ -76,7 +79,7 @@ export default function DevPage() {
       {match && (
         // key: a new match gets fresh playback state
         <PlaybackProvider key={`${match.match.id}-${matchId}`} match={match}>
-          <Matchstake match={match} className="mt-4" />
+          <Matchstake match={match} className="mt-4" compact={compact} />
         </PlaybackProvider>
       )}
     </main>
