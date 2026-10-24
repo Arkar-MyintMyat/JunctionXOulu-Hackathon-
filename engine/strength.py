@@ -14,12 +14,12 @@ def game_goals(g: Game) -> tuple[int, int]:
     return home, away
 
 
-def team_rates(games: list[Game], codes: list[str], before: str | None = None
+def team_rates(games: list[Game], codes: list[str], before: str | None = None, shrinkage: int | None = None
                ) -> tuple[dict[str, float], dict[str, float], float]:
     """(attack, defence, league_avg) from finished games that started before `before`.
 
     attack = goals for per game, defence = goals against per game, both shrunk:
-    rate = (team_total + K * league_avg) / (games + K), K = config.SHRINKAGE_GAMES.
+    rate = (team_total + K * league_avg) / (games + K), K = `shrinkage` or config.SHRINKAGE_GAMES.
     """
     gf = {c: 0 for c in codes}
     ga = {c: 0 for c in codes}
@@ -37,7 +37,7 @@ def team_rates(games: list[Game], codes: list[str], before: str | None = None
     total_games = sum(gp.values())
     # TODO(A): league average is 0 goals before the first game; use last season's average then.
     league_avg = sum(gf.values()) / total_games if total_games else 3.0
-    k = config.SHRINKAGE_GAMES
+    k = config.SHRINKAGE_GAMES if shrinkage is None else shrinkage
     attack = {c: (gf[c] + k * league_avg) / (gp[c] + k) for c in codes}
     defence = {c: (ga[c] + k * league_avg) / (gp[c] + k) for c in codes}
     return attack, defence, league_avg

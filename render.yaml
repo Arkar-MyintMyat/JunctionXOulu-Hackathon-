@@ -19,5 +19,7 @@ services:
         value: "2027"
       - key: SEED
         value: "42"
+      - key: RUNS_SIMULATE_API  # free CPU: 5,000 runs took ~4 s, over the 3 s limit
+        value: "2000"
       - key: FRONTEND_URL  # C's Vercel URL, e.g. https://stakes.vercel.app (CORS); set in the Render dashboard
         sync: false
