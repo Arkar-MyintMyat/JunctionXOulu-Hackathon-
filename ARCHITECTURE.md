@@ -147,7 +147,7 @@ The verifier is deterministic code. The UI substitutes `display` and links each 
 - Web: if the API fails, load `web/public/data/match-{id}.json` and show a small "offline data" tag.
 
 ### 4.7 Configuration
-All tunables live in `engine/config.py` or `.env`: run counts, seed, shrinkage constant (5), home factor (1.08),
+All tunables live in `engine/config.py` or `.env`: run counts, seed, shrinkage constant (25), home factor (1.08),
 paths, LLM model. No magic numbers in functions.
 
 ### 4.8 Frontend state
