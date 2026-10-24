@@ -9,6 +9,7 @@ import unicodedata
 from pathlib import Path
 
 from engine import config, liiga_client
+from engine.model import Game, Goal
 
 # Codes that the "first 3 letters of the slug" rule gets wrong or makes ambiguous.
 CODE_OVERRIDES = {"hifk": "IFK", "k-espoo": "KES"}
@@ -64,6 +65,43 @@ def build_teams(seasons: list[int]) -> dict:
     if dupes:
         raise ValueError(f"duplicate team codes {dupes}; add them to CODE_OVERRIDES")
     return dict(sorted(teams.items(), key=lambda kv: kv[1]["code"]))
+
+
+FINISHED_TYPES = {
+    "ENDED_DURING_REGULAR_GAME_TIME": "REG",
+    "ENDED_DURING_EXTENDED_GAME_TIME": "OT",
+    "ENDED_DURING_WINNING_SHOT_COMPETITION": "SO",
+}
+SHOOTOUT_PERIOD = 5
+
+
+def load_teams() -> dict[str, dict]:
+    return read_json(config.TEAMS_FILE)
+
+
+def load_games(season: int) -> list[Game]:
+    """Parse data/raw/{season}/games.json into Game models, sorted by start time."""
+    teams = load_teams()
+    out = []
+    for g in read_json(raw_path(season, "games"))["games"]:
+        home, away = teams[g["homeTeam"]["teamId"]]["code"], teams[g["awayTeam"]["teamId"]]["code"]
+        goals = []
+        for side, code in (("homeTeam", home), ("awayTeam", away)):
+            for ge in g[side].get("goalEvents") or []:
+                goals.append(Goal(
+                    seconds=ge["gameTime"], period=ge["period"], team=code,
+                    scorer=(ge.get("scorerPlayer") or {}).get("lastName"),
+                    home_score=ge["homeTeamScore"], away_score=ge["awayTeamScore"],
+                    shootout=ge["period"] == SHOOTOUT_PERIOD,
+                ))
+        goals.sort(key=lambda x: (x.seconds, x.home_score + x.away_score))
+        out.append(Game(
+            id=g["id"], season=g["season"], start=g["start"], home=home, away=away,
+            ended=bool(g["ended"]), finished_type=FINISHED_TYPES.get(g["finishedType"]),
+            home_goals=g["homeTeam"].get("goals") or 0, away_goals=g["awayTeam"].get("goals") or 0,
+            goals=goals,
+        ))
+    return sorted(out, key=lambda x: x.start)
 
 
 def main() -> None:
