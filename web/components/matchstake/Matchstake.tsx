@@ -4,7 +4,7 @@ import { AnimatePresence, animate, motion, useAnimate, useReducedMotion } from "
 import { Pause, Play, RotateCcw, SkipBack, SkipForward } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
-import { pct, score as fmtScore, signedPoints, textOn } from "@/lib/format";
+import { pct, score as fmtScore, signedPoints } from "@/lib/format";
 import { eventAt, goalImpact, playoffBefore, teamOf } from "@/lib/match";
 import { SPEEDS, usePlayback } from "@/lib/playback";
 import type { Match, MatchEvent, TeamCode } from "@/lib/types";
@@ -257,15 +257,16 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
             Current match
           </div>
-          <div className="flex items-center justify-center gap-4">
-            <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" />
-            <span className="text-5xl font-black tabular-nums">{sh}</span>
-            <span className="rounded-md border px-3 py-1 text-sm font-bold tabular-nums"
+          {/* Big for the playing teams; small for a team that is not playing (its headline below is the focus). */}
+          <div className={`flex items-center justify-center ${isPlaying ? "gap-4" : "gap-2"}`}>
+            <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" small={!isPlaying} />
+            <span className={`${isPlaying ? "text-5xl" : "text-xl"} font-black tabular-nums`}>{sh}</span>
+            <span className={`rounded-md border font-bold tabular-nums ${isPlaying ? "px-3 py-1 text-sm" : "px-2 py-0.5 text-xs"}`}
                   style={{ borderColor: ui.border, background: ui.panel }}>
               {finished ? "FINAL" : fmtClock(clock)}
             </span>
-            <span className="text-5xl font-black tabular-nums">{sa}</span>
-            <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" />
+            <span className={`${isPlaying ? "text-5xl" : "text-xl"} font-black tabular-nums`}>{sa}</span>
+            <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" small={!isPlaying} />
           </div>
         </div>
 
@@ -298,16 +299,28 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         </label>
 
         {!isPlaying && (
-          <div className="basis-full rounded-xl border px-4 py-3 text-sm"
-               style={{ borderColor: ui.border, background: ui.panel }}>
-            <span className="mr-2 rounded-md px-2 py-0.5 text-xs font-bold"
-                  style={{ background: team.color, color: textOn(team.color) }}>
-              {team.name} · not playing
-            </span>
-            This shows how <b>{home?.name} – {away?.name}</b> changes {possessiveName(team.name)} playoff chance.
+          <div className="basis-full rounded-xl border px-5 py-4"
+               style={{ borderColor: team.color, borderLeftWidth: 6, background: ui.panel }}>
+            <div className="flex flex-wrap items-center gap-2">
+              {finished ? (
+                <span className="rounded-md px-2 py-0.5 text-xs font-black tracking-wider"
+                      style={{ background: ui.text, color: "#fff" }}>FINAL</span>
+              ) : (
+                <span className="flex items-center gap-1.5 rounded-md px-2 py-0.5 text-xs font-black tracking-wider"
+                      style={{ background: ui.worse, color: "#fff" }}>
+                  <motion.span className="inline-block size-2 rounded-full bg-white"
+                               animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.2, repeat: Infinity }} />
+                  LIVE
+                </span>
+              )}
+              <h2 className="text-2xl font-black tracking-tight sm:text-3xl">{team.name} is not playing</h2>
+            </div>
+            <p className="mt-1 text-base sm:text-lg" style={{ color: ui.neutral }}>
+              {finished ? "This is how " : "Watch how "}<b style={{ color: ui.text }}>{home?.name} – {away?.name}</b>
+              {finished ? " changed " : " changes "}{possessiveName(team.name)} playoff chance.
+            </p>
           </div>
         )}
-
         <div className={isPlaying ? "basis-full" : "hidden"}>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border px-4 py-3"
                style={{ borderColor: ui.border, background: ui.panel }}>
@@ -651,11 +664,17 @@ function MatchImpact({ teamName, before, now, finished, clockLabel, tone }: {
   );
 }
 
-function TeamName({ name, color, align }: { name: string; color?: string; align: "left" | "right" }) {
+function TeamName({ name, color, align, small }: {
+  name: string;
+  color?: string;
+  align: "left" | "right";
+  small?: boolean;
+}) {
   return (
     <div className={`flex items-center gap-2 ${align === "right" ? "flex-row-reverse text-right" : ""}`}>
-      <span className="inline-block size-3 rounded-full ring-1 ring-black/15" style={{ background: color }} />
-      <span className="text-lg font-black uppercase tracking-wide">{name}</span>
+      <span className={`inline-block rounded-full ring-1 ring-black/15 ${small ? "size-2" : "size-3"}`}
+            style={{ background: color }} />
+      <span className={`${small ? "text-sm" : "text-lg"} font-black uppercase tracking-wide`}>{name}</span>
     </div>
   );
 }
