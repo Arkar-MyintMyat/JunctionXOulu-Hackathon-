@@ -33,6 +33,34 @@ def test_injection_hits_a_team_that_was_not_playing(facts_file, facts, tmp_path)
     assert facts[str(story["event_idx"])][story["team"]]["context"]["role"] == "not playing"
 
 
+def test_retry_failed_rewrites_only_api_failures(facts_file, tmp_path, monkeypatch):
+    out = tmp_path / "s.json"
+    first = run.run("9001", ["fan"], "mock", inject=True, workers=1, facts_path=facts_file, out_path=out)
+    # Pretend the API failed for one story in that run.
+    data = load(out)
+    failed = next(s for s in data["stories"] if not s.get("injected"))
+    failed.update(text="", facts_used=[], problems=["writer failed: 503 high demand"], status="blocked")
+    out.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+
+    written = []
+    real = writer.write_story
+    monkeypatch.setattr(writer, "write_story", lambda *a, **k: written.append(a[0]) or real(*a, **k))
+    second = run.run("9001", ["fan"], "mock", inject=True, workers=1, facts_path=facts_file, out_path=out,
+                     retry_failed=True)
+
+    assert len(written) == 1                                          # only the failed story was rewritten
+    assert len(second["stories"]) == len(first["stories"])
+    assert sum(bool(s.get("injected")) for s in second["stories"]) == 1  # the demo error is kept, not doubled
+    assert not any(run.writer_failed(s) for s in second["stories"])
+
+
+def test_injection_skips_stories_that_already_failed(facts):
+    good = {"event_idx": 3, "team": "TPS", "audience": "fan", "text": "ok", "problems": []}
+    failed = {"event_idx": 3, "team": "HPK", "audience": "fan", "text": "", "problems": ["writer failed: 404"]}
+    assert run.pick_injection_target([failed, good], facts) is good
+    assert run.pick_injection_target([failed], facts) is None
+
+
 def test_selection_only_goals_and_playing_teams_first(facts):
     targets = run.select_targets(facts)
     assert {idx for idx, _ in targets} == {1, 2, 3}          # goals only, no start/end

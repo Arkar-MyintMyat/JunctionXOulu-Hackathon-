@@ -72,8 +72,58 @@ def test_rate_limit_is_retried(gemini):
 def test_rate_limit_gives_up_with_a_clear_error(gemini):
     _, replies = gemini
     replies += [(429, {"error": "quota"})] * (config.LLM_RATE_LIMIT_RETRIES + 1)
-    with pytest.raises(llm.LLMError, match="rate limited"):
+    with pytest.raises(llm.LLMError, match="all models failed"):
         ask()
+
+
+def test_overload_503_is_retried(gemini):
+    seen, replies = gemini
+    busy = {"error": {"code": 503, "message": "high demand"}}
+    replies += [(503, busy), (503, busy), (200, completion(json.dumps(STORY)))]
+    assert ask() == STORY
+    assert len(seen) == 3
+
+
+def test_overloaded_model_falls_back_to_the_next_one(gemini, monkeypatch):
+    seen, replies = gemini
+    monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", ["gemini-backup"])
+    busy = {"error": {"code": 503, "message": "high demand"}}
+    replies += [(503, busy)] * (config.LLM_RATE_LIMIT_RETRIES + 1) + [(200, completion(json.dumps(STORY)))]
+    assert ask() == STORY
+    assert seen[-1]["body"]["model"] == "gemini-backup"
+
+
+def test_retired_model_404_falls_back_immediately(gemini, monkeypatch):
+    seen, replies = gemini
+    monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", ["gemini-backup"])
+    replies += [(404, {"error": {"message": "no longer available"}}), (200, completion(json.dumps(STORY)))]
+    assert ask() == STORY
+    assert [r["body"]["model"] for r in seen] == ["gemini-test", "gemini-backup"]
+
+
+def test_bad_key_is_not_retried(gemini):
+    seen, replies = gemini
+    replies.append((401, {"error": {"message": "API key not valid"}}))
+    with pytest.raises(llm.LLMError, match="401"):
+        ask()
+    assert len(seen) == 1
+
+
+def test_timeout_is_retried(monkeypatch):
+    monkeypatch.setattr(config, "LLM_BASE_URL", "https://example.test/v1beta/openai")
+    monkeypatch.setattr(config, "LLM_MODEL_SET", "gemini-test")
+    monkeypatch.setenv("LLM_API_KEY", "test-key")
+    monkeypatch.setattr(llm.time, "sleep", lambda s: None)
+    calls = []
+
+    def handler(request):
+        calls.append(1)
+        if len(calls) == 1:
+            raise httpx.ReadTimeout("slow", request=request)
+        return httpx.Response(200, json=completion(json.dumps(STORY)))
+
+    monkeypatch.setattr(llm, "_http_client", lambda: httpx.Client(transport=httpx.MockTransport(handler)))
+    assert ask() == STORY and len(calls) == 2
 
 
 def test_truncated_answer_is_an_error(gemini):
