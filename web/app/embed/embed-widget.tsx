@@ -75,8 +75,9 @@ export function EmbedWidget() {
   return (
     <main ref={mainRef} className={shell}>
       {nav}
-      {/* Live: open on the latest moment ("now"), not on the key goal. */}
-      <PlaybackProvider match={match} start={live === null ? undefined : "full-time"}>
+      {/* Open on the latest moment: full time after the game (FINAL 2–3, the whole match in the graph), the live
+          moment while it is on. Replay plays it from kick-off. */}
+      <PlaybackProvider match={match} start="full-time">
         <div className="grid gap-4 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
           <Matchstake match={match} compact className="lg:col-start-1 lg:row-start-1" />
           <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
