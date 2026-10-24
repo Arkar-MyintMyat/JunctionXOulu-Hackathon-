@@ -28,13 +28,14 @@ export interface Team {
   color: string;
 }
 
+/** Rank lines from Liiga's playoffsLines. Never hard-code them in the UI. */
 export interface Thresholds {
-  top6: number;
-  playoff: number;
+  direct: number; // rank <= direct: straight to the quarterfinals
+  playoff: number; // rank <= playoff: makes the playoffs
 }
 
 export interface TeamOdds {
-  top6: number;
+  direct: number;
   playoff: number;
 }
 
@@ -120,9 +121,11 @@ export interface SimulateRequest {
 
 export interface SimulateTeam {
   code: TeamCode;
+  name: string;
+  color: string;
   points_now: number;
   rank_now: number;
-  top6: number;
+  direct: number;
   playoff: number;
   avg_rank: number;
 }

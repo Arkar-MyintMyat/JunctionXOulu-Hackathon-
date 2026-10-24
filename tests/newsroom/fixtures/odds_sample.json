@@ -92,8 +92,8 @@
     }
   ],
   "thresholds": {
-    "top6": 6,
-    "playoff": 10
+    "direct": 4,
+    "playoff": 12
   },
   "events": [
     {
@@ -104,67 +104,67 @@
       "score": "0-0",
       "odds": {
         "LUK": {
-          "top6": 0.93,
+          "direct": 0.93,
           "playoff": 0.99
         },
         "TAP": {
-          "top6": 0.9,
+          "direct": 0.9,
           "playoff": 0.99
         },
         "IFK": {
-          "top6": 0.78,
+          "direct": 0.78,
           "playoff": 0.97
         },
         "ILV": {
-          "top6": 0.52,
+          "direct": 0.52,
           "playoff": 0.88
         },
         "KAL": {
-          "top6": 0.47,
+          "direct": 0.47,
           "playoff": 0.86
         },
         "PEL": {
-          "top6": 0.28,
+          "direct": 0.28,
           "playoff": 0.7
         },
         "KAR": {
-          "top6": 0.12,
+          "direct": 0.12,
           "playoff": 0.48
         },
         "TPS": {
-          "top6": 0.18,
+          "direct": 0.18,
           "playoff": 0.62
         },
         "HPK": {
-          "top6": 0.14,
+          "direct": 0.14,
           "playoff": 0.57
         },
         "JYP": {
-          "top6": 0.16,
+          "direct": 0.16,
           "playoff": 0.59
         },
         "SAI": {
-          "top6": 0.06,
+          "direct": 0.06,
           "playoff": 0.41
         },
         "JUK": {
-          "top6": 0.04,
+          "direct": 0.04,
           "playoff": 0.33
         },
         "ASS": {
-          "top6": 0.01,
+          "direct": 0.01,
           "playoff": 0.12
         },
         "SPO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.06
         },
         "KOO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.02
         },
         "KES": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.01
         }
       }
@@ -180,67 +180,67 @@
       "score": "1-0",
       "odds": {
         "LUK": {
-          "top6": 0.93,
+          "direct": 0.93,
           "playoff": 0.99
         },
         "TAP": {
-          "top6": 0.9,
+          "direct": 0.9,
           "playoff": 0.99
         },
         "IFK": {
-          "top6": 0.78,
+          "direct": 0.78,
           "playoff": 0.97
         },
         "ILV": {
-          "top6": 0.52,
+          "direct": 0.52,
           "playoff": 0.88
         },
         "KAL": {
-          "top6": 0.47,
+          "direct": 0.47,
           "playoff": 0.86
         },
         "PEL": {
-          "top6": 0.257,
+          "direct": 0.257,
           "playoff": 0.63
         },
         "KAR": {
-          "top6": 0.15,
+          "direct": 0.15,
           "playoff": 0.57
         },
         "TPS": {
-          "top6": 0.173,
+          "direct": 0.173,
           "playoff": 0.6
         },
         "HPK": {
-          "top6": 0.13,
+          "direct": 0.13,
           "playoff": 0.54
         },
         "JYP": {
-          "top6": 0.153,
+          "direct": 0.153,
           "playoff": 0.57
         },
         "SAI": {
-          "top6": 0.057,
+          "direct": 0.057,
           "playoff": 0.4
         },
         "JUK": {
-          "top6": 0.04,
+          "direct": 0.04,
           "playoff": 0.33
         },
         "ASS": {
-          "top6": 0.01,
+          "direct": 0.01,
           "playoff": 0.12
         },
         "SPO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.06
         },
         "KOO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.02
         },
         "KES": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.01
         }
       }
@@ -256,67 +256,67 @@
       "score": "1-1",
       "odds": {
         "LUK": {
-          "top6": 0.93,
+          "direct": 0.93,
           "playoff": 0.99
         },
         "TAP": {
-          "top6": 0.9,
+          "direct": 0.9,
           "playoff": 0.99
         },
         "IFK": {
-          "top6": 0.78,
+          "direct": 0.78,
           "playoff": 0.97
         },
         "ILV": {
-          "top6": 0.52,
+          "direct": 0.52,
           "playoff": 0.88
         },
         "KAL": {
-          "top6": 0.47,
+          "direct": 0.47,
           "playoff": 0.86
         },
         "PEL": {
-          "top6": 0.277,
+          "direct": 0.277,
           "playoff": 0.69
         },
         "KAR": {
-          "top6": 0.123,
+          "direct": 0.123,
           "playoff": 0.49
         },
         "TPS": {
-          "top6": 0.18,
+          "direct": 0.18,
           "playoff": 0.62
         },
         "HPK": {
-          "top6": 0.137,
+          "direct": 0.137,
           "playoff": 0.56
         },
         "JYP": {
-          "top6": 0.16,
+          "direct": 0.16,
           "playoff": 0.59
         },
         "SAI": {
-          "top6": 0.06,
+          "direct": 0.06,
           "playoff": 0.41
         },
         "JUK": {
-          "top6": 0.04,
+          "direct": 0.04,
           "playoff": 0.33
         },
         "ASS": {
-          "top6": 0.01,
+          "direct": 0.01,
           "playoff": 0.12
         },
         "SPO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.06
         },
         "KOO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.02
         },
         "KES": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.01
         }
       }
@@ -332,67 +332,67 @@
       "score": "2-1",
       "odds": {
         "LUK": {
-          "top6": 0.93,
+          "direct": 0.93,
           "playoff": 0.99
         },
         "TAP": {
-          "top6": 0.9,
+          "direct": 0.9,
           "playoff": 0.99
         },
         "IFK": {
-          "top6": 0.78,
+          "direct": 0.78,
           "playoff": 0.97
         },
         "ILV": {
-          "top6": 0.51,
+          "direct": 0.51,
           "playoff": 0.85
         },
         "KAL": {
-          "top6": 0.463,
+          "direct": 0.463,
           "playoff": 0.84
         },
         "PEL": {
-          "top6": 0.237,
+          "direct": 0.237,
           "playoff": 0.57
         },
         "KAR": {
-          "top6": 0.2,
+          "direct": 0.2,
           "playoff": 0.72
         },
         "TPS": {
-          "top6": 0.163,
+          "direct": 0.163,
           "playoff": 0.57
         },
         "HPK": {
-          "top6": 0.117,
+          "direct": 0.117,
           "playoff": 0.5
         },
         "JYP": {
-          "top6": 0.143,
+          "direct": 0.143,
           "playoff": 0.54
         },
         "SAI": {
-          "top6": 0.047,
+          "direct": 0.047,
           "playoff": 0.37
         },
         "JUK": {
-          "top6": 0.04,
+          "direct": 0.04,
           "playoff": 0.33
         },
         "ASS": {
-          "top6": 0.01,
+          "direct": 0.01,
           "playoff": 0.12
         },
         "SPO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.06
         },
         "KOO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.02
         },
         "KES": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.01
         }
       }
@@ -405,67 +405,67 @@
       "score": "2-1",
       "odds": {
         "LUK": {
-          "top6": 0.93,
+          "direct": 0.93,
           "playoff": 0.99
         },
         "TAP": {
-          "top6": 0.9,
+          "direct": 0.9,
           "playoff": 0.99
         },
         "IFK": {
-          "top6": 0.78,
+          "direct": 0.78,
           "playoff": 0.97
         },
         "ILV": {
-          "top6": 0.51,
+          "direct": 0.51,
           "playoff": 0.85
         },
         "KAL": {
-          "top6": 0.463,
+          "direct": 0.463,
           "playoff": 0.84
         },
         "PEL": {
-          "top6": 0.234,
+          "direct": 0.234,
           "playoff": 0.56
         },
         "KAR": {
-          "top6": 0.21,
+          "direct": 0.21,
           "playoff": 0.75
         },
         "TPS": {
-          "top6": 0.163,
+          "direct": 0.163,
           "playoff": 0.57
         },
         "HPK": {
-          "top6": 0.114,
+          "direct": 0.114,
           "playoff": 0.49
         },
         "JYP": {
-          "top6": 0.143,
+          "direct": 0.143,
           "playoff": 0.54
         },
         "SAI": {
-          "top6": 0.047,
+          "direct": 0.047,
           "playoff": 0.37
         },
         "JUK": {
-          "top6": 0.04,
+          "direct": 0.04,
           "playoff": 0.33
         },
         "ASS": {
-          "top6": 0.01,
+          "direct": 0.01,
           "playoff": 0.12
         },
         "SPO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.06
         },
         "KOO": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.02
         },
         "KES": {
-          "top6": 0.0,
+          "direct": 0.0,
           "playoff": 0.01
         }
       }

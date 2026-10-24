@@ -124,6 +124,7 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
     """{event_idx: {team_code: TeamFacts}} for every event and every team."""
     names = {t["code"]: t["name"] for t in odds["teams"]}
     home, away = odds["match"]["home"], odds["match"]["away"]
+    direct_line = odds["thresholds"]["direct"]  # read from the data, never hard-coded
     events = odds["events"]
     out: dict[str, dict[str, dict[str, Any]]] = {}
 
@@ -142,8 +143,9 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
                      label=f"{names[code]} playoff chance after this moment", source="simulation"),
                 Fact(id=f"{p}.playoff_delta", value=round(delta, 4), display=fmt_points(delta),
                      label=f"Change in {names[code]} playoff chance", source="simulation"),
-                Fact(id=f"{p}.top6_after", value=after["top6"], display=fmt_pct(after["top6"]),
-                     label=f"{names[code]} chance of a top-6 place", source="simulation"),
+                Fact(id=f"{p}.direct_after", value=after["direct"], display=fmt_pct(after["direct"]),
+                     label=f"{names[code]} chance of finishing in the top {direct_line} "
+                           "(straight to the quarterfinals)", source="simulation"),
                 Fact(id=f"{p}.score", value=event["score"], display=fmt_score(event["score"]),
                      label=f"Score ({names[home]}–{names[away]})", source="game events"),
             ]

@@ -70,7 +70,7 @@ def test_rule3_used_but_not_listed(ilv, names):
 
 def test_rule3_listed_but_not_used(ilv, names):
     problems = check("It is {{e3.ILV.playoff_after}}.", ilv, names,
-                     used=["e3.ILV.playoff_after", "e3.ILV.top6_after"])
+                     used=["e3.ILV.playoff_after", "e3.ILV.direct_after"])
     assert any("listed in facts_used but not in the text" in p for p in problems)
 
 
