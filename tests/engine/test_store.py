@@ -51,6 +51,18 @@ def test_match_without_newsroom_files_still_serves():
     Match.model_validate(m)
 
 
+def test_colors_and_logos_come_from_teams_json():
+    m = store.get_match(DEMO)
+    if m is None:
+        pytest.skip("no odds file")
+    info = store.team_info()
+    for t in m["teams"]:
+        assert t["color"] == info[t["code"]]["color"]
+        assert t.get("logo") == info[t["code"]].get("logo")
+    colors = [t["color"] for t in info.values()]
+    assert len(set(colors)) == len(colors), "two teams share a colour"
+
+
 def test_routes():
     c = TestClient(app)
     assert c.get("/api/match/mock").json()["match"]["id"] == 12345

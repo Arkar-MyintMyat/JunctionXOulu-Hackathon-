@@ -73,6 +73,7 @@ class Team(BaseModel):
     code: str
     name: str
     color: str
+    logo: str | None = None  # optional: Liiga logo URL (light background)
 
 
 class Thresholds(BaseModel):
@@ -154,6 +155,7 @@ class TeamOutlook(BaseModel):
     code: str
     name: str
     color: str
+    logo: str | None = None
     points_now: int
     rank_now: int
     direct: float = Field(ge=0, le=1)
