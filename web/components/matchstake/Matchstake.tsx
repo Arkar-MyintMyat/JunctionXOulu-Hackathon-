@@ -9,10 +9,11 @@ import { eventAt, playoffDelta, teamOf } from "@/lib/match";
 import { SPEEDS, usePlayback } from "@/lib/playback";
 import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 
-// Broadcast-style playoff-chance chart for one team (the selected team).
-// The line is blue while the team is better off than at kick-off and red while it is worse off.
-// Between events the line is flat unless the match carries an optional `timeline` of real samples:
-// we never draw movement the data does not have.
+// Heartbeat-style playoff-chance trace for one team (the selected team).
+// Flat between events; at each goal the trace "beats": a small dip, a sharp spike past the new value,
+// a rebound, then it settles on the new value. The spike size grows with the goal's impact.
+// The beat shape is illustrative; the dots, callouts, cards and header always show the model value.
+// Blue while the team is better off than at kick-off, red while worse off.
 
 const W = 960;
 const H = 400;
@@ -22,19 +23,24 @@ const PLOT_W = W - PAD_L - PAD_R;
 const TOP = 30;
 const BOTTOM = 344;
 const AXIS_Y = BOTTOM + 28;
-const BETTER = "#3b9eff";
-const WORSE = "#ff3b5c";
 const BOX_W = 136;
 const BOX_H = 66;
+/** Game seconds one heartbeat takes on the time axis. */
+const BEAT_SECONDS = 95;
 /** A swing this large flashes and shakes the chart. */
 const BIG_SWING = 0.08;
 
 const ui = {
-  card: "#0a1220",
-  panel: "#0e1a2d",
-  line: "#1c2a40",
-  text: "#e6edf7",
-  muted: "#8a9ab3",
+  card: "#ffffff",
+  panel: "#f8fafc",
+  border: "#e2e8f0",
+  gridMinor: "#eef2f7",
+  gridMajor: "#dbe3ee",
+  text: "#0f172a",
+  muted: "#64748b",
+  neutral: "#475569",
+  better: "#2563eb",
+  worse: "#e11d48",
 };
 
 function fmtClock(seconds: number): string {
@@ -60,11 +66,11 @@ function useTween(value: number, durationMs: number): number {
   return shown;
 }
 
-/** Zoom the axis to where this team's line goes (labelled as zoomed), at least 20 points tall. */
+/** Zoom the axis to where the trace goes (labelled as zoomed), at least 20 points tall. */
 function zoomedDomain(values: number[]): { lo: number; hi: number; step: number } {
   const min = Math.min(...values);
   const max = Math.max(...values);
-  const pad = Math.max(0.04, (max - min) * 0.25);
+  const pad = Math.max(0.03, (max - min) * 0.12);
   let lo = Math.max(0, (Math.floor(((min - pad) * 100) / 5) * 5) / 100);
   let hi = Math.min(1, (Math.ceil(((max + pad) * 100) / 5) * 5) / 100);
   if (hi - lo < 0.2) {
@@ -86,8 +92,7 @@ function goalLabel(match: Match, goal: MatchEvent, prev: MatchEvent, isLastGoal:
   const [ph, pa] = parseScore(prev.score);
   const [h, a] = parseScore(goal.score);
   const [fh, fa] = parseScore(match.match.final_score);
-  const scorerIsHome = goal.team === match.match.home;
-  const wonTheGame = scorerIsHome ? fh > fa : fa > fh;
+  const wonTheGame = goal.team === match.match.home ? fh > fa : fa > fh;
   if (goal.seconds > 3600) return "OT WINNER";
   if (h === a) return "EQUALIZER";
   if (isLastGoal && wonTheGame && goal.seconds >= 3300) return "LATE WINNER";
@@ -95,23 +100,56 @@ function goalLabel(match: Match, goal: MatchEvent, prev: MatchEvent, isLastGoal:
   return "GOAL";
 }
 
-interface LinePoint {
+interface TracePoint {
   seconds: number;
   p: number;
-  jump: boolean; // a goal: drawn as a vertical cliff
 }
 
-/** Points for one team's line: events, plus optional real samples in between. */
-function linePoints(match: Match, code: TeamCode): LinePoint[] {
-  const pts: LinePoint[] = match.events.map((e) => ({
-    seconds: e.seconds,
-    p: e.odds[code]?.playoff ?? 0,
-    jump: e.kind === "goal",
-  }));
-  for (const t of match.timeline ?? []) {
-    if (t.odds[code]) pts.push({ seconds: t.seconds, p: t.odds[code].playoff, jump: false });
+/**
+ * The heartbeat trace for one team: flat between events, a beat at each goal.
+ * Beat for a change d from p0 to p1 over BEAT_SECONDS: dip to p0 − 0.15d, spike to p1 + 0.5d,
+ * rebound to p1 − 0.2d, settle at p1. Optional real `timeline` samples are used between beats.
+ */
+function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; settle: Map<number, number> } {
+  const events = match.events;
+  const prob = (e: MatchEvent) => e.odds[code]?.playoff ?? 0;
+  const clamp = (p: number) => Math.min(1, Math.max(0, p));
+  const beats = events.filter((e, i) => e.kind === "goal" && i > 0)
+    .map((e) => ({ e, p0: prob(events[events.indexOf(e) - 1]), p1: prob(e) }));
+  const inBeat = (s: number) => beats.some(({ e }) => s > e.seconds && s < e.seconds + BEAT_SECONDS);
+
+  const points: TracePoint[] = [{ seconds: events[0].seconds, p: prob(events[0]) }];
+  const settle = new Map<number, number>(); // goal idx -> seconds where its beat settles
+  const samples = (match.timeline ?? [])
+    .filter((t) => t.odds[code] && !inBeat(t.seconds))
+    .map((t) => ({ seconds: t.seconds, p: t.odds[code].playoff }));
+
+  const timeline: (TracePoint | { beat: (typeof beats)[number] })[] = [
+    ...samples,
+    ...beats.map((b) => ({ beat: b, seconds: b.e.seconds })),
+  ].sort((a, b) => (a as TracePoint).seconds - (b as TracePoint).seconds);
+
+  for (const item of timeline) {
+    if ("beat" in item) {
+      const { e, p0, p1 } = item.beat;
+      const d = p1 - p0;
+      const t = e.seconds;
+      const S = BEAT_SECONDS;
+      points.push({ seconds: t, p: p0 });
+      if (Math.abs(d) >= 0.005) {
+        points.push({ seconds: t + 0.15 * S, p: clamp(p0 - 0.15 * d) });
+        points.push({ seconds: t + 0.4 * S, p: clamp(p1 + 0.5 * d) });
+        points.push({ seconds: t + 0.65 * S, p: clamp(p1 - 0.2 * d) });
+      }
+      points.push({ seconds: t + S, p: p1 });
+      settle.set(e.idx, t + S);
+    } else {
+      points.push(item);
+    }
   }
-  return pts.sort((a, b) => a.seconds - b.seconds || Number(a.jump) - Number(b.jump));
+  const last = events[events.length - 1];
+  points.push({ seconds: Math.max(last.seconds, points[points.length - 1].seconds), p: prob(last) });
+  return { points, settle };
 }
 
 export function Matchstake({ match, className }: { match: Match; className?: string }) {
@@ -125,36 +163,35 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const home = teamOf(match, match.match.home);
   const away = teamOf(match, match.match.away);
   const goals = events.filter((e) => e.kind === "goal");
+  const prob = (e: MatchEvent) => e.odds[team.code]?.playoff ?? 0;
 
-  // Axes.
-  const maxSeconds = Math.max(3600, events[events.length - 1]?.seconds ?? 3600);
-  const x = (sec: number) => PAD_L + (sec / maxSeconds) * PLOT_W;
-  const points = linePoints(match, team.code);
+  // Trace and axes.
+  const { points, settle } = heartbeatTrace(match, team.code);
+  const endSeconds = Math.max(3600, points[points.length - 1].seconds, events[events.length - 1].seconds);
+  const x = (sec: number) => PAD_L + (sec / endSeconds) * PLOT_W;
   const { lo, hi, step } = zoomedDomain(points.map((p) => p.p));
   const y = (p: number) => TOP + ((hi - p) / (hi - lo)) * (BOTTOM - TOP);
   const ticks: number[] = [];
   for (let t = lo; t <= hi + 1e-9; t += step) ticks.push(Math.round(t * 100) / 100);
-  const minuteTicks: number[] = [];
-  for (let s = 0; s <= maxSeconds; s += 600) minuteTicks.push(s);
+  const minorTicks: number[] = [];
+  for (let t = lo; t <= hi + 1e-9; t += step / 5) minorTicks.push(t);
+  const minutes: number[] = [];
+  for (let s = 0; s <= endSeconds; s += 60) minutes.push(s);
 
-  const prob = (e: MatchEvent) => e.odds[team.code]?.playoff ?? 0;
   const baseline = prob(events[0]); // kick-off: above it the team is better off, below it worse off
   const baseY = y(baseline);
+  const line = points.map((pt, i) => `${i ? "L" : "M"} ${x(pt.seconds).toFixed(1)} ${y(pt.p).toFixed(1)}`).join(" ");
+  const areaToBase = `${line} L ${x(points[points.length - 1].seconds)} ${baseY} L ${x(points[0].seconds)} ${baseY} Z`;
 
-  // The line: smooth through real samples, a vertical cliff at each goal.
-  let line = `M ${x(points[0].seconds)} ${y(points[0].p)}`;
-  for (const pt of points.slice(1)) {
-    line += pt.jump ? ` H ${x(pt.seconds)} V ${y(pt.p)}` : ` L ${x(pt.seconds)} ${y(pt.p)}`;
-  }
-  const lastX = x(points[points.length - 1].seconds);
-  const areaToBase = `${line} L ${lastX} ${baseY} L ${x(points[0].seconds)} ${baseY} Z`;
-
-  // Reveal along the game clock.
+  // Reveal like a heart monitor: the sweep runs with the game clock; arriving at a goal beats through it.
   const travelling = pb.travel !== null;
-  const revealSeconds = travelling ? events[pb.travel!.to].seconds : current.seconds;
-  const revealX = travelling ? x(revealSeconds) - 3 : x(revealSeconds) + 8;
-  const revealMs = travelling ? pb.travel!.ms : 450;
-  const clock = useTween(revealSeconds, travelling ? pb.travel!.ms : 300);
+  const settleOf = (e: MatchEvent) => settle.get(e.idx) ?? e.seconds;
+  const revealSeconds = travelling ? events[pb.travel!.to].seconds : settleOf(current);
+  const revealX = x(revealSeconds) + (travelling ? -2 : 3);
+  const revealMs = travelling ? pb.travel!.ms : current.kind === "goal" ? 420 : 450;
+  const clockSeconds = travelling ? events[pb.travel!.to].seconds : current.seconds;
+  const clock = useTween(clockSeconds, travelling ? pb.travel!.ms : 300);
+  const headP = prob(current);
 
   const shownProb = useTween(prob(current), 700);
   const delta = playoffDelta(match, pb.eventIdx, team.code);
@@ -164,42 +201,39 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const vsKickoff = prob(current) - baseline;
   const [sh, sa] = parseScore(current.score);
   const finished = current.kind === "end" && !travelling;
+  const tone = (d: number) => (Math.abs(d) < 0.005 ? ui.neutral : d > 0 ? ui.better : ui.worse);
 
   useEffect(() => {
     if (!big || reduceMotion || !shakeScope.current) return;
-    shake(shakeScope.current, { x: [0, -8, 8, -5, 5, -2, 0] }, { duration: 0.45, ease: "easeOut" });
+    shake(shakeScope.current, { x: [0, -7, 7, -4, 4, -1, 0] }, { duration: 0.45, ease: "easeOut" });
   }, [big, pb.eventIdx, team.code, reduceMotion, shake, shakeScope]);
 
-  // Callout boxes: above the dot when the goal helped this team, below when it hurt;
-  // pushed to the other side when a neighbour is too close, and kept inside the plot.
+  // Callouts sit at each beat's settle point. Never on the beat itself: above after a drop, below after
+  // a rise if there is room, otherwise beside the dot.
   const callouts = goals.map((g, i) => {
     const prev = events[events.indexOf(g) - 1] ?? g;
     const d = prob(g) - prob(prev);
-    return { g, d, label: goalLabel(match, g, prev, i === goals.length - 1), above: d >= 0 };
-  });
-  callouts.forEach((c, i) => {
-    const before = callouts[i - 1];
-    if (before && x(c.g.seconds) - x(before.g.seconds) < BOX_W + 8 && before.above === c.above) c.above = !c.above;
+    return { g, d, label: goalLabel(match, g, prev, i === goals.length - 1), above: d < 0 };
   });
 
   return (
     <section
-      className={`overflow-hidden rounded-2xl shadow-xl ${className ?? ""}`}
-      style={{ background: `radial-gradient(120% 80% at 50% 0%, #13223a 0%, ${ui.card} 60%)`, color: ui.text }}
+      className={`overflow-hidden rounded-2xl border shadow-sm ${className ?? ""}`}
+      style={{ background: ui.card, borderColor: ui.border, color: ui.text }}
       aria-label="Matchstake: playoff chance during the match"
     >
       {/* Scoreboard header. */}
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 px-5 pt-5">
         <div className="shrink-0">
           <div className="flex items-center gap-2 text-xl font-black tracking-tight">
-            <svg viewBox="0 0 24 16" className="h-4 w-6" aria-hidden>
-              <polyline points="1,14 7,5 12,11 17,2 23,9" fill="none" stroke={BETTER} strokeWidth={2.5}
+            <svg viewBox="0 0 28 16" className="h-4 w-7" aria-hidden>
+              <polyline points="1,9 8,9 10,11 13,2 16,13 18,8 27,8" fill="none" stroke={ui.worse} strokeWidth={2.2}
                         strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             Matchstake
           </div>
           <div className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
-            Playoff chance · model estimate
+            The heartbeat of the playoff race
           </div>
         </div>
 
@@ -207,7 +241,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" />
           <span className="text-5xl font-black tabular-nums">{sh}</span>
           <span className="rounded-md border px-3 py-1 text-sm font-bold tabular-nums"
-                style={{ borderColor: ui.line, background: ui.panel }}>
+                style={{ borderColor: ui.border, background: ui.panel }}>
             {finished ? "FINAL" : fmtClock(clock)}
           </span>
           <span className="text-5xl font-black tabular-nums">{sa}</span>
@@ -216,7 +250,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
 
         <div className="basis-full">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border px-4 py-3"
-               style={{ borderColor: ui.line, background: `${ui.panel}cc` }}>
+               style={{ borderColor: ui.border, background: ui.panel }}>
             <div className="text-[11px] font-semibold uppercase leading-tight tracking-[0.15em]" style={{ color: ui.muted }}>
               {team.name}
               <br />
@@ -233,22 +267,19 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ type: "spring", stiffness: 460, damping: 14 }}
                     className="rounded-full px-2.5 py-0.5 text-lg font-black tabular-nums"
-                    style={{ background: delta > 0 ? BETTER : WORSE, color: "#fff",
-                             boxShadow: `0 0 18px ${delta > 0 ? BETTER : WORSE}` }}
+                    style={{ background: tone(delta), color: "#fff" }}
                   >
                     {delta > 0 ? "▲" : "▼"} {signedPoints(delta)}
                   </motion.span>
                 )}
               </AnimatePresence>
             </div>
-            <div className="h-1.5 min-w-32 flex-1 rounded-full" style={{ background: ui.line }}>
+            <div className="h-1.5 min-w-32 flex-1 rounded-full" style={{ background: ui.border }}>
               <motion.div className="h-1.5 rounded-full" initial={false}
                           animate={{ width: `${Math.round(shownProb * 100)}%` }}
-                          style={{ background: vsKickoff >= 0 ? BETTER : WORSE,
-                                   boxShadow: `0 0 10px ${vsKickoff >= 0 ? BETTER : WORSE}` }} />
+                          style={{ background: tone(vsKickoff) }} />
             </div>
-            <div className="text-right text-xs font-bold tabular-nums"
-                 style={{ color: Math.abs(vsKickoff) < 0.005 ? ui.muted : vsKickoff > 0 ? BETTER : WORSE }}>
+            <div className="text-right text-xs font-bold tabular-nums" style={{ color: tone(vsKickoff) }}>
               {signedPoints(vsKickoff)} pts
               <div className="text-[11px] font-normal" style={{ color: ui.muted }}>since kick-off</div>
             </div>
@@ -256,9 +287,9 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         </div>
       </div>
 
-      {/* The chart. */}
+      {/* The heartbeat chart. */}
       <div ref={shakeScope} className="relative mx-3 mt-4 rounded-xl border sm:mx-5"
-           style={{ borderColor: ui.line, background: `${ui.panel}99` }}>
+           style={{ borderColor: ui.border, background: "#fcfdff" }}>
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full select-none" role="img"
              aria-label={`${team.name} playoff chance: ${pct(prob(current))} at ${current.clock}`}>
           <defs>
@@ -266,136 +297,123 @@ export function Matchstake({ match, className }: { match: Match; className?: str
               <motion.rect x={0} y={0} height={H} initial={false} animate={{ width: revealX }}
                            transition={{ duration: revealMs / 1000, ease: travelling ? "linear" : "easeOut" }} />
             </clipPath>
-            {/* A thin band around kick-off belongs to neither colour, so a line sitting on it stays neutral. */}
-            <clipPath id={`above-${uid}`}><rect x={0} y={0} width={W} height={Math.max(0, baseY - 3)} /></clipPath>
-            <clipPath id={`below-${uid}`}><rect x={0} y={baseY + 3} width={W} height={H} /></clipPath>
+            {/* A thin band around kick-off belongs to neither colour, so a trace sitting on it stays neutral. */}
+            <clipPath id={`above-${uid}`}><rect x={0} y={0} width={W} height={Math.max(0, baseY - 4.5)} /></clipPath>
+            <clipPath id={`below-${uid}`}><rect x={0} y={baseY + 4.5} width={W} height={H} /></clipPath>
             <linearGradient id={`fillUp-${uid}`} x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor={BETTER} stopOpacity={0.45} />
-              <stop offset="100%" stopColor={BETTER} stopOpacity={0.02} />
+              <stop offset="0%" stopColor={ui.better} stopOpacity={0.16} />
+              <stop offset="100%" stopColor={ui.better} stopOpacity={0.01} />
             </linearGradient>
             <linearGradient id={`fillDown-${uid}`} x1="0" x2="0" y1="1" y2="0">
-              <stop offset="0%" stopColor={WORSE} stopOpacity={0.45} />
-              <stop offset="100%" stopColor={WORSE} stopOpacity={0.02} />
+              <stop offset="0%" stopColor={ui.worse} stopOpacity={0.16} />
+              <stop offset="100%" stopColor={ui.worse} stopOpacity={0.01} />
             </linearGradient>
             <filter id={`glow-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
               <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
             </filter>
           </defs>
 
-          {/* Grid. */}
+          {/* ECG-paper grid: fine lines every minute and fifth of a step, stronger on the labels. */}
+          {minorTicks.map((p) => (
+            <line key={`hm-${p}`} x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.gridMinor} />
+          ))}
+          {minutes.map((s) => (
+            <line key={`vm-${s}`} x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM}
+                  stroke={s % 600 === 0 ? ui.gridMajor : ui.gridMinor} />
+          ))}
           {ticks.map((p) => (
             <g key={p}>
-              <line x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.line} />
+              <line x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.gridMajor} />
               <text x={PAD_L - 12} y={y(p) + 5} textAnchor="end" fontSize={16} fill={ui.muted}>{pct(p)}</text>
             </g>
           ))}
-          {minuteTicks.map((s) => (
-            <g key={s}>
-              <line x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM} stroke={ui.line} strokeDasharray={s % 1200 ? "2 6" : undefined} />
-              <text x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={16} fill={ui.muted}>{fmtClock(s)}</text>
-            </g>
+          {minutes.filter((s) => s % 600 === 0).map((s) => (
+            <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={16} fill={ui.muted}>{fmtClock(s)}</text>
           ))}
-          {maxSeconds > 3600 && (
+          {endSeconds > 3600 && (
             <>
-              <rect x={x(3600)} y={TOP} width={x(maxSeconds) - x(3600)} height={BOTTOM - TOP} fill="#ffffff" opacity={0.04} />
-              <text x={(x(3600) + x(maxSeconds)) / 2} y={TOP + 18} textAnchor="middle" fontSize={15} fontWeight={700}
+              <rect x={x(3600)} y={TOP} width={x(endSeconds) - x(3600)} height={BOTTOM - TOP} fill={ui.muted} opacity={0.06} />
+              <text x={(x(3600) + x(endSeconds)) / 2} y={TOP + 18} textAnchor="middle" fontSize={15} fontWeight={700}
                     fill={ui.muted}>OT</text>
             </>
           )}
           <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={13} letterSpacing={3} fill={ui.muted}>MATCH TIME</text>
 
           {/* Kick-off baseline. */}
-          <line x1={PAD_L} x2={W - PAD_R} y1={baseY} y2={baseY} stroke={ui.muted} strokeOpacity={0.6} strokeDasharray="6 6" />
+          <line x1={PAD_L} x2={W - PAD_R} y1={baseY} y2={baseY} stroke={ui.neutral} strokeOpacity={0.5} strokeDasharray="6 6" />
           <text x={PAD_L + 8} y={baseY - 10} fontSize={15} fontWeight={600} fill={ui.muted}>
             Kick-off {pct(baseline)}
           </text>
 
-          {/* The line, revealed along the clock; blue above kick-off, red below. */}
+          {/* The trace, drawn by the sweep; blue above kick-off, red below, slate on it. */}
           <g clipPath={`url(#reveal-${uid})`}>
-            <path d={line} fill="none" stroke="#c7d2e3" strokeWidth={3.5} strokeLinejoin="round" />
+            <path d={areaToBase} fill={`url(#fillUp-${uid})`} clipPath={`url(#above-${uid})`} />
+            <path d={areaToBase} fill={`url(#fillDown-${uid})`} clipPath={`url(#below-${uid})`} />
+            <path d={line} fill="none" stroke={ui.neutral} strokeWidth={3} strokeLinejoin="miter" />
             <g clipPath={`url(#above-${uid})`}>
-              <path d={areaToBase} fill={`url(#fillUp-${uid})`} />
-              <path d={line} fill="none" stroke={BETTER} strokeWidth={4} strokeLinejoin="round"
+              <path d={line} fill="none" stroke={ui.better} strokeWidth={3.2} strokeLinejoin="miter"
                     filter={`url(#glow-${uid})`} />
             </g>
             <g clipPath={`url(#below-${uid})`}>
-              <path d={areaToBase} fill={`url(#fillDown-${uid})`} />
-              <path d={line} fill="none" stroke={WORSE} strokeWidth={4} strokeLinejoin="round"
+              <path d={line} fill="none" stroke={ui.worse} strokeWidth={3.2} strokeLinejoin="miter"
                     filter={`url(#glow-${uid})`} />
             </g>
           </g>
 
-          {/* Clock hand. */}
-          <motion.line y1={TOP} y2={BOTTOM} stroke="#ffffff" strokeOpacity={0.35} strokeWidth={1.5} initial={false}
-                       animate={{ x1: x(revealSeconds), x2: x(revealSeconds) }}
-                       transition={{ duration: revealMs / 1000, ease: travelling ? "linear" : "easeOut" }} />
+          {/* Sweep head, like a heart monitor. */}
+          <motion.g initial={false} animate={{ x: revealX - 3 - x(0), y: y(headP) - y(0) }}
+                    transition={{ duration: revealMs / 1000, ease: travelling ? "linear" : "easeOut" }}>
+            <line x1={x(0)} x2={x(0)} y1={TOP - y(headP) + y(0)} y2={BOTTOM - y(headP) + y(0)}
+                  stroke={ui.neutral} strokeOpacity={0.18} strokeWidth={1.5} />
+            <circle cx={x(0)} cy={y(0)} r={9} fill={tone(vsKickoff)} opacity={0.18} />
+            <circle cx={x(0)} cy={y(0)} r={4.5} fill={tone(vsKickoff)} />
+          </motion.g>
 
-          {/* Goal dots and callouts. */}
+          {/* Goal dots (at the settled value) and callouts. */}
           {callouts.map(({ g, d, label, above }) => {
             if (g.idx > pb.eventIdx) return null;
             const isNow = g.idx === pb.eventIdx && !travelling;
-            const c = d >= 0 ? BETTER : WORSE;
-            const gx = x(g.seconds);
+            const c = tone(d);
+            const gx = x(settleOf(g));
             const gy = y(prob(g));
-            const gyBefore = y(prob(g) - d);
-            const overshoot = gy + (gy - gyBefore) * 0.35;
-            // Prefer the chosen side; flip when the box would not fit there, so it never covers its own dot.
-            const fitsAbove = gy - BOX_H - 22 >= TOP + 2;
-            const fitsBelow = gy + 22 + BOX_H <= BOTTOM - 4;
-            const placeAbove = above ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
-            // The cliff runs above the dot after a drop and below it after a rise. A box on that side would
-            // hide the spike, so it moves beside the dot instead.
-            const besideDot = placeAbove === d < 0;
-            const fitsRight = gx + 18 + BOX_W <= W - PAD_R;
-            const bx = besideDot
-              ? (fitsRight ? gx + 18 : gx - 18 - BOX_W)
-              : Math.min(W - PAD_R - BOX_W, Math.max(PAD_L, gx - BOX_W / 2));
-            const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2,
-              besideDot ? gy - BOX_H / 2 : placeAbove ? gy - BOX_H - 22 : gy + 22));
-            const link = besideDot
-              ? { x: fitsRight ? bx : bx + BOX_W, y: Math.min(by + BOX_H, Math.max(by, gy)) }
-              : { x: gx, y: placeAbove ? by + BOX_H : by };
-            const code = g.team ?? "";
+            // The beat sits just left of the dot. Put the box diagonally away from it: to the right of the
+            // dot (over the flat line that follows), above it after a gain and below it after a drop.
+            // Near the right edge it goes left of where the beat starts instead. Flip vertically if needed.
+            const GAP = 12;
+            const fitsRight = gx + GAP + BOX_W <= W - PAD_R;
+            const beatStartX = x(g.seconds);
+            const bx = fitsRight ? gx + GAP : Math.max(PAD_L, beatStartX - GAP - BOX_W);
+            const wantAbove = !above; // `above` was set for drops; gains want the box above
+            const fitsAbove = gy - GAP - BOX_H >= TOP + 2;
+            const fitsBelow = gy + GAP + BOX_H <= BOTTOM - 4;
+            const placeAbove = wantAbove ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
+            const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2, placeAbove ? gy - GAP - BOX_H : gy + GAP));
+            const link = { x: fitsRight ? bx : bx + BOX_W, y: placeAbove ? by + BOX_H : by };
             return (
               <g key={`goal-${g.idx}`} className="cursor-pointer" onClick={() => pb.seek(g.idx)}>
                 <title>{`${g.clock} ${label} ${teamOf(match, g.team)?.name ?? ""}${g.scorer ? `, ${g.scorer}` : ""}`}</title>
-                <line x1={gx} x2={gx} y1={gy} y2={BOTTOM} stroke={c} strokeOpacity={0.5} strokeDasharray="3 4" />
-                {/* The spike: shoots from the old value past the new one and snaps back (display only). */}
-                {isNow && !reduceMotion && (
-                  <motion.line key={`spike-${g.idx}-${team.code}`} x1={gx} x2={gx} y1={gyBefore}
-                               stroke="#ffffff" strokeWidth={6} strokeLinecap="round" filter={`url(#glow-${uid})`}
-                               initial={{ y2: gyBefore, opacity: 1 }}
-                               animate={{ y2: [gyBefore, overshoot, gy], opacity: [1, 1, 0] }}
-                               transition={{ duration: 0.8, times: [0, 0.45, 1], ease: "easeOut" }} />
-                )}
                 <motion.g initial={{ opacity: 0, y: placeAbove ? 8 : -8 }} animate={{ opacity: 1, y: 0 }}
-                          transition={{ type: "spring", stiffness: 380, damping: 22 }}>
+                          transition={{ type: "spring", stiffness: 380, damping: 22, delay: isNow ? 0.3 : 0 }}>
                   <line x1={link.x} x2={gx} y1={link.y} y2={gy} stroke={c} strokeWidth={1.5} />
-                  <rect x={bx} y={by} width={BOX_W} height={BOX_H} rx={6} fill="#0a1220" fillOpacity={0.92}
-                        stroke={c} strokeWidth={isNow ? 2.5 : 1.5} filter={isNow ? `url(#glow-${uid})` : undefined} />
+                  <rect x={bx} y={by} width={BOX_W} height={BOX_H} rx={8} fill="#ffffff"
+                        stroke={c} strokeWidth={isNow ? 2.5 : 1.5}
+                        style={{ filter: isNow ? `drop-shadow(0 4px 10px ${c}40)` : "drop-shadow(0 1px 2px #0f172a14)" }} />
                   <text x={bx + BOX_W / 2} y={by + 18} textAnchor="middle" fontSize={14} fill={c} fontWeight={700}>
                     {g.clock} · {signedPoints(d)} pts
                   </text>
                   <text x={bx + BOX_W / 2} y={by + 40} textAnchor="middle" fontSize={19} fontWeight={900} fill={ui.text}
                         letterSpacing={0.5}>{label}</text>
                   <text x={bx + BOX_W / 2} y={by + 58} textAnchor="middle" fontSize={14} fontWeight={700} fill={ui.muted}>
-                    {fmtScore(g.score)} · {code}
+                    {fmtScore(g.score)} · {g.team}
                   </text>
                 </motion.g>
                 {isNow && (
-                  <motion.circle cx={gx} cy={gy} fill="none" stroke={c} strokeWidth={3}
-                                 initial={{ r: 8, opacity: 0.9 }} animate={{ r: 38, opacity: 0 }}
-                                 transition={{ duration: 1, repeat: 2, ease: "easeOut" }} />
+                  <motion.circle cx={gx} cy={gy} fill="none" stroke={c} strokeWidth={2.5}
+                                 initial={{ r: 7, opacity: 0.8 }} animate={{ r: 30, opacity: 0 }}
+                                 transition={{ duration: 0.9, repeat: 2, ease: "easeOut", delay: 0.25 }} />
                 )}
-                <motion.g key={`dot-${g.idx}-${team.code}-${isNow}`}
-                          initial={isNow && !reduceMotion ? { y: gyBefore - gy } : false}
-                          animate={{ y: 0 }}
-                          transition={{ type: "spring", stiffness: 520, damping: 13 }}>
-                  <circle cx={gx} cy={gy} r={isNow ? 10 : 7} fill="#0a1220" stroke={c} strokeWidth={3.5}
-                          filter={`url(#glow-${uid})`} />
-                  <circle cx={gx} cy={gy} r={3.5} fill="#ffffff" />
-                </motion.g>
+                <circle cx={gx} cy={gy} r={isNow ? 8 : 6} fill="#ffffff" stroke={c} strokeWidth={3} />
               </g>
             );
           })}
@@ -404,8 +422,8 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           <AnimatePresence>
             {big && !reduceMotion && (
               <motion.rect key={`flash-${pb.eventIdx}-${team.code}`} x={PAD_L} y={TOP} width={PLOT_W}
-                           height={BOTTOM - TOP} fill={delta > 0 ? BETTER : WORSE}
-                           initial={{ opacity: 0.3 }} animate={{ opacity: 0 }} exit={{ opacity: 0 }}
+                           height={BOTTOM - TOP} fill={tone(delta)}
+                           initial={{ opacity: 0.14 }} animate={{ opacity: 0 }} exit={{ opacity: 0 }}
                            transition={{ duration: 0.9, ease: "easeOut" }} pointerEvents="none" />
             )}
           </AnimatePresence>
@@ -417,20 +435,20 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         {callouts.map(({ g, d, label }) => {
           const revealed = g.idx <= pb.eventIdx;
           const isNow = g.idx === pb.eventIdx && !travelling;
-          const c = d >= 0 ? BETTER : WORSE;
+          const c = tone(d);
           const scoringTeam = teamOf(match, g.team);
           return (
             <button key={`card-${g.idx}`} type="button" onClick={() => pb.seek(g.idx)}
                     className="min-w-44 flex-1 rounded-lg border px-3 py-2.5 text-left transition-transform hover:-translate-y-0.5"
                     style={{
-                      borderTopColor: isNow ? c : ui.line,
-                      borderRightColor: isNow ? c : ui.line,
-                      borderBottomColor: isNow ? c : ui.line,
-                      borderLeftColor: revealed ? c : ui.line,
+                      borderTopColor: isNow ? c : ui.border,
+                      borderRightColor: isNow ? c : ui.border,
+                      borderBottomColor: isNow ? c : ui.border,
+                      borderLeftColor: revealed ? c : ui.border,
                       borderLeftWidth: 4,
-                      background: ui.panel,
-                      opacity: revealed ? 1 : 0.45,
-                      boxShadow: isNow ? `0 0 22px ${c}55` : undefined,
+                      background: isNow ? `${c}0d` : ui.card,
+                      opacity: revealed ? 1 : 0.5,
+                      boxShadow: isNow ? `0 6px 18px ${c}26` : undefined,
                     }}>
               <div className="flex items-center justify-between text-xs font-bold tabular-nums" style={{ color: ui.muted }}>
                 <span>{g.clock}</span>
@@ -438,7 +456,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
               </div>
               <div className="mt-1.5 text-sm font-black tracking-wide">{revealed ? label : "UPCOMING"}</div>
               <div className="flex items-center gap-1.5 text-xs" style={{ color: ui.muted }}>
-                <span className="inline-block size-2 rounded-full" style={{ background: scoringTeam?.color }} />
+                <span className="inline-block size-2 rounded-full ring-1 ring-black/10" style={{ background: scoringTeam?.color }} />
                 {scoringTeam?.name}{g.scorer ? ` · ${g.scorer}` : ""}
               </div>
               <div className="mt-1 text-lg font-black tabular-nums" style={{ color: revealed ? c : ui.muted }}>
@@ -450,20 +468,20 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       </div>
 
       {/* Controls. */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-5 pt-4 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 pt-4 pb-3">
         <div className="flex items-center gap-1.5">
-          <DarkButton onClick={pb.toggle} label={pb.playing ? "Pause" : "Play"} wide>
+          <ControlButton onClick={pb.toggle} label={pb.playing ? "Pause" : "Play"} primary>
             {pb.playing ? <Pause className="size-4" /> : <Play className="size-4" />}
             {pb.playing ? "Pause" : pb.atEnd ? "Replay" : "Play"}
-          </DarkButton>
-          <DarkButton onClick={pb.prev} label="Previous event" disabled={pb.eventIdx === 0}><SkipBack className="size-4" /></DarkButton>
-          <DarkButton onClick={pb.next} label="Next event" disabled={pb.atEnd}><SkipForward className="size-4" /></DarkButton>
-          <DarkButton onClick={pb.restart} label="Restart"><RotateCcw className="size-4" /></DarkButton>
-          <div className="ml-2 flex overflow-hidden rounded-lg border" style={{ borderColor: ui.line }}>
+          </ControlButton>
+          <ControlButton onClick={pb.prev} label="Previous event" disabled={pb.eventIdx === 0}><SkipBack className="size-4" /></ControlButton>
+          <ControlButton onClick={pb.next} label="Next event" disabled={pb.atEnd}><SkipForward className="size-4" /></ControlButton>
+          <ControlButton onClick={pb.restart} label="Restart"><RotateCcw className="size-4" /></ControlButton>
+          <div className="ml-2 flex overflow-hidden rounded-lg border" style={{ borderColor: ui.border }}>
             {SPEEDS.map((s) => (
               <button key={s} type="button" onClick={() => pb.setSpeed(s)}
                       className="px-2.5 py-1.5 text-xs font-bold tabular-nums"
-                      style={pb.speed === s ? { background: BETTER, color: "#fff" } : { color: ui.muted }}>
+                      style={pb.speed === s ? { background: ui.text, color: "#fff" } : { color: ui.muted }}>
                 {s}×
               </button>
             ))}
@@ -478,7 +496,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                       className="rounded-lg border px-3 py-1.5 text-xs font-bold"
                       style={active
                         ? { background: t?.color, color: textOn(t?.color ?? "#888888"), borderColor: t?.color }
-                        : { borderColor: ui.line, color: ui.muted }}>
+                        : { borderColor: ui.border, color: ui.muted }}>
                 {t?.name}
               </button>
             );
@@ -492,8 +510,8 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         </div>
       </div>
       <div className="px-5 pb-4 text-[11px]" style={{ color: ui.muted }}>
-        Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · blue = better off than at
-        kick-off, red = worse off
+        Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · the beat shape is illustrative,
+        dots and numbers show the estimate · blue = better off than at kick-off, red = worse off
       </div>
     </section>
   );
@@ -502,23 +520,25 @@ export function Matchstake({ match, className }: { match: Match; className?: str
 function TeamName({ name, color, align }: { name: string; color?: string; align: "left" | "right" }) {
   return (
     <div className={`flex items-center gap-2 ${align === "right" ? "flex-row-reverse text-right" : ""}`}>
-      <span className="inline-block size-3 rounded-full ring-2 ring-white/20" style={{ background: color }} />
+      <span className="inline-block size-3 rounded-full ring-1 ring-black/15" style={{ background: color }} />
       <span className="text-lg font-black uppercase tracking-wide">{name}</span>
     </div>
   );
 }
 
-function DarkButton({ onClick, label, disabled, wide, children }: {
+function ControlButton({ onClick, label, disabled, primary, children }: {
   onClick: () => void;
   label: string;
   disabled?: boolean;
-  wide?: boolean;
+  primary?: boolean;
   children: ReactNode;
 }) {
   return (
     <button type="button" onClick={onClick} aria-label={label} disabled={disabled}
-            className={`inline-flex items-center gap-1.5 rounded-lg border py-1.5 text-xs font-bold disabled:opacity-35 ${wide ? "px-3" : "px-2"}`}
-            style={{ borderColor: ui.line, background: wide ? BETTER : ui.panel, color: "#fff" }}>
+            className={`inline-flex items-center gap-1.5 rounded-lg border py-1.5 text-xs font-bold disabled:opacity-35 ${primary ? "px-3" : "px-2"}`}
+            style={primary
+              ? { borderColor: ui.text, background: ui.text, color: "#fff" }
+              : { borderColor: ui.border, background: ui.card, color: ui.text }}>
       {children}
     </button>
   );
