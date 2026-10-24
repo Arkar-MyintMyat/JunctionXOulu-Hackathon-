@@ -45,8 +45,8 @@ PTS_OT_WIN = 2
 PTS_OT_LOSS = 1
 
 # Liiga API
-LIIGA_BASE_URL = os.environ.get("LIIGA_BASE_URL", "https://liiga.fi/api/v2")
+LIIGA_BASE_URL = os.environ.get("LIIGA_BASE_URL", "https://prod.liiga-backend.liiga.fi/stats/api/v1")
 LIIGA_API_KEY = os.environ.get("LIIGA_API_KEY", "")
-LIIGA_API_KEY_HEADER = os.environ.get("LIIGA_API_KEY_HEADER", "")
-CURRENT_SEASON = int(os.environ.get("CURRENT_SEASON", "2026"))
+LIIGA_API_KEY_HEADER = os.environ.get("LIIGA_API_KEY_HEADER", "x-api-key")
+CURRENT_SEASON = int(os.environ.get("CURRENT_SEASON", "2027"))
 LAST_SEASON = CURRENT_SEASON - 1

@@ -23,7 +23,7 @@ def test_mock_match_has_odds_for_every_team_every_event():
     for e in m.events:
         assert set(e.odds) == codes, f"event {e.idx} missing teams"
         for o in e.odds.values():
-            assert o.top6 <= o.playoff
+            assert o.direct <= o.playoff
 
 
 def test_mock_fact_ids_follow_convention():
