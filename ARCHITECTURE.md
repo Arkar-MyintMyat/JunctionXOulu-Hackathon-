@@ -51,7 +51,7 @@ stakes/
 │   ├── teams.json            A   teamId -> {code, name, color}
 │   ├── mock/                 A   hand-written mocks matching contracts/
 │   ├── odds/{gameId}.json    A   odds for all teams per event
-│   ├── facts/{gameId}.json   A   fact sheets per event per team
+│   ├── facts/{gameId}.json   B   fact sheets per event per team
 │   └── stories/{gameId}.json B   generated stories with status
 ├── engine/                   A   pure Python, no web code
 │   ├── config.py                 paths, SEED, run counts, league constants
@@ -62,10 +62,10 @@ stakes/
 │   ├── strength.py               attack/defence rates (+xG at Level 2)
 │   ├── simulate.py               season Monte Carlo, vectorised
 │   ├── replay.py                 per-goal odds for one game
-│   ├── factsheet.py              facts with ids, display strings, sources
 │   ├── pick_match.py             (L2) most dramatic demo game
 │   └── backtest.py               (L2) Brier score on last season
-├── newsroom/                 B   pure Python, reads data/facts, writes data/stories
+├── newsroom/                 B   pure Python, reads data/odds + data/raw, writes data/facts + data/stories
+│   ├── factsheet.py              facts with ids, display strings, sources (data/odds + data/raw -> data/facts)
 │   ├── llm.py                    one function: complete_json(prompt) -> dict
 │   ├── prompts.py                all prompt text, one place
 │   ├── writer.py                 facts -> {text, facts_used}
@@ -86,7 +86,7 @@ stakes/
 │   │   └── queue/page.tsx    B   editor queue
 │   ├── components/
 │   │   ├── matchstake/       B
-│   │   ├── goalwave/         B
+│   │   ├── goalwave/         C
 │   │   ├── story-panel/      C
 │   │   ├── explorer/         C
 │   │   └── ui/               C   shadcn components
@@ -95,7 +95,7 @@ stakes/
 │       ├── data/             A   offline copies from make export
 │       ├── kaleva/           C   saved article + iframe
 │       └── sounds/           C
-└── pitch/                    C   slides, demo-script.md, backup video link
+└── pitch/                    team  slides, demo-script.md, backup video link (outside build hours)
 ```
 
 ---
@@ -104,7 +104,7 @@ stakes/
 
 ```
 engine   ──▶ (nothing of ours)
-newsroom ──▶ reads data/facts files only (never imports engine)
+newsroom ──▶ reads data/odds, data/raw and data/facts files only (never imports engine)
 api      ──▶ engine (for /simulate) + reads data/ files
 web      ──▶ api over HTTP, or web/public/data as fallback. Never Python, never Liiga.
 ```
@@ -188,6 +188,7 @@ paths, LLM model. No magic numbers in functions.
 | Simulate | Each team's top6 ≤ playoff; probabilities in [0, 1]; same seed → same result | A |
 | Replay | Every event has odds for every team; a goal never lowers the scorer's own playoff odds by > 0.02 | A |
 | Contracts | `contracts/*.example.json` and real API responses load into the Pydantic models | A |
+| Fact sheets | Every event has facts for every team; each fact's `display` matches its `value` | B |
 | Verifier | One failing and one passing case per rule; `--inject-error` story is blocked | B |
 | Web | Embed renders mock and real match without console errors (manual check at each gate) | B, C |
 

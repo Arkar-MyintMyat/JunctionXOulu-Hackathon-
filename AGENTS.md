@@ -57,7 +57,8 @@ Commands (A creates the `Makefile` in the first hour):
 ```
 make setup        # python venv + pip install -r requirements.txt, cd web && npm install
 make data         # fetch Liiga API -> data/raw/   (A)
-make precompute   # data/raw -> data/odds + data/facts      (A)
+make precompute   # data/raw -> data/odds                    (A)
+make facts        # data/odds + data/raw -> data/facts       (B)
 make stories      # data/facts -> data/stories               (B)
 make export       # merge -> web/public/data/ (offline copy)  (A)
 make api          # uvicorn api.main:app --reload --port 8000
@@ -71,24 +72,28 @@ make test         # pytest
 
 ### Person A — Engine (backend)
 
-**Mission:** turn Liiga data into correct probabilities and facts, and serve them.
+**Mission:** turn Liiga data into correct probabilities, and serve them. (~15.5 h of Level 1 work)
 
-**Owns:** `engine/`, `api/`, `contracts/`, `data/raw/`, `data/odds/`, `data/facts/`, `data/teams.json`,
+**Owns:** `engine/`, `api/`, `contracts/`, `data/raw/`, `data/odds/`, `data/teams.json`,
 `data/mock/`, `tests/engine/`, `Makefile`, `requirements.txt`, `.env.example`, backend deploy.
 
-**Level 1 (must work, in this order):**
-1. `contracts/` example files + `data/mock/` mock files — commit by **10:00**. Everyone builds on these.
-2. `engine/loader.py`: fetch schedule, standings, game details for current season and last season;
-   save raw JSON to `data/raw/`. Auth header from `.env`.
-3. `data/teams.json`: Liiga `teamId` → `code` (3 letters, e.g. `KAR`), `name`, `color` (placeholder `#888888`; C fills colours).
-4. `engine/standings.py`: rebuild the table at any moment from schedule results.
-   Test: rebuilt current table equals the API standings (points, games). This test proves the points rules.
-5. `api/main.py` stub serving mock files on the real routes — by **11:00**.
-6. `engine/simulate.py`: simulate the rest of the season (model below). Return per-team odds.
-7. `engine/replay.py`: for one finished game, odds for all teams at kick-off, after every goal, and at full time.
-   Write `data/odds/{gameId}.json`.
-8. `engine/factsheet.py`: write `data/facts/{gameId}.json` from the odds file + standings + schedule.
-9. Real `/api/simulate` for the scenario explorer.
+**Level 1 (must work, in this order, estimated hours in brackets):**
+1. `contracts/` example files + `data/mock/` mock files — commit by **10:00**. Everyone builds on these. [1 h]
+2. `Makefile`, `requirements.txt`, `.env.example`. [0.5 h]
+3. `engine/liiga_client.py` + `engine/loader.py`: fetch schedule, standings, game details for current season
+   and last season; save raw JSON to `data/raw/`. Auth header from `.env`. [1.5 h]
+4. `data/teams.json`: Liiga `teamId` → `code` (3 letters, e.g. `KAR`), `name`, `color` (placeholder `#888888`; C fills colours). [0.5 h]
+5. `engine/standings.py`: rebuild the table at any moment from schedule results.
+   Test: rebuilt current table equals the API standings (points, games). This test proves the points rules. [2 h]
+6. `api/main.py` stub serving mock files on the real routes — by **11:00**. [1 h]
+7. `engine/simulate.py`: simulate the rest of the season (model below). Return per-team odds. [3 h]
+8. `engine/replay.py`: for one finished game, odds for all teams at kick-off, after every goal, and at full time.
+   Write `data/odds/{gameId}.json`. [2 h]
+9. `api/store.py` (merge odds + facts + stories into the Match response) + `api/export.py` (offline copy). [1.5 h]
+10. Real `/api/upcoming` + `/api/simulate` for the scenario explorer. [1.5 h]
+11. Backend deploy. [1 h]
+
+The fact sheets (`data/facts/`) moved to B. A keeps the odds file shape stable so B can build them.
 
 **Level 2:** `engine/pick_match.py` (finds the late-season game of last season with the biggest single-goal
 odds swing), xG in team strength, `engine/backtest.py` (Brier score on last season), magic number fact.
@@ -112,25 +117,31 @@ odds swing), xG in team strength, `engine/backtest.py` (Brier score on last seas
 
 ### Person B — Lead UI + AI newsroom
 
-**Mission:** make the goal moments feel dramatic, and make AI stories that are verified or blocked.
+**Mission:** build the verified AI newsroom (fact sheets → stories → verifier) and the web foundation
+plus the Matchstake graph. (~15 h of Level 1 work)
 
-**Owns:** `newsroom/`, `data/stories/`, `tests/newsroom/`, `web/components/matchstake/`,
-`web/components/goalwave/`, `web/lib/` (types, API client, playback state), `web/app/queue/`.
+**Owns:** `newsroom/` (including `newsroom/factsheet.py`), `data/facts/`, `data/stories/`, `tests/newsroom/`,
+`web/` app setup (Next.js, Tailwind, shadcn init), `web/lib/` (types, API client, playback state),
+`web/components/matchstake/`, `web/app/queue/`.
 
-**Level 1 (in this order):**
-1. `web/lib/types.ts` mirroring `contracts/` exactly, and `web/lib/api.ts`: fetch from `NEXT_PUBLIC_API_URL`,
-   on failure fall back to `/data/match-{id}.json`.
-2. `web/lib/playback.ts`: one shared playback state (current event index, playing/paused, speed) that both
-   Matchstake and Goalwave and C's story panel read. Export a React hook `usePlayback()`.
-3. Matchstake on mock JSON: line of the selected team's `playoff` probability per event, goal dots,
-   play/pause, click a dot to jump. Threshold label at 50%.
-4. Goalwave on mock JSON: table of all teams with `playoff` odds for the current event, delta vs previous
-   event (green up, red down), banner with the biggest absolute loser and how many teams moved > 2 points.
-5. `newsroom/llm.py`, `newsroom/writer.py`, `newsroom/verifier.py`, `newsroom/run.py` → `data/stories/{gameId}.json`.
-6. `web/app/queue/page.tsx`: list blocked stories with the reason.
+**Level 1 (in this order, estimated hours in brackets):**
+1. Next.js app setup in `web/` (App Router, TypeScript, Tailwind, shadcn init) — by **10:00** so C can start. [1 h]
+2. `web/lib/types.ts` mirroring `contracts/` exactly, and `web/lib/api.ts`: fetch from `NEXT_PUBLIC_API_URL`,
+   on failure fall back to `/data/match-{id}.json`. [1 h]
+3. `web/lib/playback.ts`: one shared playback state (current event index, playing/paused, speed, selected team)
+   that Matchstake, Goalwave and the story panel read. Export a React hook `usePlayback()`. [1 h]
+4. Matchstake on mock JSON: line of the selected team's `playoff` probability per event, goal dots,
+   play/pause, click a dot to jump. Threshold label at 50%. [3 h]
+5. `newsroom/factsheet.py`: write `data/facts/{gameId}.json` from `data/odds/{gameId}.json` + standings +
+   schedule in `data/raw/`. Fact ids, `display`, `label`, `source` and `allowed_names` as in the contract. [1.5 h]
+6. `newsroom/llm.py` + `newsroom/prompts.py`. [1.5 h]
+7. `newsroom/writer.py`. [1.5 h]
+8. `newsroom/verifier.py` + one pytest per rule. [2.5 h]
+9. `newsroom/run.py` with `--inject-error` → `data/stories/{gameId}.json`. [1 h]
+10. `web/app/queue/page.tsx`: list blocked stories with the reason. [1 h]
 
-**Level 2:** row re-sort animation, "+23" pop in team colour with half-second clock freeze, pulse lines to the
-3–5 most affected teams, playback speed control, neutral and bettor story audiences.
+**Level 2:** "+23" pop in team colour with half-second clock freeze, pulse lines to the 3–5 most affected
+teams (with C, since they touch Goalwave), playback speed control, neutral and bettor story audiences.
 **Level 3 (only after 04:00 nothing else is open — usually skip):** one Remotion short video.
 
 **Story rules (strict):**
@@ -159,29 +170,34 @@ so the demo shows it being blocked. Write pytest cases for every rule.
 
 ### Person C — Product + pitch (frontend, junior-friendly)
 
-**Mission:** wrap the widget into a product the judges recognise as Kaleva's, and own the story they hear.
+**Mission:** build Goalwave and wrap the widget into a product the judges recognise as Kaleva's.
+(~14 h of Level 1 work. The pitch is prepared outside these build hours and is not part of this role's tasks.)
 
-**Owns:** `web/app/page.tsx`, `web/app/embed/`, `web/app/explorer/`, `web/components/story-panel/`,
-`web/components/explorer/`, `web/components/ui/` (shadcn), `web/public/kaleva/`, `web/public/sounds/`,
-`pitch/`, frontend deploy, team colours (sent to A).
+**Owns:** `web/app/page.tsx`, `web/app/embed/`, `web/app/explorer/`, `web/components/goalwave/`,
+`web/components/story-panel/`, `web/components/explorer/`, `web/components/ui/` (shadcn components),
+`web/public/kaleva/`, `web/public/sounds/`, frontend deploy, team colours (sent to A).
 
-**Level 1 (in this order):**
+**Level 1 (in this order, estimated hours in brackets):**
 1. Save one real kaleva.fi hockey match article locally into `web/public/kaleva/index.html`
    (strip scripts and trackers, keep layout). Insert `<iframe src="/embed?match=ID">` where the
-   article body starts. Add a visible note: "Local mock-up. Kaleva's site is not changed."
-2. `web/app/embed/page.tsx`: layout only — Matchstake (B) on the left, Goalwave (B) on the right,
-   story panel (yours) below. Use B's components as they are; mock data until B's are ready.
-3. Story panel: when a team is clicked in Goalwave (B exposes `onTeamClick`), show that team's story for the
-   current event. Render `{{fact_id}}` placeholders as underlined values with a tooltip:
-   label + source. Badge: "✓ Verified · AI-generated from Liiga data". Blocked → "Held for editor review".
-4. Scenario explorer `web/app/explorer/page.tsx`: pick a team; list its next 8 games from `/api/upcoming`;
+   article body starts. Add a visible note: "Local mock-up. Kaleva's site is not changed." [2 h]
+2. Team colours → send to A as a list `code: #hex`. [0.5 h]
+3. Goalwave on mock JSON: table of all teams with `playoff` odds for the current event (from `usePlayback()`),
+   delta vs previous event (green up, red down), banner with the biggest absolute loser and how many teams
+   moved > 2 points. Exposes an `onTeamClick(code)` prop. [3 h]
+4. `web/app/embed/page.tsx`: layout — Matchstake (B) on the left, Goalwave on the right,
+   story panel below. Mock data until the real API is ready. [1 h]
+5. Story panel: when a team is clicked in Goalwave, show that team's story for the current event.
+   Render `{{fact_id}}` placeholders as underlined values with a tooltip: label + source.
+   Badge: "✓ Verified · AI-generated from Liiga data". Blocked → "Held for editor review". [2.5 h]
+6. Scenario explorer `web/app/explorer/page.tsx`: pick a team; list its next 8 games from `/api/upcoming`;
    each game has buttons (Home win, Home OT, Away OT, Away win, Not set); "Simulate" calls `/api/simulate`;
-   show the team's `top6` and `playoff` odds and a sorted table.
-5. Team colours → send to A as a list `code: #hex`.
-6. `pitch/slides` (any tool) + `pitch/demo-script.md` + recorded backup video by **04:00**.
+   show the team's `top6` and `playoff` odds and a sorted table. [3 h]
+7. Frontend deploy. [1 h]
+8. Recorded backup video of the demo by **04:00**. [1 h]
 
-**Level 2:** goal horn sound (`web/public/sounds/horn.mp3`, mute toggle), team logos from API, mobile width check,
-"what tonight is worth" stakes card. **Level 3:** personal alert mock screen.
+**Level 2:** Goalwave row re-sort animation, goal horn sound (`web/public/sounds/horn.mp3`, mute toggle),
+team logos from API, mobile width check, "what tonight is worth" stakes card. **Level 3:** personal alert mock screen.
 
 ---
 
@@ -193,7 +209,7 @@ so the demo shows it being blocked. Write pytest cases for every rule.
 | `data/teams.json` | A | everyone |
 | `data/mock/match-mock.json`, `data/mock/simulate-mock.json` | A (by 10:00) | B, C |
 | `data/odds/{gameId}.json` | A (`make precompute`) | A (facts, API) |
-| `data/facts/{gameId}.json` | A (`make precompute`) | B (newsroom), API |
+| `data/facts/{gameId}.json` | B (`make facts`) | B (newsroom), API |
 | `data/stories/{gameId}.json` | B (`make stories`) | API |
 | `web/public/data/match-{id}.json` | A (`make export`) | web offline fallback |
 
@@ -279,7 +295,10 @@ Must answer in under 3 seconds (use 5,000 runs here).
 
 ---
 
-## 6. Timeline, gates and handovers (Sat 24 Oct 09:00 → Sun 25 Oct 09:00)
+## 6. Timeline, gates and handovers (22 hours: Sat 24 Oct 09:00 → Sun 25 Oct 07:00)
+
+Level 1 workload is balanced at about 15 h per person (A ~15.5 h, B ~15 h, C ~14 h), leaving about 7 h each
+for sleep, bug fixes and Level 2. The pitch is prepared outside these hours.
 
 A handover = code merged to `main` + one message in the team chat:
 `HANDOVER <from>→<to>: <what> ready at <path/route>. Run: <command>.`
@@ -288,26 +307,27 @@ The receiver confirms with `GOT IT` or replies with the exact problem within 30 
 | Time | From → To | Deliverable | Done when |
 |---|---|---|---|
 | 10:00 | A → B, C | `contracts/*.example.json`, `data/mock/match-mock.json`, `data/mock/simulate-mock.json` | Files validate against section 5 |
+| 10:00 | B → C | Next.js app set up in `web/` (Tailwind, shadcn init) | `make web` opens a page |
 | 10:00 | **GATE 1** | Contract frozen | All three say "frozen" |
 | 11:00 | A → B, C | API stub serving mocks on all 5 routes | `curl localhost:8000/api/match/mock` returns the mock |
-| 12:00 | B → C | `usePlayback()`, `web/lib/api.ts`, `types.ts` | C's page compiles against them |
+| 12:00 | B → C | `usePlayback()`, `web/lib/api.ts`, `types.ts` | C's Goalwave compiles against them |
 | 13:00 | C → A | Team colours list | `data/teams.json` updated by A |
-| 15:00 | A → B | Real `data/facts/{id}.json` for one demo game (2,000 runs OK) | B's writer runs on it |
+| 15:00 | A → B | Real `data/odds/{id}.json` for one demo game (2,000 runs OK) | B's `factsheet.py` runs on it |
 | 15:00 | **GATE 2** | Simulator gives sane odds | Standings test passes; top team's playoff odds > 0.9 near season end |
 | 17:00 | A → B, C | Real merged `/api/match/{id}` for the demo game | Matchstake + Goalwave render it |
-| 17:00 | B → C | Matchstake + Goalwave with `onTeamClick(code)` prop | Embed page shows both on real data |
+| 17:00 | B ↔ C | Matchstake (B) + Goalwave with `onTeamClick(code)` (C) on `main` | Embed page shows both on real data |
 | 19:00 | **GATE 3 (checkpoint)** | Real engine drives graph + table in the embed | Everyone sees it on `main`. If not: fallbacks in section 8 |
-| 21:00 | B → A, C | `data/stories/{id}.json` with verified + one blocked story | Story panel shows both states |
+| 21:00 | B → A, C | `data/facts/{id}.json` + `data/stories/{id}.json` with verified + one blocked story | Story panel shows both states |
 | 22:00 | A → C | Real `/api/upcoming` + `/api/simulate` | Explorer returns in < 3 s |
 | 00:00 | **GATE 4** | Verified stories live in the embed | Click Ilves → story with linked numbers |
-| 01:00 | A → C | Backtest number + one-line meaning (Level 2; skip if not ready) | On a slide |
+| 01:00 | A | Backtest number + one-line meaning (Level 2; skip if not ready) | Shared with the team |
 | 02:00 | A | Final precompute at 10,000 runs, `make export`, backend deployed | Offline fallback works with API off |
 | 02:00 | C | Frontend deployed | Public URL opens the embed |
 | 04:00 | **GATE 5 — FEATURE FREEZE** | Backup demo video recorded (C) | Only bug fixes after this |
-| 08:30 | C | Submit | — |
+| 07:00 | All | Build ends; final `main` runs end to end | — |
 
-Standups (5 min, done / next / blocked): 13:00, 17:00, 21:00, 01:00, 05:00.
-Naps after freeze: A 04:30–06:00, C 05:00–06:30, B 06:00–07:30.
+Standups (5 min, done / next / blocked): 13:00, 17:00, 21:00, 01:00, 04:00.
+Naps after freeze (about 1.5 h each, staggered so two people are always awake): A 04:00–05:30, C 04:30–06:00, B 05:30–07:00.
 
 ---
 
@@ -320,7 +340,7 @@ Naps after freeze: A 04:30–06:00, C 05:00–06:30, B 06:00–07:30.
 - [ ] Explorer: pick results for Kärpät's next games → odds change in < 3 s.
 - [ ] Labels everywhere: "Model estimate", "✓ Verified · AI-generated from Liiga data", "Local mock-up".
 - [ ] Works with the API turned off (offline JSON), except the explorer.
-- [ ] Backup video recorded; pitch timed at 5 minutes.
+- [ ] Backup video recorded.
 
 ---
 
