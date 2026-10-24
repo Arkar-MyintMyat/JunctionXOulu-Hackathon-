@@ -11,6 +11,11 @@ export function signedPoints(delta: number): string {
   return n > 0 ? `+${n}` : `−${Math.abs(n)}`;
 }
 
+/** Signed change shown with a % sign, e.g. "+23%" / "−18%" / "±0%" (a difference of two percentages). */
+export function signedPct(delta: number): string {
+  return `${signedPoints(delta)}%`;
+}
+
 /** Change magnitude in whole percentage points. */
 export function points(delta: number): number {
   return Math.round(delta * 100);
