@@ -66,12 +66,25 @@ def template_story(team_facts: dict[str, Any], audience: str) -> tuple[str, list
 
     if ctx["playoff_direction"] == "unchanged":
         middle = f"{subject} barely moved and stays at {after}."
+    elif ctx["role"] == "scored" and ctx["playoff_direction"] == "down":
+        # A goal that hurt the team that scored it (e.g. a draw that is not enough): say so plainly.
+        lowered = subject[0].lower() + subject[1:] if subject.startswith(("Your", "The ")) else subject
+        middle = f"Even so, {lowered} fell by {delta} to {after}."
     else:
         middle = f"{subject} {moved} by {delta} to {after}."
 
     parts = [lead, middle]
+    # Drift while the clock ran before the goal (from odds_before), e.g. a trailing team sliding towards 0%.
+    before = _ph(team_facts, "playoff_before")
+    drift = _ph(team_facts, "playoff_drift")
+    if drift and before and ctx.get("drift_direction") in ("up", "down") and ctx["role"] != "not playing":
+        verb = "had slipped" if ctx["drift_direction"] == "down" else "had climbed"
+        owner = "your" if you else possessive(team)
+        parts.insert(0, f"While the clock ran, {owner} playoff chance {verb} to {before}.")
     if nxt_opp and nxt_date:
         parts.append(f"Next up: {nxt_opp} on {nxt_date}.")
+    elif ctx.get("season_over"):
+        parts.append("Your regular season is over." if you else f"{possessive(team)} regular season is over.")
     text = " ".join(parts)
     return text, verifier.placeholders(text)
 
@@ -92,7 +105,7 @@ def write_story(team_facts: dict[str, Any], audience: str, known_names: set[str]
     draft: Draft | None = None
     for attempt in (1, 2):
         try:
-            data = llm.complete_json(messages, system=system, schema=prompts.OUTPUT_SCHEMA)
+            data = llm.complete_json(messages, system=system, schema=prompts.OUTPUT_SCHEMA, provider=provider)
         except llm.LLMError as e:
             return Draft(draft.text if draft else "", draft.facts_used if draft else [],
                          [f"writer failed: {e}"], attempts=attempt)

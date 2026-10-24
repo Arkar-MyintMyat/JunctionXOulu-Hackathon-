@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -78,7 +79,8 @@ def pick_injection_target(stories: list[dict[str, Any]], facts: dict[str, Any]) 
     """The demo story: a team that was not playing, at the last goal, with the biggest swing."""
     def swing(s: dict[str, Any]) -> float:
         return abs(fact(facts[str(s["event_idx"])][s["team"]], "playoff_delta")["value"])
-    fan = [s for s in stories if s["audience"] == "fan"]
+    # Only a story that passed the checker: the demo shows a good story being broken and caught.
+    fan = [s for s in stories if s["audience"] == "fan" and s["text"] and not s["problems"]]
     not_playing = [s for s in fan if facts[str(s["event_idx"])][s["team"]]["context"]["role"] == "not playing"]
     pool = not_playing or fan
     if not pool:
@@ -87,17 +89,43 @@ def pick_injection_target(stories: list[dict[str, Any]], facts: dict[str, Any]) 
     return max((s for s in pool if s["event_idx"] == last_goal), key=swing)
 
 
+def writer_failed(story: dict[str, Any]) -> bool:
+    """The API could not write this story (as opposed to a written story the checker blocked)."""
+    return any(p.startswith("writer failed") for p in story.get("problems", []))
+
+
 def run(match_id: str, audiences: list[str], provider: str, inject: bool, workers: int,
-        facts_path: Path | None = None, out_path: Path | None = None) -> dict[str, Any]:
+        facts_path: Path | None = None, out_path: Path | None = None,
+        retry_failed: bool = False) -> dict[str, Any]:
     facts_path = facts_path or config.FACTS_DIR / f"{match_id}.json"
+    out_path = out_path or config.STORIES_DIR / f"{match_id}.json"
     sheet = json.loads(facts_path.read_text(encoding="utf-8"))
     facts = sheet["facts"]
     names = known_names(facts)
     jobs = [(idx, team, aud) for idx, team in select_targets(facts) for aud in audiences]
 
+    # --retry-failed: keep every story from the last run except the ones the API failed to write.
+    kept: dict[tuple[int, str, str], dict[str, Any]] = {}
+    if retry_failed and out_path.exists():
+        for s in json.loads(out_path.read_text(encoding="utf-8"))["stories"]:
+            if not writer_failed(s):
+                kept[(s["event_idx"], s["team"], s["audience"])] = s
+
+    todo = sum(job not in kept for job in jobs)
+    done = [0]
+
     def work(job: tuple[int, str, str]) -> dict[str, Any]:
+        if job in kept:
+            return kept[job]
         idx, team, audience = job
+        started = time.monotonic()
         draft = writer.write_story(facts[str(idx)][team], audience, names, provider)
+        done[0] += 1
+        # Live progress on stderr: slow free-tier runs should not look stuck.
+        state = "ok" if not draft.problems else ("API failed" if draft.problems[0].startswith("writer failed")
+                                                 else "held by checker")
+        print(f"  [{done[0]}/{todo}] e{idx} {team} {audience}: {state} ({time.monotonic() - started:.0f}s)",
+              file=sys.stderr, flush=True)
         return {"event_idx": idx, "team": team, "audience": audience, "text": draft.text,
                 "facts_used": draft.facts_used, "problems": draft.problems,
                 "writer": draft.writer, "attempts": draft.attempts}
@@ -105,7 +133,7 @@ def run(match_id: str, audiences: list[str], provider: str, inject: bool, worker
     with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
         stories = list(pool.map(work, jobs))
 
-    if inject:
+    if inject and not any(s.get("injected") for s in stories):
         target = pick_injection_target(stories, facts)
         if target:
             inject_error(target, facts[str(target["event_idx"])][target["team"]])
@@ -118,7 +146,7 @@ def run(match_id: str, audiences: list[str], provider: str, inject: bool, worker
         s["review"] = review_route(s["status"], tf)
 
     result = {"schema_version": 1, "match_id": sheet["match_id"], "stories": stories}
-    write_json_atomic(out_path or config.STORIES_DIR / f"{match_id}.json", result)
+    write_json_atomic(out_path, result)
     return result
 
 
@@ -126,11 +154,13 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Write and verify fan stories for one match.")
     ap.add_argument("--match", required=True, help="game id (reads data/facts/{id}.json)")
     ap.add_argument("--audience", default="fan", choices=[*config.AUDIENCES, "all"])
-    ap.add_argument("--provider", default=config.LLM_PROVIDER, choices=["anthropic", "mock"])
+    ap.add_argument("--provider", default=config.LLM_PROVIDER, choices=list(config.LLM_PROVIDERS))
     ap.add_argument("--inject-error", action="store_true", help="put a raw wrong number in one story")
     ap.add_argument("--workers", type=int, default=4, help="parallel LLM calls")
     ap.add_argument("--facts", type=Path, help="override the facts file path")
     ap.add_argument("--out", type=Path, help="override the output path")
+    ap.add_argument("--retry-failed", action="store_true",
+                    help="keep the last run's stories; rewrite only those the API failed to write")
     args = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")  # team names like Kärpät on Windows consoles
@@ -140,7 +170,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: facts file not found: {facts_path} (run `make facts` first)", file=sys.stderr)
         return 1
     audiences = list(config.AUDIENCES) if args.audience == "all" else [args.audience]
-    result = run(args.match, audiences, args.provider, args.inject_error, args.workers, facts_path, args.out)
+    result = run(args.match, audiences, args.provider, args.inject_error, args.workers, facts_path, args.out,
+                 retry_failed=args.retry_failed)
 
     facts = json.loads(facts_path.read_text(encoding="utf-8"))["facts"]
     for s in result["stories"]:

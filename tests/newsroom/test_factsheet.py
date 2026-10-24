@@ -95,6 +95,69 @@ def test_default_schedule_path_follows_loader_layout(tmp_path, monkeypatch):
     assert default_schedule_path(2027) is None
 
 
+def test_season_over_only_when_the_schedule_says_so(odds):
+    from newsroom.factsheet import build_facts
+    from newsroom.writer import template_story
+
+    # Last game of the season: schedule loaded, nobody has a later game.
+    over = build_facts(odds, {}, schedule_known=True)
+    assert over["3"]["ILV"]["context"]["season_over"] is True
+    assert not any(f["id"].endswith(("next_opponent", "next_date")) for f in over["3"]["ILV"]["facts"])
+    text, _ = template_story(over["3"]["ILV"], "fan")
+    assert "regular season is over" in text and "Next up" not in text
+    # No schedule at all: claim nothing.
+    unknown = build_facts(odds, {}, schedule_known=False)
+    assert unknown["3"]["ILV"]["context"]["season_over"] is False
+    assert "season" not in template_story(unknown["3"]["ILV"], "fan")[0]
+
+
+def test_goal_that_lowers_the_scorers_own_chance(odds):
+    """Game 480: TPS's 3-3 equaliser lowered TPS's own playoff chance (7% -> 2%)."""
+    import copy
+
+    from newsroom.factsheet import build_facts
+    from newsroom.writer import template_story
+
+    o = copy.deepcopy(odds)
+    o["events"][2]["odds"]["PEL"]["playoff"] = o["events"][1]["odds"]["PEL"]["playoff"] - 0.05  # PEL scored at e2
+    tf = build_facts(o, {}, schedule_known=True)["2"]["PEL"]
+    assert tf["context"]["role"] == "scored" and tf["context"]["playoff_direction"] == "down"
+    for audience, start in (("fan", "Even so, your playoff chance fell"),
+                            ("neutral", "Even so, Pelicans' playoff chance fell"),
+                            ("bettor", "Even so, the model's estimate of Pelicans' playoff chance fell")):
+        assert start in template_story(tf, audience)[0]
+
+
+def test_odds_before_makes_delta_the_goals_own_value(odds):
+    """Game 480: TPS slid 7% -> 0.1% while trailing, then the equaliser raised them 0.1% -> 2.8%."""
+    import copy
+
+    from newsroom.factsheet import build_facts
+    from newsroom.writer import template_story
+
+    o = copy.deepcopy(odds)
+    goal = o["events"][2]                       # PEL's 1-1 at 33:15; PEL is the scorer here
+    prev_pel = o["events"][1]["odds"]["PEL"]["playoff"]
+    goal["odds_before"] = copy.deepcopy(o["events"][1]["odds"])
+    goal["odds_before"]["PEL"]["playoff"] = 0.001
+    goal["odds"]["PEL"]["playoff"] = 0.028
+    tf = build_facts(o, {}, schedule_known=True)["2"]["PEL"]
+    by = {f["id"].rsplit(".", 1)[1]: f for f in tf["facts"]}
+    assert by["playoff_before"]["value"] == 0.001
+    assert abs(by["playoff_delta"]["value"] - 0.027) < 1e-9          # the goal itself: +2.7 points
+    assert by["playoff_prev"]["value"] == prev_pel
+    assert by["playoff_drift"]["value"] < 0                          # slid while the clock ran
+    assert tf["context"]["playoff_direction"] == "up" and tf["context"]["drift_direction"] == "down"
+    text, used = template_story(tf, "fan")
+    assert text.startswith("While the clock ran, your playoff chance had slipped to {{e2.PEL.playoff_before}}.")
+    assert "rose by {{e2.PEL.playoff_delta}}" in text and "Even so" not in text
+
+
+def test_without_odds_before_there_is_no_drift(facts):
+    ids = {f["id"].rsplit(".", 1)[1] for f in facts["3"]["KAR"]["facts"]}
+    assert "playoff_drift" not in ids and facts["3"]["KAR"]["context"]["drift_direction"] is None
+
+
 def test_formatting():
     assert fmt_pct(0.414) == "41%"
     assert fmt_points(-0.18) == "18 percentage points"

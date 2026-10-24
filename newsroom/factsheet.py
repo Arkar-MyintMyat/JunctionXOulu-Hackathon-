@@ -21,6 +21,7 @@ from newsroom import config
 
 Source = Literal["simulation", "game events", "schedule"]
 REGULATION_SECONDS = 3600
+DRIFT_MIN = 0.005  # drift smaller than half a point is not worth a fact
 
 
 class Fact(BaseModel):
@@ -41,7 +42,10 @@ class TeamContext(BaseModel):
     scoring_team_name: str | None = None
     scorer: str | None = None
     overtime: bool = False
-    playoff_direction: Literal["up", "down", "unchanged"]
+    season_over: bool = False  # the schedule has no later regular-season game for this team
+    playoff_direction: Literal["up", "down", "unchanged"]  # what this moment itself did
+    # How the chance moved as the clock ran since the previous event (from odds_before); None if negligible.
+    drift_direction: Literal["up", "down", "unchanged"] | None = None
 
 
 class TeamFacts(BaseModel):
@@ -120,8 +124,13 @@ def team_role(code: str, event: dict[str, Any], home: str, away: str) -> str:
     return "scored" if event.get("team") == code else "conceded"
 
 
-def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> dict[str, dict[str, dict[str, Any]]]:
-    """{event_idx: {team_code: TeamFacts}} for every event and every team."""
+def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]],
+                schedule_known: bool = False) -> dict[str, dict[str, dict[str, Any]]]:
+    """{event_idx: {team_code: TeamFacts}} for every event and every team.
+
+    `schedule_known`: the season schedule was loaded, so a team without an upcoming game really has no
+    regular-season game left (season_over). Without a schedule nothing is claimed.
+    """
     names = {t["code"]: t["name"] for t in odds["teams"]}
     home, away = odds["match"]["home"], odds["match"]["away"]
     direct_line = odds["thresholds"]["direct"]  # read from the data, never hard-coded
@@ -133,12 +142,17 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
         idx = event["idx"]
         per_team: dict[str, dict[str, Any]] = {}
         for code in names:
-            before, after = prev["odds"][code], event["odds"][code]
+            # "before" = just before this moment. For a goal with odds_before (A's optional field) that is the
+            # same clock, so delta is what the goal itself was worth; the move since the previous event while
+            # the clock ran is the separate "drift".
+            prev_odds, after = prev["odds"][code], event["odds"][code]
+            before = event.get("odds_before", {}).get(code, prev_odds)
             p = f"e{idx}.{code}"
             delta = after["playoff"] - before["playoff"]
+            drift = before["playoff"] - prev_odds["playoff"]
             facts = [
                 Fact(id=f"{p}.playoff_before", value=before["playoff"], display=fmt_pct(before["playoff"]),
-                     label=f"{names[code]} playoff chance before this moment", source="simulation"),
+                     label=f"{names[code]} playoff chance just before this moment", source="simulation"),
                 Fact(id=f"{p}.playoff_after", value=after["playoff"], display=fmt_pct(after["playoff"]),
                      label=f"{names[code]} playoff chance after this moment", source="simulation"),
                 Fact(id=f"{p}.playoff_delta", value=round(delta, 4), display=fmt_points(delta),
@@ -152,6 +166,15 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
             if event["kind"] == "goal":
                 facts.append(Fact(id=f"{p}.clock", value=event["clock"], display=event["clock"],
                                   label="Game time of the goal", source="game events"))
+            if abs(drift) >= DRIFT_MIN:
+                facts += [
+                    Fact(id=f"{p}.playoff_prev", value=prev_odds["playoff"], display=fmt_pct(prev_odds["playoff"]),
+                         label=f"{names[code]} playoff chance at the previous moment ({prev['clock']})",
+                         source="simulation"),
+                    Fact(id=f"{p}.playoff_drift", value=round(drift, 4), display=fmt_points(drift),
+                         label=f"Change in {names[code]} playoff chance as the clock ran, "
+                               f"{prev['clock']}–{event['clock']}", source="simulation"),
+                ]
             allowed = {names[code], names[home], names[away]}
             if event["kind"] == "goal" and event.get("scorer"):
                 allowed.add(event["scorer"])
@@ -171,7 +194,9 @@ def build_facts(odds: dict[str, Any], upcoming: dict[str, dict[str, str]]) -> di
                 scoring_team_name=names.get(event.get("team", "")) if event["kind"] == "goal" else None,
                 scorer=event.get("scorer") if event["kind"] == "goal" else None,
                 overtime=event["kind"] == "goal" and event["seconds"] > REGULATION_SECONDS,
+                season_over=schedule_known and code not in upcoming,
                 playoff_direction=direction(delta),
+                drift_direction=direction(drift) if abs(drift) >= DRIFT_MIN else None,
             )
             per_team[code] = TeamFacts(allowed_names=sorted(allowed), context=context, facts=facts).model_dump()
         out[str(idx)] = per_team
@@ -208,13 +233,14 @@ def main(argv: list[str] | None = None) -> int:
     odds = json.loads(odds_path.read_text(encoding="utf-8"))
 
     schedule_path = args.schedule or default_schedule_path(odds["match"]["season"])
-    upcoming = next_games(load_schedule(schedule_path), load_team_ids(args.teams), odds["match"]["date"])
+    schedule = load_schedule(schedule_path)
+    upcoming = next_games(schedule, load_team_ids(args.teams), odds["match"]["date"])
     if not upcoming:
         print("warning: no schedule/teams data found, next-game facts are left out", file=sys.stderr)
 
     out_path = args.out or config.FACTS_DIR / f"{args.match}.json"
     write_json_atomic(out_path, {"schema_version": 1, "match_id": odds["match"]["id"],
-                                 "facts": build_facts(odds, upcoming)})
+                                 "facts": build_facts(odds, upcoming, schedule_known=bool(schedule))})
     print(f"wrote {out_path}")
     return 0
 
