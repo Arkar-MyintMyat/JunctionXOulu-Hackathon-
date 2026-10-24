@@ -128,6 +128,36 @@ def test_goal_that_lowers_the_scorers_own_chance(odds):
         assert start in template_story(tf, audience)[0]
 
 
+def test_odds_before_makes_delta_the_goals_own_value(odds):
+    """Game 480: TPS slid 7% -> 0.1% while trailing, then the equaliser raised them 0.1% -> 2.8%."""
+    import copy
+
+    from newsroom.factsheet import build_facts
+    from newsroom.writer import template_story
+
+    o = copy.deepcopy(odds)
+    goal = o["events"][2]                       # PEL's 1-1 at 33:15; PEL is the scorer here
+    prev_pel = o["events"][1]["odds"]["PEL"]["playoff"]
+    goal["odds_before"] = copy.deepcopy(o["events"][1]["odds"])
+    goal["odds_before"]["PEL"]["playoff"] = 0.001
+    goal["odds"]["PEL"]["playoff"] = 0.028
+    tf = build_facts(o, {}, schedule_known=True)["2"]["PEL"]
+    by = {f["id"].rsplit(".", 1)[1]: f for f in tf["facts"]}
+    assert by["playoff_before"]["value"] == 0.001
+    assert abs(by["playoff_delta"]["value"] - 0.027) < 1e-9          # the goal itself: +2.7 points
+    assert by["playoff_prev"]["value"] == prev_pel
+    assert by["playoff_drift"]["value"] < 0                          # slid while the clock ran
+    assert tf["context"]["playoff_direction"] == "up" and tf["context"]["drift_direction"] == "down"
+    text, used = template_story(tf, "fan")
+    assert text.startswith("While the clock ran, your playoff chance had slipped to {{e2.PEL.playoff_before}}.")
+    assert "rose by {{e2.PEL.playoff_delta}}" in text and "Even so" not in text
+
+
+def test_without_odds_before_there_is_no_drift(facts):
+    ids = {f["id"].rsplit(".", 1)[1] for f in facts["3"]["KAR"]["facts"]}
+    assert "playoff_drift" not in ids and facts["3"]["KAR"]["context"]["drift_direction"] is None
+
+
 def test_formatting():
     assert fmt_pct(0.414) == "41%"
     assert fmt_points(-0.18) == "18 percentage points"

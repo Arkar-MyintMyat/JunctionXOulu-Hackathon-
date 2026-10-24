@@ -395,6 +395,72 @@
      "direct": 0.0,
      "playoff": 0.01
     }
+   },
+   "odds_before": {
+    "LUK": {
+     "direct": 0.93,
+     "playoff": 0.99
+    },
+    "TAP": {
+     "direct": 0.9,
+     "playoff": 0.99
+    },
+    "IFK": {
+     "direct": 0.78,
+     "playoff": 0.97
+    },
+    "ILV": {
+     "direct": 0.52,
+     "playoff": 0.88
+    },
+    "KAL": {
+     "direct": 0.47,
+     "playoff": 0.86
+    },
+    "PEL": {
+     "direct": 0.277,
+     "playoff": 0.72
+    },
+    "KAR": {
+     "direct": 0.123,
+     "playoff": 0.45
+    },
+    "TPS": {
+     "direct": 0.18,
+     "playoff": 0.62
+    },
+    "HPK": {
+     "direct": 0.137,
+     "playoff": 0.56
+    },
+    "JYP": {
+     "direct": 0.16,
+     "playoff": 0.59
+    },
+    "SAI": {
+     "direct": 0.06,
+     "playoff": 0.41
+    },
+    "JUK": {
+     "direct": 0.04,
+     "playoff": 0.33
+    },
+    "ASS": {
+     "direct": 0.01,
+     "playoff": 0.12
+    },
+    "SPO": {
+     "direct": 0.0,
+     "playoff": 0.06
+    },
+    "KOO": {
+     "direct": 0.0,
+     "playoff": 0.02
+    },
+    "KES": {
+     "direct": 0.0,
+     "playoff": 0.01
+    }
    }
   },
   {
@@ -489,14 +555,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.LUK.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Lukko playoff chance before this moment",
+      "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -559,14 +627,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.TAP.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Tappara playoff chance before this moment",
+      "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -629,14 +699,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.IFK.playoff_before",
       "value": 0.97,
       "display": "97%",
-      "label": "HIFK playoff chance before this moment",
+      "label": "HIFK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -698,14 +770,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.ILV.playoff_before",
       "value": 0.88,
       "display": "88%",
-      "label": "Ilves playoff chance before this moment",
+      "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -768,14 +842,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.KAL.playoff_before",
       "value": 0.86,
       "display": "86%",
-      "label": "KalPa playoff chance before this moment",
+      "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -837,14 +913,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.PEL.playoff_before",
       "value": 0.7,
       "display": "70%",
-      "label": "Pelicans playoff chance before this moment",
+      "label": "Pelicans playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -906,14 +984,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.KAR.playoff_before",
       "value": 0.48,
       "display": "48%",
-      "label": "Kärpät playoff chance before this moment",
+      "label": "Kärpät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -976,14 +1056,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.TPS.playoff_before",
       "value": 0.62,
       "display": "62%",
-      "label": "TPS playoff chance before this moment",
+      "label": "TPS playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1045,14 +1127,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.HPK.playoff_before",
       "value": 0.57,
       "display": "57%",
-      "label": "HPK playoff chance before this moment",
+      "label": "HPK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1115,14 +1199,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.JYP.playoff_before",
       "value": 0.59,
       "display": "59%",
-      "label": "JYP playoff chance before this moment",
+      "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1185,14 +1271,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.SAI.playoff_before",
       "value": 0.41,
       "display": "41%",
-      "label": "SaiPa playoff chance before this moment",
+      "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1255,14 +1343,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.JUK.playoff_before",
       "value": 0.33,
       "display": "33%",
-      "label": "Jukurit playoff chance before this moment",
+      "label": "Jukurit playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1325,14 +1415,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.ASS.playoff_before",
       "value": 0.12,
       "display": "12%",
-      "label": "Ässät playoff chance before this moment",
+      "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1395,14 +1487,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.SPO.playoff_before",
       "value": 0.06,
       "display": "6%",
-      "label": "Sport playoff chance before this moment",
+      "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1465,14 +1559,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.KOO.playoff_before",
       "value": 0.02,
       "display": "2%",
-      "label": "KooKoo playoff chance before this moment",
+      "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1535,14 +1631,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e0.KES.playoff_before",
       "value": 0.01,
       "display": "1%",
-      "label": "K-Espoo playoff chance before this moment",
+      "label": "K-Espoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1608,14 +1706,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.LUK.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Lukko playoff chance before this moment",
+      "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1686,14 +1786,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.TAP.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Tappara playoff chance before this moment",
+      "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1764,14 +1866,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.IFK.playoff_before",
       "value": 0.97,
       "display": "97%",
-      "label": "HIFK playoff chance before this moment",
+      "label": "HIFK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1841,14 +1945,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.ILV.playoff_before",
       "value": 0.88,
       "display": "88%",
-      "label": "Ilves playoff chance before this moment",
+      "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1919,14 +2025,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.KAL.playoff_before",
       "value": 0.86,
       "display": "86%",
-      "label": "KalPa playoff chance before this moment",
+      "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -1996,14 +2104,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.PEL.playoff_before",
       "value": 0.7,
       "display": "70%",
-      "label": "Pelicans playoff chance before this moment",
+      "label": "Pelicans playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2073,14 +2183,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.KAR.playoff_before",
       "value": 0.48,
       "display": "48%",
-      "label": "Kärpät playoff chance before this moment",
+      "label": "Kärpät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2151,14 +2263,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.TPS.playoff_before",
       "value": 0.62,
       "display": "62%",
-      "label": "TPS playoff chance before this moment",
+      "label": "TPS playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2228,14 +2342,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.HPK.playoff_before",
       "value": 0.57,
       "display": "57%",
-      "label": "HPK playoff chance before this moment",
+      "label": "HPK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2306,14 +2422,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.JYP.playoff_before",
       "value": 0.59,
       "display": "59%",
-      "label": "JYP playoff chance before this moment",
+      "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2384,14 +2502,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.SAI.playoff_before",
       "value": 0.41,
       "display": "41%",
-      "label": "SaiPa playoff chance before this moment",
+      "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2462,14 +2582,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.JUK.playoff_before",
       "value": 0.33,
       "display": "33%",
-      "label": "Jukurit playoff chance before this moment",
+      "label": "Jukurit playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2540,14 +2662,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.ASS.playoff_before",
       "value": 0.12,
       "display": "12%",
-      "label": "Ässät playoff chance before this moment",
+      "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2618,14 +2742,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.SPO.playoff_before",
       "value": 0.06,
       "display": "6%",
-      "label": "Sport playoff chance before this moment",
+      "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2696,14 +2822,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.KOO.playoff_before",
       "value": 0.02,
       "display": "2%",
-      "label": "KooKoo playoff chance before this moment",
+      "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2774,14 +2902,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e1.KES.playoff_before",
       "value": 0.01,
       "display": "1%",
-      "label": "K-Espoo playoff chance before this moment",
+      "label": "K-Espoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2854,14 +2984,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.LUK.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Lukko playoff chance before this moment",
+      "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -2932,14 +3064,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.TAP.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Tappara playoff chance before this moment",
+      "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3010,14 +3144,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.IFK.playoff_before",
       "value": 0.97,
       "display": "97%",
-      "label": "HIFK playoff chance before this moment",
+      "label": "HIFK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3087,14 +3223,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.ILV.playoff_before",
       "value": 0.88,
       "display": "88%",
-      "label": "Ilves playoff chance before this moment",
+      "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3165,14 +3303,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.KAL.playoff_before",
       "value": 0.86,
       "display": "86%",
-      "label": "KalPa playoff chance before this moment",
+      "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3242,14 +3382,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.PEL.playoff_before",
       "value": 0.63,
       "display": "63%",
-      "label": "Pelicans playoff chance before this moment",
+      "label": "Pelicans playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3319,14 +3461,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.KAR.playoff_before",
       "value": 0.57,
       "display": "57%",
-      "label": "Kärpät playoff chance before this moment",
+      "label": "Kärpät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3397,14 +3541,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.TPS.playoff_before",
       "value": 0.6,
       "display": "60%",
-      "label": "TPS playoff chance before this moment",
+      "label": "TPS playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3474,14 +3620,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.HPK.playoff_before",
       "value": 0.54,
       "display": "54%",
-      "label": "HPK playoff chance before this moment",
+      "label": "HPK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3552,14 +3700,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.JYP.playoff_before",
       "value": 0.57,
       "display": "57%",
-      "label": "JYP playoff chance before this moment",
+      "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3630,14 +3780,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.SAI.playoff_before",
       "value": 0.4,
       "display": "40%",
-      "label": "SaiPa playoff chance before this moment",
+      "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3708,14 +3860,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.JUK.playoff_before",
       "value": 0.33,
       "display": "33%",
-      "label": "Jukurit playoff chance before this moment",
+      "label": "Jukurit playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3786,14 +3940,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.ASS.playoff_before",
       "value": 0.12,
       "display": "12%",
-      "label": "Ässät playoff chance before this moment",
+      "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3864,14 +4020,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.SPO.playoff_before",
       "value": 0.06,
       "display": "6%",
-      "label": "Sport playoff chance before this moment",
+      "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -3942,14 +4100,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.KOO.playoff_before",
       "value": 0.02,
       "display": "2%",
-      "label": "KooKoo playoff chance before this moment",
+      "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4020,14 +4180,16 @@
      "scoring_team_name": "Pelicans",
      "scorer": "Sund",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e2.KES.playoff_before",
       "value": 0.01,
       "display": "1%",
-      "label": "K-Espoo playoff chance before this moment",
+      "label": "K-Espoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4100,14 +4262,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.LUK.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Lukko playoff chance before this moment",
+      "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4178,14 +4342,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.TAP.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Tappara playoff chance before this moment",
+      "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4256,14 +4422,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.IFK.playoff_before",
       "value": 0.97,
       "display": "97%",
-      "label": "HIFK playoff chance before this moment",
+      "label": "HIFK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4333,14 +4501,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.ILV.playoff_before",
       "value": 0.88,
       "display": "88%",
-      "label": "Ilves playoff chance before this moment",
+      "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4411,14 +4581,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.KAL.playoff_before",
       "value": 0.86,
       "display": "86%",
-      "label": "KalPa playoff chance before this moment",
+      "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4488,14 +4660,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": "up"
     },
     "facts": [
      {
       "id": "e3.PEL.playoff_before",
-      "value": 0.69,
-      "display": "69%",
-      "label": "Pelicans playoff chance before this moment",
+      "value": 0.72,
+      "display": "72%",
+      "label": "Pelicans playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4507,8 +4681,8 @@
      },
      {
       "id": "e3.PEL.playoff_delta",
-      "value": -0.12,
-      "display": "12 percentage points",
+      "value": -0.15,
+      "display": "15 percentage points",
       "label": "Change in Pelicans playoff chance",
       "source": "simulation"
      },
@@ -4532,6 +4706,20 @@
       "display": "58:12",
       "label": "Game time of the goal",
       "source": "game events"
+     },
+     {
+      "id": "e3.PEL.playoff_prev",
+      "value": 0.69,
+      "display": "69%",
+      "label": "Pelicans playoff chance at the previous moment (33:15)",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.PEL.playoff_drift",
+      "value": 0.03,
+      "display": "3 percentage points",
+      "label": "Change in Pelicans playoff chance as the clock ran, 33:15–58:12",
+      "source": "simulation"
      },
      {
       "id": "e3.PEL.next_opponent",
@@ -4565,14 +4753,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": "down"
     },
     "facts": [
      {
       "id": "e3.KAR.playoff_before",
-      "value": 0.49,
-      "display": "49%",
-      "label": "Kärpät playoff chance before this moment",
+      "value": 0.45,
+      "display": "45%",
+      "label": "Kärpät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4584,8 +4774,8 @@
      },
      {
       "id": "e3.KAR.playoff_delta",
-      "value": 0.23,
-      "display": "23 percentage points",
+      "value": 0.27,
+      "display": "27 percentage points",
       "label": "Change in Kärpät playoff chance",
       "source": "simulation"
      },
@@ -4609,6 +4799,20 @@
       "display": "58:12",
       "label": "Game time of the goal",
       "source": "game events"
+     },
+     {
+      "id": "e3.KAR.playoff_prev",
+      "value": 0.49,
+      "display": "49%",
+      "label": "Kärpät playoff chance at the previous moment (33:15)",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAR.playoff_drift",
+      "value": -0.04,
+      "display": "4 percentage points",
+      "label": "Change in Kärpät playoff chance as the clock ran, 33:15–58:12",
+      "source": "simulation"
      },
      {
       "id": "e3.KAR.next_opponent",
@@ -4643,14 +4847,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.TPS.playoff_before",
       "value": 0.62,
       "display": "62%",
-      "label": "TPS playoff chance before this moment",
+      "label": "TPS playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4720,14 +4926,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.HPK.playoff_before",
       "value": 0.56,
       "display": "56%",
-      "label": "HPK playoff chance before this moment",
+      "label": "HPK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4798,14 +5006,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.JYP.playoff_before",
       "value": 0.59,
       "display": "59%",
-      "label": "JYP playoff chance before this moment",
+      "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4876,14 +5086,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.SAI.playoff_before",
       "value": 0.41,
       "display": "41%",
-      "label": "SaiPa playoff chance before this moment",
+      "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -4954,14 +5166,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.JUK.playoff_before",
       "value": 0.33,
       "display": "33%",
-      "label": "Jukurit playoff chance before this moment",
+      "label": "Jukurit playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5032,14 +5246,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.ASS.playoff_before",
       "value": 0.12,
       "display": "12%",
-      "label": "Ässät playoff chance before this moment",
+      "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5110,14 +5326,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.SPO.playoff_before",
       "value": 0.06,
       "display": "6%",
-      "label": "Sport playoff chance before this moment",
+      "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5188,14 +5406,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.KOO.playoff_before",
       "value": 0.02,
       "display": "2%",
-      "label": "KooKoo playoff chance before this moment",
+      "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5266,14 +5486,16 @@
      "scoring_team_name": "Kärpät",
      "scorer": "Lehtonen",
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e3.KES.playoff_before",
       "value": 0.01,
       "display": "1%",
-      "label": "K-Espoo playoff chance before this moment",
+      "label": "K-Espoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5345,14 +5567,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.LUK.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Lukko playoff chance before this moment",
+      "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5415,14 +5639,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.TAP.playoff_before",
       "value": 0.99,
       "display": "99%",
-      "label": "Tappara playoff chance before this moment",
+      "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5485,14 +5711,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.IFK.playoff_before",
       "value": 0.97,
       "display": "97%",
-      "label": "HIFK playoff chance before this moment",
+      "label": "HIFK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5554,14 +5782,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.ILV.playoff_before",
       "value": 0.85,
       "display": "85%",
-      "label": "Ilves playoff chance before this moment",
+      "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5624,14 +5854,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.KAL.playoff_before",
       "value": 0.84,
       "display": "84%",
-      "label": "KalPa playoff chance before this moment",
+      "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5693,14 +5925,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.PEL.playoff_before",
       "value": 0.57,
       "display": "57%",
-      "label": "Pelicans playoff chance before this moment",
+      "label": "Pelicans playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5762,14 +5996,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "up"
+     "season_over": false,
+     "playoff_direction": "up",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.KAR.playoff_before",
       "value": 0.72,
       "display": "72%",
-      "label": "Kärpät playoff chance before this moment",
+      "label": "Kärpät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5832,14 +6068,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.TPS.playoff_before",
       "value": 0.57,
       "display": "57%",
-      "label": "TPS playoff chance before this moment",
+      "label": "TPS playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5901,14 +6139,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "down"
+     "season_over": false,
+     "playoff_direction": "down",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.HPK.playoff_before",
       "value": 0.5,
       "display": "50%",
-      "label": "HPK playoff chance before this moment",
+      "label": "HPK playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -5971,14 +6211,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.JYP.playoff_before",
       "value": 0.54,
       "display": "54%",
-      "label": "JYP playoff chance before this moment",
+      "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6041,14 +6283,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.SAI.playoff_before",
       "value": 0.37,
       "display": "37%",
-      "label": "SaiPa playoff chance before this moment",
+      "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6111,14 +6355,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.JUK.playoff_before",
       "value": 0.33,
       "display": "33%",
-      "label": "Jukurit playoff chance before this moment",
+      "label": "Jukurit playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6181,14 +6427,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.ASS.playoff_before",
       "value": 0.12,
       "display": "12%",
-      "label": "Ässät playoff chance before this moment",
+      "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6251,14 +6499,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.SPO.playoff_before",
       "value": 0.06,
       "display": "6%",
-      "label": "Sport playoff chance before this moment",
+      "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6321,14 +6571,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.KOO.playoff_before",
       "value": 0.02,
       "display": "2%",
-      "label": "KooKoo playoff chance before this moment",
+      "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6391,14 +6643,16 @@
      "scoring_team_name": null,
      "scorer": null,
      "overtime": false,
-     "playoff_direction": "unchanged"
+     "season_over": false,
+     "playoff_direction": "unchanged",
+     "drift_direction": null
     },
     "facts": [
      {
       "id": "e4.KES.playoff_before",
       "value": 0.01,
       "display": "1%",
-      "label": "K-Espoo playoff chance before this moment",
+      "label": "K-Espoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
@@ -6630,8 +6884,9 @@
    "event_idx": 3,
    "team": "PEL",
    "audience": "fan",
-   "text": "The goal against you at {{e3.PEL.clock}} made it {{e3.PEL.score}}. Your playoff chance fell by {{e3.PEL.playoff_delta}} to {{e3.PEL.playoff_after}}. Next up: {{e3.PEL.next_opponent}} on {{e3.PEL.next_date}}.",
+   "text": "While the clock ran, your playoff chance had climbed to {{e3.PEL.playoff_before}}. The goal against you at {{e3.PEL.clock}} made it {{e3.PEL.score}}. Your playoff chance fell by {{e3.PEL.playoff_delta}} to {{e3.PEL.playoff_after}}. Next up: {{e3.PEL.next_opponent}} on {{e3.PEL.next_date}}.",
    "facts_used": [
+    "e3.PEL.playoff_before",
     "e3.PEL.clock",
     "e3.PEL.score",
     "e3.PEL.playoff_delta",
@@ -6649,8 +6904,9 @@
    "event_idx": 3,
    "team": "KAR",
    "audience": "fan",
-   "text": "Lehtonen's goal at {{e3.KAR.clock}} made it {{e3.KAR.score}}. Your playoff chance rose by {{e3.KAR.playoff_delta}} to {{e3.KAR.playoff_after}}. Next up: {{e3.KAR.next_opponent}} on {{e3.KAR.next_date}}.",
+   "text": "While the clock ran, your playoff chance had slipped to {{e3.KAR.playoff_before}}. Lehtonen's goal at {{e3.KAR.clock}} made it {{e3.KAR.score}}. Your playoff chance rose by {{e3.KAR.playoff_delta}} to {{e3.KAR.playoff_after}}. Next up: {{e3.KAR.next_opponent}} on {{e3.KAR.next_date}}.",
    "facts_used": [
+    "e3.KAR.playoff_before",
     "e3.KAR.clock",
     "e3.KAR.score",
     "e3.KAR.playoff_delta",
@@ -6662,7 +6918,7 @@
    "writer": "template",
    "attempts": 1,
    "status": "verified",
-   "review": "auto"
+   "review": "editor"
   },
   {
    "event_idx": 3,

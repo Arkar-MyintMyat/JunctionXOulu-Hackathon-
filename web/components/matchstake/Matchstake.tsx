@@ -5,7 +5,7 @@ import { Pause, Play, RotateCcw, SkipBack, SkipForward } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
 import { pct, score as fmtScore, signedPoints, textOn } from "@/lib/format";
-import { eventAt, playoffDelta, teamOf } from "@/lib/match";
+import { eventAt, goalImpact, playoffBefore, teamOf } from "@/lib/match";
 import { SPEEDS, usePlayback } from "@/lib/playback";
 import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 
@@ -119,7 +119,8 @@ function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; s
   const prob = (e: MatchEvent) => e.odds[code]?.playoff ?? 0;
   const clamp = (p: number) => Math.min(1, Math.max(0, p));
   const beats = events.filter((e, i) => e.kind === "goal" && i > 0)
-    .map((e) => ({ e, p0: prob(events[events.indexOf(e) - 1]), p1: prob(e) }));
+    // p0 = just before the goal (odds_before if present): the line drifts there, then the goal beats.
+    .map((e) => ({ e, p0: e.odds_before?.[code]?.playoff ?? prob(events[events.indexOf(e) - 1]), p1: prob(e) }));
   const inBeat = (s: number) => beats.some(({ e }) => s > e.seconds && s < e.seconds + BEAT_SECONDS);
 
   const points: TracePoint[] = [{ seconds: events[0].seconds, p: prob(events[0]) }];
@@ -202,10 +203,11 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const revealMs = travelling ? pb.travel!.ms : current.kind === "goal" ? 420 : 450;
   const clockSeconds = travelling ? events[pb.travel!.to].seconds : current.seconds;
   const clock = useTween(clockSeconds, travelling ? pb.travel!.ms : 300);
-  const headP = prob(current);
+  // While travelling, the head glides to the value just before the next event (the drift, if any).
+  const headP = travelling ? playoffBefore(match, pb.travel!.to, team.code) : prob(current);
 
   const shownProb = useTween(prob(current), 700);
-  const delta = playoffDelta(match, pb.eventIdx, team.code);
+  const delta = current.kind === "goal" ? goalImpact(match, pb.eventIdx, team.code) : 0;
   const atGoal = !travelling && current.kind === "goal";
   const showPop = atGoal && Math.abs(delta) >= 0.005;
   const big = atGoal && Math.abs(delta) >= BIG_SWING;
@@ -223,7 +225,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   // a rise if there is room, otherwise beside the dot.
   const callouts = goals.map((g, i) => {
     const prev = events[events.indexOf(g) - 1] ?? g;
-    const d = prob(g) - prob(prev);
+    const d = goalImpact(match, g.idx, team.code); // what the goal itself was worth
     return { g, d, label: goalLabel(match, g, prev, i === goals.length - 1), above: d < 0 };
   });
 

@@ -19,6 +19,10 @@ direction in words, using the context's playoff_direction: rose, fell, gained, l
 - If the context says overtime is true, the goal decided the game in overtime: say so in words.
 - If the team scored but its playoff_direction is down, the goal still lowered its chance: say that
   plainly (it was not enough). Do not invent the reason: no standings, points or tiebreaks.
+- `playoff_delta` is what this goal itself was worth (from just before it to just after it).
+  `playoff_drift`, if present, is how the chance moved as the clock ran before the goal; the context's
+  drift_direction says which way. You may tell both, e.g. a chance that slipped while trailing and then
+  rose with the equaliser.
 - If the context says season_over is true, this team has no regular-season game left: say so, and
   never mention a next game.
 - Use only facts from the fact sheet. List every fact id you used in facts_used, and only those.

@@ -22,6 +22,19 @@ export function playoffDelta(match: Match, idx: number, code: TeamCode): number 
   return now - before;
 }
 
+/** Playoff chance just before this event: odds_before when the data has it, else the previous event. */
+export function playoffBefore(match: Match, idx: number, code: TeamCode): number {
+  const ev = eventAt(match, idx);
+  const before = ev.odds_before?.[code]?.playoff;
+  if (before !== undefined) return before;
+  return idx <= 0 ? (ev.odds[code]?.playoff ?? 0) : (eventAt(match, idx - 1).odds[code]?.playoff ?? 0);
+}
+
+/** What this goal itself was worth for a team (uses odds_before, so drift while the clock ran is excluded). */
+export function goalImpact(match: Match, idx: number, code: TeamCode): number {
+  return (eventAt(match, idx).odds[code]?.playoff ?? 0) - playoffBefore(match, idx, code);
+}
+
 /** Teams sorted by the size of their playoff swing at this event, biggest first. */
 export function swings(match: Match, idx: number): { code: TeamCode; delta: number }[] {
   return match.teams
