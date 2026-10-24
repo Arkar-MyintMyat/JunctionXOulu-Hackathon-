@@ -7,6 +7,45 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 Result = Literal["HOME_REG", "HOME_OT", "AWAY_OT", "AWAY_REG"]
+FinishedType = Literal["REG", "OT", "SO"]
+
+
+# ---------- engine (parsed from data/raw) ----------
+
+class Goal(BaseModel):
+    seconds: int
+    period: int
+    team: str  # code of the scoring team
+    scorer: str | None
+    home_score: int
+    away_score: int
+    shootout: bool  # Liiga logs the shootout winner as a goal in period 5
+
+
+class Game(BaseModel):
+    id: int
+    season: int
+    start: str  # ISO datetime
+    home: str
+    away: str
+    ended: bool
+    finished_type: FinishedType | None  # None while not finished
+    home_goals: int
+    away_goals: int
+    goals: list[Goal]  # sorted by time
+
+
+class TableRow(BaseModel):
+    code: str
+    games: int = 0
+    wins: int = 0
+    ot_wins: int = 0
+    ot_losses: int = 0
+    losses: int = 0
+    goals_for: int = 0
+    goals_against: int = 0
+    points: int = 0
+    rank: int = 0
 
 
 # ---------- contracts (section 5) ----------
