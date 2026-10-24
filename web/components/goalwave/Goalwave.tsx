@@ -312,7 +312,7 @@ function Banner({ banner, teamName }: { banner: GoalwaveBanner; teamName: (code:
 
   let headline: string;
   if (event.kind === "start") headline = "Kick-off · odds before the puck drops";
-  else if (event.kind === "end") headline = `Full time · ${event.score}`;
+  else if (event.kind === "end") headline = `Full time · ${event.score} · whole match, since kick-off`;
   else headline = `${event.clock} · Goal ${event.team ? teamName(event.team) : ""}${event.scorer ? ` (${event.scorer})` : ""} · ${event.score}`;
 
   return (
