@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "match_id": 480,
+  "stories": [
+    {
+      "event_idx": 1,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "When Sulku scored for KooKoo at {{e1.TPS.clock}}, your team's playoff outlook fell to {{e1.TPS.playoff_after}}. Your chance had already slipped {{e1.TPS.playoff_drift}} as the clock ran, and this {{e1.TPS.score}} goal caused a further loss of {{e1.TPS.playoff_delta}}. In this last game of the regular season, your estimate for a direct quarterfinal spot is now {{e1.TPS.direct_after}}.",
+      "facts_used": [
+        "e1.TPS.clock",
+        "e1.TPS.playoff_after",
+        "e1.TPS.playoff_drift",
+        "e1.TPS.score",
+        "e1.TPS.playoff_delta",
+        "e1.TPS.direct_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 1,
+      "team": "HPK",
+      "audience": "fan",
+      "text": "You have no regular-season games left, but other scores still affect your team. Your playoff chance gained {{e1.HPK.playoff_drift}} as the clock ran before Sulku scored for KooKoo at {{e1.HPK.clock}}. That goal made it {{e1.HPK.score}}, and your chance rose by {{e1.HPK.playoff_delta}} to an estimate of {{e1.HPK.playoff_after}}.",
+      "facts_used": [
+        "e1.HPK.playoff_drift",
+        "e1.HPK.clock",
+        "e1.HPK.score",
+        "e1.HPK.playoff_delta",
+        "e1.HPK.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 2,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "Wernblom scored at {{e2.TPS.clock}} to tie the game against KooKoo at {{e2.TPS.score}}. Your playoff outlook fell by {{e2.TPS.playoff_drift}} as the clock ran, but this goal saw that estimate rise by {{e2.TPS.playoff_delta}}. The chance for your team to reach the post-season now stands at {{e2.TPS.playoff_after}}.",
+      "facts_used": [
+        "e2.TPS.clock",
+        "e2.TPS.score",
+        "e2.TPS.playoff_drift",
+        "e2.TPS.playoff_delta",
+        "e2.TPS.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 2,
+      "team": "HPK",
+      "audience": "fan",
+      "text": "Your team has no regular-season games left, but Wernblom's goal for TPS at {{e2.HPK.clock}} still impacts your outlook. While your playoff chance gained {{e2.HPK.playoff_drift}} as the clock ran, it fell {{e2.HPK.playoff_delta}} once the score reached {{e2.HPK.score}}. Your estimated chance to reach the playoffs is now {{e2.HPK.playoff_after}}.",
+      "facts_used": [
+        "e2.HPK.clock",
+        "e2.HPK.playoff_drift",
+        "e2.HPK.playoff_delta",
+        "e2.HPK.score",
+        "e2.HPK.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 3,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "The goal by Saarela at {{e3.TPS.clock}} gave your team a {{e3.TPS.score}} lead. Your playoff outlook fell by {{e3.TPS.playoff_drift}} as the clock ran, but this score helped it rise by {{e3.TPS.playoff_delta}}. In this last game of the regular season, your estimate is now {{e3.TPS.playoff_after}}.",
+      "facts_used": [
+        "e3.TPS.clock",
+        "e3.TPS.score",
+        "e3.TPS.playoff_drift",
+        "e3.TPS.playoff_delta",
+        "e3.TPS.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 3,
+      "team": "HPK",
+      "audience": "fan",
+      "text": "Your team, HPK, has no regular-season games left, but Saarela scoring for TPS at {{e3.HPK.clock}} impacts your outlook. After the goal made the score {{e3.HPK.score}}, your playoff chance fell {{e3.HPK.playoff_delta}}. While your estimate gained {{e3.HPK.playoff_drift}} as the clock ran, it now stands at {{e3.HPK.playoff_after}}.",
+      "facts_used": [
+        "e3.HPK.clock",
+        "e3.HPK.score",
+        "e3.HPK.playoff_delta",
+        "e3.HPK.playoff_drift",
+        "e3.HPK.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 4,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "Your team's playoff outlook gained {{e4.TPS.playoff_drift}} as the clock ran, but the goal by Miettinen at {{e4.TPS.clock}} changed the situation. This goal brought the score to {{e4.TPS.score}} and caused the estimate to fall by {{e4.TPS.playoff_delta}}. Your chance to reach the playoffs is now {{e4.TPS.playoff_after}}.",
+      "facts_used": [
+        "e4.TPS.playoff_drift",
+        "e4.TPS.clock",
+        "e4.TPS.score",
+        "e4.TPS.playoff_delta",
+        "e4.TPS.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 4,
+      "team": "HPK",
+      "audience": "fan",
+      "text": "Your regular season is over, yet your playoff estimate continues to shift while KooKoo and TPS play. Although your chance fell {{e4.HPK.playoff_drift}} as the clock ran, it rose {{e4.HPK.playoff_delta}} after Miettinen made the score {{e4.HPK.score}} at {{e4.HPK.clock}}. Your team's playoff chance is now {{e4.HPK.playoff_after}}.",
+      "facts_used": [
+        "e4.HPK.playoff_drift",
+        "e4.HPK.playoff_delta",
+        "e4.HPK.score",
+        "e4.HPK.clock",
+        "e4.HPK.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 5,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "Your team conceded a goal to Rooba at {{e5.TPS.clock}}, moving the score to {{e5.TPS.score}}. While your playoff chance fell {{e5.TPS.playoff_drift}} as the clock ran, this goal lost you another {{e5.TPS.playoff_delta}}. The estimate for TPS to reach the playoffs is now {{e5.TPS.playoff_after}}.",
+      "facts_used": [
+        "e5.TPS.clock",
+        "e5.TPS.score",
+        "e5.TPS.playoff_drift",
+        "e5.TPS.playoff_delta",
+        "e5.TPS.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 5,
+      "team": "HPK",
+      "audience": "fan",
+      "text": "While your team is not playing, the goal by Rooba at {{e5.HPK.clock}} improved your playoff outlook. As the clock ran before the score became {{e5.HPK.score}}, your chance rose by {{e5.HPK.playoff_drift}} and then gained {{e5.HPK.playoff_delta}}. Your estimate is now {{e5.HPK.playoff_after}} although your regular season is over.",
+      "facts_used": [
+        "e5.HPK.clock",
+        "e5.HPK.score",
+        "e5.HPK.playoff_drift",
+        "e5.HPK.playoff_delta",
+        "e5.HPK.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 6,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "Yliniemi tied the game at {{e6.TPS.score}} during your team's last regular-season match against KooKoo. Your playoff outlook had lost {{e6.TPS.playoff_drift}} while trailing, but it rose by {{e6.TPS.playoff_delta}} after this goal at {{e6.TPS.clock}}. The estimate for your team to reach the playoffs is now {{e6.TPS.playoff_after}}.",
+      "facts_used": [
+        "e6.TPS.score",
+        "e6.TPS.playoff_drift",
+        "e6.TPS.playoff_delta",
+        "e6.TPS.clock",
+        "e6.TPS.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 6,
+      "team": "HPK",
+      "audience": "fan",
+      "text": "Your team has no games left, but events elsewhere still affect your outlook. Your playoff chance rose {{e6.HPK.playoff_drift}} as the clock ran, but Yliniemi scoring for TPS at {{e6.HPK.clock}} caused it to fall {{e6.HPK.playoff_delta}}. The estimate for HPK now stands at 99%.",
+      "facts_used": [
+        "e6.HPK.playoff_drift",
+        "e6.HPK.clock",
+        "e6.HPK.playoff_delta",
+        "e6.HPK.playoff_after"
+      ],
+      "problems": [
+        "raw number '99%' not from facts",
+        "fact 'e6.HPK.playoff_after' listed in facts_used but not in the text"
+      ],
+      "writer": "llm",
+      "attempts": 1,
+      "injected": true,
+      "status": "blocked",
+      "review": "editor"
+    },
+    {
+      "event_idx": 7,
+      "team": "TPS",
+      "audience": "fan",
+      "text": "Your team's playoff outlook fell by {{e7.TPS.playoff_drift}} while trailing before this goal. When Miettinen scored for KooKoo at {{e7.TPS.clock}} to make it {{e7.TPS.score}}, your chance lost another {{e7.TPS.playoff_delta}}. The estimate for TPS to reach the playoffs is now {{e7.TPS.playoff_after}}.",
+      "facts_used": [
+        "e7.TPS.playoff_drift",
+        "e7.TPS.clock",
+        "e7.TPS.score",
+        "e7.TPS.playoff_delta",
+        "e7.TPS.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    }
+  ]
+}

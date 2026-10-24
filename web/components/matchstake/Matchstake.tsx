@@ -459,21 +459,31 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             return (
               <g key={`goal-${g.idx}`} className="cursor-pointer" onClick={() => pb.seek(g.idx)}>
                 <title>{`${g.clock} ${label} ${teamOf(match, g.team)?.name ?? ""}${g.scorer ? `, ${g.scorer}` : ""}`}</title>
-                <motion.g initial={{ opacity: 0, y: placeAbove ? 8 : -8 }} animate={{ opacity: 1, y: 0 }}
-                          transition={{ type: "spring", stiffness: 380, damping: 22, delay: isNow ? 0.3 : 0 }}>
-                  <line x1={link.x} x2={gx} y1={link.y} y2={gy} stroke={c} strokeWidth={1.5} />
-                  <rect x={bx} y={by} width={BOX_W} height={BOX_H} rx={8} fill="#ffffff"
-                        stroke={c} strokeWidth={isNow ? 2.5 : 1.5}
-                        style={{ filter: isNow ? `drop-shadow(0 4px 10px ${c}40)` : "drop-shadow(0 1px 2px #0f172a14)" }} />
-                  <text x={bx + BOX_W / 2} y={by + 18} textAnchor="middle" fontSize={14} fill={c} fontWeight={700}>
-                    {g.clock} · {signedPoints(d)} pts
-                  </text>
-                  <text x={bx + BOX_W / 2} y={by + 40} textAnchor="middle" fontSize={19} fontWeight={900} fill={ui.text}
-                        letterSpacing={0.5}>{label}</text>
-                  <text x={bx + BOX_W / 2} y={by + 58} textAnchor="middle" fontSize={14} fontWeight={700} fill={ui.muted}>
-                    {fmtScore(g.score)} · {g.team}
-                  </text>
-                </motion.g>
+                {isNow ? (
+                  // The goal that just happened: the full callout box.
+                  <motion.g initial={{ opacity: 0, y: placeAbove ? 8 : -8 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ type: "spring", stiffness: 380, damping: 22, delay: 0.3 }}>
+                    <line x1={link.x} x2={gx} y1={link.y} y2={gy} stroke={c} strokeWidth={1.5} />
+                    <rect x={bx} y={by} width={BOX_W} height={BOX_H} rx={8} fill="#ffffff" stroke={c} strokeWidth={2.5}
+                          style={{ filter: `drop-shadow(0 4px 10px ${c}40)` }} />
+                    <text x={bx + BOX_W / 2} y={by + 18} textAnchor="middle" fontSize={14} fill={c} fontWeight={700}>
+                      {g.clock} · {signedPoints(d)} pts
+                    </text>
+                    <text x={bx + BOX_W / 2} y={by + 40} textAnchor="middle" fontSize={19} fontWeight={900} fill={ui.text}
+                          letterSpacing={0.5}>{label}</text>
+                    <text x={bx + BOX_W / 2} y={by + 58} textAnchor="middle" fontSize={14} fontWeight={700} fill={ui.muted}>
+                      {fmtScore(g.score)} · {g.team}
+                    </text>
+                  </motion.g>
+                ) : (
+                  // Earlier goals: a small tag, so many goals stay readable. The cards below have the details.
+                  <g>
+                    <rect x={gx - 24} y={d >= 0 ? gy - 34 : gy + 12} width={48} height={22} rx={11} fill="#ffffff"
+                          stroke={c} strokeWidth={1.5} />
+                    <text x={gx} y={d >= 0 ? gy - 18 : gy + 28} textAnchor="middle" fontSize={13} fontWeight={800}
+                          fill={c}>{signedPoints(d)}</text>
+                  </g>
+                )}
                 {isNow && (
                   <motion.circle cx={gx} cy={gy} fill="none" stroke={c} strokeWidth={2.5}
                                  initial={{ r: 7, opacity: 0.8 }} animate={{ r: 30, opacity: 0 }}
