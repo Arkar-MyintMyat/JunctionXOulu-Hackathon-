@@ -185,7 +185,7 @@ paths, LLM model. No magic numbers in functions.
 | Area | Test | Owner |
 |---|---|---|
 | Standings | Table rebuilt from current-season results equals API standings (points, games played) | A |
-| Simulate | Each team's top6 ≤ playoff; probabilities in [0, 1]; same seed → same result | A |
+| Simulate | Each team's direct ≤ playoff; probabilities in [0, 1]; same seed → same result | A |
 | Replay | Every event has odds for every team; a goal never lowers the scorer's own playoff odds by > 0.02 | A |
 | Contracts | `contracts/*.example.json` and real API responses load into the Pydantic models | A |
 | Fact sheets | Every event has facts for every team; each fact's `display` matches its `value` | B |
