@@ -1,4 +1,4 @@
-# Stakes by Kaleva
+# Stakes by Kaleva (Panokset)
 
 **Flashscore tells you the score. Stakes tells you what it was worth.**
 
