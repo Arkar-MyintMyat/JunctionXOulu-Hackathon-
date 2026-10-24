@@ -15,16 +15,13 @@ import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 // in the direction of the change: a drop never flicks up, a rise never flicks down. Every point on
 // the line is a model value. Blue while the team is better off than at kick-off, red while worse off.
 
-const W = 960;
-const H = 400;
+// The chart is drawn at its real on-screen width (measured), so text keeps its true size in any column.
+const DEFAULT_W = 960;
 // The plot spans the full width so it lines up with the strip above and the goal cards below;
 // the % labels sit inside the plot, just above their gridlines.
 const PAD_L = 4;
 const PAD_R = 4;
-const PLOT_W = W - PAD_L - PAD_R;
 const TOP = 30;
-const BOTTOM = 344;
-const AXIS_Y = BOTTOM + 28;
 const BOX_W = 136;
 const BOX_H = 66;
 /** Game seconds one heartbeat takes on the time axis. */
@@ -164,6 +161,20 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const uid = useId().replace(/:/g, "");
   const reduceMotion = useReducedMotion();
   const [shakeScope, shake] = useAnimate();
+  // Real width of the chart area; the SVG is drawn 1:1 with it, so fonts stay readable when narrow.
+  const [chartW, setChartW] = useState(DEFAULT_W);
+  useEffect(() => {
+    const el = shakeScope.current as HTMLElement | null;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setChartW(Math.max(320, Math.round(entry.contentRect.width))));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [shakeScope]);
+  const W = chartW;
+  const H = Math.round(Math.min(400, Math.max(320, W * 0.5)));
+  const PLOT_W = W - PAD_L - PAD_R;
+  const BOTTOM = H - 56;
+  const AXIS_Y = BOTTOM + 28;
   const team = teamOf(match, pb.selectedTeam) ?? match.teams[0];
   const events = match.events;
   const current = eventAt(match, pb.eventIdx);
@@ -288,27 +299,8 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           )}
         </div>
 
-        {/* Playing team: the big scoreboard in the middle. */}
-        {isPlaying && (
-          <div className="flex grow flex-col items-center gap-1">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
-              Current match
-            </div>
-            <div className="flex items-center justify-center gap-4">
-              <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" />
-              <span className="text-5xl font-black tabular-nums">{sh}</span>
-              <span className="rounded-md border px-3 py-1 text-sm font-bold tabular-nums"
-                    style={{ borderColor: ui.border, background: ui.panel }}>
-                {finished ? "FINAL" : fmtClock(clock)}
-              </span>
-              <span className="text-5xl font-black tabular-nums">{sa}</span>
-              <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" />
-            </div>
-          </div>
-        )}
-
         {/* Playing team: the team picker on the right. Not playing: the small current-match line there. */}
-        <div className="ml-auto flex shrink-0 flex-col items-end gap-1 self-end">
+        <div className={`ml-auto flex shrink-0 flex-col items-end gap-1 ${isPlaying ? "self-start" : "self-end"}`}>
           {isPlaying && (
             <>
               <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
@@ -336,6 +328,25 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             </div>
           )}
         </div>
+
+        {/* Playing team: the big scoreboard on its own row under the title and the picker. */}
+        {isPlaying && (
+          <div className="flex basis-full flex-col items-center gap-1">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
+              Current match
+            </div>
+            <div className="flex items-center justify-center gap-4">
+              <TeamName name={home?.name ?? match.match.home} color={home?.color} align="right" />
+              <span className="text-5xl font-black tabular-nums">{sh}</span>
+              <span className="rounded-md border px-3 py-1 text-sm font-bold tabular-nums"
+                    style={{ borderColor: ui.border, background: ui.panel }}>
+                {finished ? "FINAL" : fmtClock(clock)}
+              </span>
+              <span className="text-5xl font-black tabular-nums">{sa}</span>
+              <TeamName name={away?.name ?? match.match.away} color={away?.color} align="left" />
+            </div>
+          </div>
+        )}
 
         {!showChart && (
           <div className="basis-full rounded-xl border px-5 py-4"
