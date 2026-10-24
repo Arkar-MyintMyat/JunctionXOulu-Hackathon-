@@ -269,6 +269,34 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           </div>
         </div>
 
+        {/* Team picker: any team in the league, playing or not. */}
+        <label className="flex shrink-0 flex-col gap-1">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
+            Show team
+          </span>
+          <span className="relative flex items-center">
+            <span className="pointer-events-none absolute left-3 size-3 rounded-full ring-1 ring-black/15"
+                  style={{ background: team.color }} />
+            <select
+              value={pb.selectedTeam}
+              onChange={(e) => pb.selectTeam(e.target.value)}
+              className="min-w-52 rounded-lg border py-2 pr-8 pl-8 text-sm font-bold"
+              style={{ borderColor: ui.text, background: ui.card, color: ui.text }}
+            >
+              <optgroup label="Playing this match">
+                {[match.match.home, match.match.away].map((code) => (
+                  <option key={code} value={code}>{teamOf(match, code)?.name ?? code}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Not playing: impact of this match">
+                {notPlaying.map((t) => (
+                  <option key={t.code} value={t.code}>{t.name}</option>
+                ))}
+              </optgroup>
+            </select>
+          </span>
+        </label>
+
         {!isPlaying && (
           <div className="basis-full rounded-xl border px-4 py-3 text-sm"
                style={{ borderColor: ui.border, background: ui.panel }}>
@@ -538,37 +566,6 @@ export function Matchstake({ match, className }: { match: Match; className?: str
               </button>
             ))}
           </div>
-        </div>
-        <div className="flex items-center gap-1.5" role="group" aria-label="Show playoff chance for">
-          {[match.match.home, match.match.away].map((code) => {
-            const t = teamOf(match, code);
-            const active = pb.selectedTeam === code;
-            return (
-              <button key={code} type="button" onClick={() => pb.selectTeam(code)}
-                      className="rounded-lg border px-3 py-1.5 text-xs font-bold"
-                      style={active
-                        ? { background: t?.color, color: textOn(t?.color ?? "#888888"), borderColor: t?.color }
-                        : { borderColor: ui.border, color: ui.muted }}>
-                {t?.name}
-              </button>
-            );
-          })}
-          {/* Every other team: its own heartbeat and impact for this match. */}
-          <label className="sr-only" htmlFor={`team-${uid}`}>Teams not playing</label>
-          <select
-            id={`team-${uid}`}
-            value={notPlaying.some((t) => t.code === pb.selectedTeam) ? pb.selectedTeam : ""}
-            onChange={(e) => e.target.value && pb.selectTeam(e.target.value)}
-            className="rounded-lg border py-1.5 pr-7 pl-3 text-xs font-bold"
-            style={notPlaying.some((t) => t.code === pb.selectedTeam)
-              ? { background: team.color, color: textOn(team.color), borderColor: team.color }
-              : { borderColor: ui.border, color: ui.muted, background: ui.card }}
-          >
-            <option value="" disabled>Other teams…</option>
-            {notPlaying.map((t) => (
-              <option key={t.code} value={t.code}>{t.name} (not playing)</option>
-            ))}
-          </select>
         </div>
       </div>
       <div className="px-5 pb-4 text-[11px]" style={{ color: ui.muted }}>
