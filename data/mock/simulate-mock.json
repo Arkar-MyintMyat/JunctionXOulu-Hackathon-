@@ -1,0 +1,21 @@
+{
+  "runs": 5000,
+  "teams": [
+    { "code": "TAP", "points_now": 34, "rank_now": 1, "top6": 0.93, "playoff": 0.99, "avg_rank": 1.8 },
+    { "code": "KAL", "points_now": 31, "rank_now": 2, "top6": 0.84, "playoff": 0.97, "avg_rank": 2.9 },
+    { "code": "LUK", "points_now": 29, "rank_now": 3, "top6": 0.71, "playoff": 0.93, "avg_rank": 4.2 },
+    { "code": "IFK", "points_now": 27, "rank_now": 4, "top6": 0.62, "playoff": 0.89, "avg_rank": 5.0 },
+    { "code": "TPS", "points_now": 26, "rank_now": 5, "top6": 0.55, "playoff": 0.85, "avg_rank": 5.7 },
+    { "code": "ILV", "points_now": 25, "rank_now": 6, "top6": 0.49, "playoff": 0.81, "avg_rank": 6.3 },
+    { "code": "PEL", "points_now": 24, "rank_now": 7, "top6": 0.41, "playoff": 0.76, "avg_rank": 7.0 },
+    { "code": "KAR", "points_now": 21, "rank_now": 8, "top6": 0.44, "playoff": 0.77, "avg_rank": 7.1 },
+    { "code": "JUK", "points_now": 21, "rank_now": 9, "top6": 0.24, "playoff": 0.58, "avg_rank": 8.9 },
+    { "code": "JYP", "points_now": 20, "rank_now": 10, "top6": 0.19, "playoff": 0.52, "avg_rank": 9.5 },
+    { "code": "HPK", "points_now": 19, "rank_now": 11, "top6": 0.14, "playoff": 0.43, "avg_rank": 10.3 },
+    { "code": "ASS", "points_now": 18, "rank_now": 12, "top6": 0.10, "playoff": 0.35, "avg_rank": 11.0 },
+    { "code": "SAI", "points_now": 17, "rank_now": 13, "top6": 0.07, "playoff": 0.28, "avg_rank": 11.8 },
+    { "code": "KOO", "points_now": 15, "rank_now": 14, "top6": 0.04, "playoff": 0.19, "avg_rank": 12.9 },
+    { "code": "SPO", "points_now": 13, "rank_now": 15, "top6": 0.02, "playoff": 0.10, "avg_rank": 14.1 },
+    { "code": "KES", "points_now": 11, "rank_now": 16, "top6": 0.01, "playoff": 0.05, "avg_rank": 15.0 }
+  ]
+}
