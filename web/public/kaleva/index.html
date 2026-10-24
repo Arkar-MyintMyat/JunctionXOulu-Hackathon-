@@ -29,9 +29,10 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
       <link href="kaleva.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap">
 <style>
-  /* Stakes additions. Same type scale as the widget: Geist, 13 px labels, 15 px text, #6b6b6b secondary. */
-  :root { --stakes-text: #1a1a1a; --stakes-muted: #6b6b6b; --stakes-line: #e3e3e3; }
-  .stakes-mockup-banner { background: #fff4c2; color: #3d3100; border-bottom: 1px solid #e6cf6b; padding: 8px 16px;
+  /* Stakes additions: same type scale as the widget (Geist, 13 px labels, 15 px text) and the Stakes theme
+     colours from web/app/globals.css as hex: foreground, muted-foreground, border, muted. No other colours. */
+  :root { --stakes-text: #171717; --stakes-muted: #737373; --stakes-line: #e5e5e5; --stakes-surface: #f5f5f5; }
+  .stakes-mockup-banner { background: var(--stakes-surface); color: var(--stakes-text); border-bottom: 1px solid var(--stakes-line); padding: 8px 16px;
     font: 14px/1.45 "Geist", system-ui, sans-serif; text-align: center; }
   .stakes-mockup-banner a { color: inherit; text-underline-offset: 3px; white-space: nowrap; }
   .stakes-embed { margin: 32px 0 40px; }
@@ -40,20 +41,37 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
   .stakes-embed__estimate { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--stakes-muted); }
   /* The widget draws its own cards; the frame adds 4 px each side so their shadows are not cut off. */
   .stakes-embed iframe { display: block; width: calc(100% + 8px); margin: 0 -4px; height: 980px; border: 0; background: transparent; }
+  /* The explorer card follows the widget as its next step, so it sits closer to it than to the article. */
+  .stakes-embed--promo, .stakes-embed--poll { margin-top: -16px; }
+  .stakes-embed--poll iframe { height: 260px; }
+  .stakes-embed--promo iframe { height: 420px; }
   .stakes-embed__note { margin: 8px 0 0; font: 13px/1.4 "Geist", system-ui, sans-serif; color: var(--stakes-muted); }
-  .stakes-about { position: sticky; top: 16px; margin: 4px 0 24px; padding: 20px; border: 1px solid var(--stakes-line);
-    border-radius: 16px; font: 15px/1.55 "Geist", system-ui, sans-serif; color: #333; }
-  .stakes-about__title { margin: 0 0 8px; font: 600 13px/1.3 "Geist", system-ui, sans-serif; text-transform: uppercase;
-    letter-spacing: .05em; color: var(--stakes-text); }
-  .stakes-about p { margin: 0 0 10px; font: inherit; color: inherit; }
   .stakes-continue { margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--stakes-line);
     font: 15px/1.5 "Geist", system-ui, sans-serif; color: var(--stakes-muted); }
-  .stakes-about .stakes-about__link, .article__body .stakes-continue a { color: var(--stakes-text); font-weight: 600;
+  .article__body .stakes-continue a { color: var(--stakes-text); font-weight: 600;
     text-decoration: underline; text-underline-offset: 3px; }
-  .stakes-about .stakes-about__link:hover, .article__body .stakes-continue a:hover { color: #000; text-decoration-thickness: 2px; }
+  .article__body .stakes-continue a:hover { text-decoration-thickness: 2px; }
+  /* Kaleva's own "In collaboration" ad unit, as on kaleva.fi: Kaleva orange #ff8c30, "Advertisement" green #65a500,
+     source grey #aaa (values from Kaleva's stylesheet). Host branding, so not the Stakes theme (ARCHITECTURE.md 4.10). */
+  .stakes-collab { margin: 4px 0 28px; font-family: "Geist", system-ui, sans-serif; }
+  .stakes-collab__title { display: flex; align-items: center; gap: 16px; margin: 0 0 14px; font: 700 22px/1.1 "Geist", system-ui, sans-serif;
+    text-transform: uppercase; color: #000; }
+  .stakes-collab__title::after { content: ""; flex: 1; height: 8px; background: #ff8c30; }
+  .stakes-collab__item { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
+    color: inherit; text-decoration: none; }
+  .stakes-collab__item:hover .stakes-collab__headline { text-decoration: underline; }
+  .stakes-collab__image { flex: none; width: 96px; height: 100px; display: grid; place-items: center; background: #f2f2f2; }
+  .stakes-collab__image img { width: 64px; height: 64px; object-fit: contain; }
+  .stakes-collab__body { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; }
+  .stakes-collab__label { font: 600 15px/18px "Geist", system-ui, sans-serif; }
+  .stakes-collab__ad { color: #65a500; text-transform: uppercase; }
+  .stakes-collab__source { color: #aaa; }
+  .stakes-collab__headline { font: 600 21px/1.25 "Geist", system-ui, sans-serif; color: #000; }
+  .stakes-collab__category { font: 600 14px/1.2 "Geist", system-ui, sans-serif; color: #707070; text-transform: uppercase; }
+  .stakes-collab__note { margin: 6px 0 0; font: 12px/1.4 "Geist", system-ui, sans-serif; color: var(--stakes-muted); }
   @media (max-width: 839px) {
+    .stakes-collab { margin: 0 10px 28px; }
     .stakes-embed { margin: 24px 10px 32px; }
-    .stakes-about { position: static; margin: 0 10px 24px; }
   }
 </style>
 </head>
@@ -271,6 +289,12 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
   <iframe id="stakes-frame" src="/embed?match=345&amp;frame=1" title="Stakes: what every goal was worth" loading="eager" scrolling="no"></iframe>
   <p class="stakes-embed__note">Local mock-up. Kaleva's site is not changed.</p>
 </section>
+<section class="stakes-embed stakes-embed--poll" aria-label="Reader poll">
+  <iframe src="/embed/reader-poll?match=345&amp;team=KAR" title="Reader poll: will Kärpät make the playoffs?" loading="eager" scrolling="no"></iframe>
+</section>
+<section class="stakes-embed stakes-embed--promo" aria-label="Stakes scenario explorer">
+  <iframe src="/embed/explorer-promo?locked=1" title="Stakes: try your own what-if in the scenario explorer" loading="eager" scrolling="no"></iframe>
+</section>
     <section class="mdc-layout-grid__inner">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7-desktop mdc-layout-grid__cell--span-12-tablet">
   <main id="article-body" class="article__body js-lyta-content ">
@@ -328,13 +352,18 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
 <div class="__widget_TabbedContentWidget" data-uninitialized="true"></div>
       </div>
       <aside class="mdc-layout-grid__cell mdc-layout-grid__cell--span-5-desktop sidebar__column-container hidden-tablet">
-<div class="stakes-about">
-  <h2 class="stakes-about__title">About this widget</h2>
-  <p>Stakes replays the match goal by goal and shows how each goal changed every Liiga team's chance of reaching the playoffs.</p>
-  <p>The chances come from simulating the rest of the regular season thousands of times. They are model estimates.</p>
-  <p>Click a team in the table to read what the match meant for its fans. Every number in a story shows its source.</p>
-  <a class="stakes-about__link" href="/explorer?team=KAR">Try your own what-if in the scenario explorer →</a>
-</div>
+<section class="stakes-collab" aria-label="In collaboration">
+  <h2 class="stakes-collab__title"><span>In collaboration</span></h2>
+  <a class="stakes-collab__item" href="#" title="Mock-up ad: fictional advertiser">
+    <span class="stakes-collab__image"><svg viewBox="0 0 96 100" width="96" height="100" aria-hidden="true"><rect width="96" height="100" fill="#f2f2f2"/><path d="M60 14 L42 70 Q40 77 33 77 L18 77 Q13 77 13 82 Q13 86 18 86 L37 86 Q47 86 50 76 L68 17 Z" fill="#171717"/><ellipse cx="72" cy="80" rx="11" ry="4.5" fill="#444"/><rect x="61" y="74" width="22" height="6" fill="#444"/><ellipse cx="72" cy="74" rx="11" ry="4.5" fill="#737373"/></svg></span>
+    <span class="stakes-collab__body">
+      <span class="stakes-collab__label"><span class="stakes-collab__ad">Advertisement</span> <span class="stakes-collab__source">Northpuck Sports</span></span>
+      <span class="stakes-collab__headline">Skates, sticks and helmets for the new season in Oulu</span>
+      <span class="stakes-collab__category">Sports equipment</span>
+    </span>
+  </a>
+  <p class="stakes-collab__note">Ad mock-up: Northpuck Sports is a fictional advertiser.</p>
+</section>
       </aside>
     </section>
   </article>
@@ -551,7 +580,11 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
 <script>
   window.addEventListener("message", function (e) {
     if (e.origin !== window.location.origin || !e.data || e.data.type !== "stakes:height") return;
-    document.getElementById("stakes-frame").style.height = Math.ceil(e.data.height) + 2 + "px";
+    // Two Stakes frames (widget, explorer card): resize the one that sent the message.
+    var frames = document.querySelectorAll(".stakes-embed iframe");
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow === e.source) frames[i].style.height = Math.ceil(e.data.height) + 2 + "px";
+    }
   });
 </script>
 </body>

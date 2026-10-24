@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 
+import { kicker } from "@/components/ui/styles";
 import { TeamLogo } from "@/components/ui/team-logo";
 import { getMatches } from "@/lib/api";
 import mockMatch from "@/lib/mock-match.json";
@@ -15,16 +16,23 @@ const FINISHED_TAG = { REG: "Final", OT: "Final · OT", SO: "Final · SO" } as c
 
 /**
  * The demo match (A's API, else the offline copy), which opens the Stakes widget on /embed, followed by the
- * other games of that Liiga week as plain results in the same card style.
+ * other games of that Liiga week as plain results in the same card style. `afterFeatured` goes between the
+ * two, so the page's other entry points sit near the top instead of under the whole week.
  */
-export function MatchList() {
+export function MatchList({ afterFeatured }: { afterFeatured?: ReactNode }) {
   const [featured, setFeatured] = useState<MatchSummary[] | null>(null);
 
   useEffect(() => {
     getMatches().then((r) => setFeatured(r.data));
   }, []);
 
-  if (!featured) return <p className="mt-8 text-muted-foreground">Loading matches…</p>;
+  if (!featured)
+    return (
+      <>
+        <p className="mt-8 text-muted-foreground">Loading matches…</p>
+        {afterFeatured}
+      </>
+    );
   const featuredIds = new Set(featured.map((m) => m.id));
   const others = WEEK_GAMES.filter((g) => !featuredIds.has(g.id));
 
@@ -48,6 +56,8 @@ export function MatchList() {
         })}
       </ul>
 
+      {afterFeatured}
+
       {others.length > 0 && (
         <>
           <SectionTitle>Other games this week · {weekRange(WEEK_GAMES)}</SectionTitle>
@@ -70,7 +80,7 @@ export function MatchList() {
 }
 
 function SectionTitle({ children }: { children: ReactNode }) {
-  return <h2 className="mt-10 text-sm font-semibold uppercase tracking-wide text-muted-foreground">{children}</h2>;
+  return <h2 className={`mt-10 ${kicker}`}>{children}</h2>;
 }
 
 /** One match as a card: both logos, the score line, date and season; a link only when `href` is given. */
@@ -92,7 +102,13 @@ function MatchCard({ href, home, away, title, meta, right }: {
         <span className="block truncate text-lg font-semibold">{title}</span>
         <span className="block text-sm text-muted-foreground">{meta.filter(Boolean).join(" · ")}</span>
       </span>
-      <span className="shrink-0 text-sm font-medium text-muted-foreground">{right}</span>
+      {/* A long call to action would squeeze the title on phones: there a link card shows only an arrow. */}
+      <span className={`shrink-0 text-sm font-medium text-muted-foreground ${href ? "hidden sm:inline" : ""}`}>{right}</span>
+      {href && (
+        <span aria-hidden className="shrink-0 text-muted-foreground sm:hidden">
+          →
+        </span>
+      )}
     </>
   );
   const card = "flex items-center gap-4 rounded-2xl border bg-card p-4 text-card-foreground shadow-sm";

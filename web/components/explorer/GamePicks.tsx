@@ -1,5 +1,6 @@
 "use client";
 
+import { chip } from "@/components/ui/styles";
 import { TeamLogo } from "@/components/ui/team-logo";
 import type { PickResult, SimulateTeam, Team, UpcomingGame } from "@/lib/types";
 
@@ -58,13 +59,7 @@ export function GamePicks({ games, teams, picks, onPick }: GamePicksProps) {
                     role="radio"
                     aria-checked={active}
                     onClick={() => onPick(game.game_id, opt.result)}
-                    className={`rounded-lg border px-2.5 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
-                      active
-                        ? opt.result
-                          ? "border-foreground bg-foreground text-background"
-                          : "border-foreground/40 bg-muted text-foreground"
-                        : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
-                    }`}
+                    className={chip(active, opt.result === null)}
                   >
                     {opt.label(home.name, away.name)}
                   </button>

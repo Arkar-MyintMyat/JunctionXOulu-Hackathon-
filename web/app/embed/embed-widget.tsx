@@ -5,15 +5,17 @@
 // on phones the order is Matchstake, Goalwave, story (the DOM order).
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Goalwave } from "@/components/goalwave";
 import { Matchstake } from "@/components/matchstake";
 import { StoryPanel } from "@/components/story-panel";
+import { PageNav } from "@/components/ui/page-nav";
 import { getMatch } from "@/lib/api";
 import { PlaybackProvider } from "@/lib/playback";
 import type { Match } from "@/lib/types";
 
+import { useReportHeight } from "./report-height";
 import { withTeamColors } from "./team-colors";
 
 export function EmbedWidget() {
@@ -24,18 +26,8 @@ export function EmbedWidget() {
   const framed = params.get("frame") === "1";
   const [match, setMatch] = useState<Match | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  // Inside an iframe (the Kaleva mock-up), tell the parent page our height so the frame never scrolls.
-  // Measures <main>, not the body: the body is at least as tall as the frame, so it could never shrink.
-  useEffect(() => {
-    const main = document.querySelector("main");
-    if (window.parent === window || !match || !main) return;
-    const report = () =>
-      window.parent.postMessage({ type: "stakes:height", height: main.getBoundingClientRect().height }, window.location.origin);
-    const observer = new ResizeObserver(report);
-    observer.observe(main);
-    return () => observer.disconnect();
-  }, [match]);
+  const mainRef = useRef<HTMLElement>(null);
+  useReportHeight(mainRef, !!match);
 
   useEffect(() => {
     getMatch(id)
@@ -43,10 +35,27 @@ export function EmbedWidget() {
       .catch((e: Error) => setError(e.message));
   }, [id]);
 
-  if (error) return <main className="p-8 text-red-700">{error}</main>;
-  if (!match) return <main className="p-8 text-muted-foreground">Loading…</main>;
+  // Opened as a page of its own (from the home page), not inside the Kaleva article: give it a way back.
+  const nav = framed ? null : <PageNav />;
+  const shell = framed ? "w-full p-1" : "mx-auto w-full max-w-6xl px-4 py-6";
+
+  if (error)
+    return (
+      <main className={shell}>
+        {nav}
+        <p className="text-red-700">{error}</p>
+      </main>
+    );
+  if (!match)
+    return (
+      <main className={shell}>
+        {nav}
+        <p className="text-muted-foreground">Loading…</p>
+      </main>
+    );
   return (
-    <main className={framed ? "w-full p-1" : "mx-auto w-full max-w-6xl px-4 py-6"}>
+    <main ref={mainRef} className={shell}>
+      {nav}
       <PlaybackProvider match={match}>
         <div className="grid gap-4 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
           <Matchstake match={match} compact className="lg:col-start-1 lg:row-start-1" />

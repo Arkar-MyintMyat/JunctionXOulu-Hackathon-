@@ -5,9 +5,12 @@
 // On load it runs once with no picks; that run is the baseline every "Change" is measured against.
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 import { GamePicks, OddsTable, TeamOdds, type Picks } from "@/components/explorer";
+import { PageNav } from "@/components/ui/page-nav";
+import { SubscriberLock } from "@/components/ui/subscriber-lock";
+import { chip, kicker, pageTitle, primaryButton, secondaryButton } from "@/components/ui/styles";
 import { TeamLogo } from "@/components/ui/team-logo";
 import { API_URL, getUpcoming, simulate } from "@/lib/api";
 import type { PickResult, SimulateResponse, SimulateTeam, TeamCode, UpcomingGame } from "@/lib/types";
@@ -28,7 +31,10 @@ async function timedSimulate(picks: Picks): Promise<Run> {
 export function ExplorerApp() {
   const router = useRouter();
   const pathname = usePathname();
-  const team = (useSearchParams().get("team") ?? DEFAULT_TEAM).toUpperCase();
+  const params = useSearchParams();
+  const team = (params.get("team") ?? DEFAULT_TEAM).toUpperCase();
+  // ?paywall=1 (opened from the Kaleva article): the explorer is a subscriber feature (paywall mock-up).
+  const paywall = params.get("paywall") === "1";
 
   const [baseline, setBaseline] = useState<Run | null>(null);
   const [result, setResult] = useState<Run | null>(null);
@@ -61,9 +67,9 @@ export function ExplorerApp() {
       setPicks({});
       setResult(null);
       setStale(false);
-      router.replace(`${pathname}?team=${code}`, { scroll: false });
+      router.replace(`${pathname}?team=${code}${paywall ? "&paywall=1" : ""}`, { scroll: false });
     },
-    [team, pathname, router],
+    [team, pathname, router, paywall],
   );
 
   const pick = (gameId: number, value: PickResult | null) => {
@@ -99,8 +105,20 @@ export function ExplorerApp() {
     setStale(false);
   };
 
-  if (error && !baseline) return <main className="mx-auto max-w-5xl px-4 py-10 text-red-700">{error}</main>;
-  if (!baseline) return <main className="mx-auto max-w-5xl px-4 py-10 text-muted-foreground">Simulating the season…</main>;
+  if (error && !baseline)
+    return (
+      <main className="mx-auto w-full max-w-5xl px-4 py-6">
+        <PageNav />
+        <p className="text-red-700">{error}</p>
+      </main>
+    );
+  if (!baseline)
+    return (
+      <main className="mx-auto w-full max-w-5xl px-4 py-6">
+        <PageNav />
+        <p className="text-muted-foreground">Simulating the season…</p>
+      </main>
+    );
 
   const allTeams = baseline.response.teams;
   const shown = result ?? baseline;
@@ -110,93 +128,106 @@ export function ExplorerApp() {
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-6">
-      <header>
-        <h1 className="text-2xl font-bold tracking-tight">What if? · Scenario explorer</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Pick results for a team&apos;s next games and see how the playoff race changes. Games you leave unset are simulated.
-        </p>
-      </header>
-
-      <nav aria-label="Choose a team" className="mt-5 flex flex-wrap gap-1.5">
-        {[...allTeams]
-          .sort((a, b) => a.rank_now - b.rank_now)
-          .map((t) => (
-            <button
-              key={t.code}
-              type="button"
-              onClick={() => chooseTeam(t.code)}
-              aria-pressed={t.code === team}
-              className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
-                t.code === team ? "border-foreground bg-foreground text-background" : "bg-card hover:bg-muted"
-              }`}
-            >
-              <TeamLogo team={t} size={16} />
-              {t.name}
-            </button>
-          ))}
-      </nav>
-
-      {/* Phones: team card, games, table (DOM order), so the card that changes sits right under the team picker.
-          Wide screens: games on the left, card and table on the right. */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
-        <div ref={cardRef} className="scroll-mt-4 lg:col-start-2 lg:row-start-1">
-          {chosen && <TeamOdds team={chosen} baseline={result ? findIn(baseline.response.teams) : undefined} />}
-        </div>
-
-        <section aria-label="Upcoming games" className="lg:col-start-1 lg:row-span-2 lg:row-start-1">
-          <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Next {GAMES} games
-          </h2>
-          {games === null ? (
-            <p className="py-6 text-sm text-muted-foreground">Loading games…</p>
-          ) : (
-            <GamePicks games={games} teams={allTeams} picks={picks} onPick={pick} />
-          )}
-
-          <div className="sticky bottom-0 mt-3 flex flex-wrap items-center gap-3 border-t bg-background/95 py-3 backdrop-blur">
-            <button
-              type="button"
-              onClick={run}
-              disabled={running}
-              className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90 disabled:opacity-50"
-            >
-              {running ? "Simulating…" : "Simulate"}
-            </button>
-            <button
-              type="button"
-              onClick={reset}
-              disabled={running || (pickCount === 0 && !result)}
-              className="rounded-lg border px-3 py-2 text-sm font-medium hover:bg-muted disabled:opacity-40"
-            >
-              Reset
-            </button>
-            <span className="text-xs text-muted-foreground">
-              {pickCount === 0 ? "No results picked" : `${pickCount} result${pickCount === 1 ? "" : "s"} picked`}
-              {stale && result && " · press Simulate to update"}
-            </span>
-          </div>
-          {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
-        </section>
-
-        <section aria-label="Simulated odds" className="flex flex-col gap-4 lg:col-start-2 lg:row-start-2">
-          <div className="rounded-2xl border bg-card p-3 shadow-sm">
-            <div className="flex items-baseline justify-between px-2 pb-1">
-              <h2 className="text-sm font-semibold">{result ? "With your picks" : "Today's odds"}</h2>
-              <span className="text-xs text-muted-foreground">Model estimate</span>
-            </div>
-            <OddsTable
-              teams={shown.response.teams}
-              baseline={result ? baseline.response.teams : undefined}
-              selectedTeam={team}
-              onTeamClick={chooseTeam}
-            />
-          </div>
-          <p className="px-1 text-xs text-muted-foreground">
-            {shown.response.runs.toLocaleString("en-US")} simulated seasons · answered in {shown.seconds.toFixed(1)} s
-            {result && " · Change is against the odds with no picks"}
+      <PageNav />
+      <Paywall on={paywall}>
+        <header>
+          <h1 className={pageTitle}>What if? · Scenario explorer</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Pick results for a team&apos;s next games and see how the playoff race changes. Games you leave unset are simulated.
           </p>
-        </section>
-      </div>
+        </header>
+
+        <nav aria-label="Choose a team" className="mt-5 flex flex-wrap gap-1.5">
+          {[...allTeams]
+            .sort((a, b) => a.rank_now - b.rank_now)
+            .map((t) => (
+              <button
+                key={t.code}
+                type="button"
+                onClick={() => chooseTeam(t.code)}
+                aria-pressed={t.code === team}
+                className={`flex items-center gap-1.5 ${chip(t.code === team)}`}
+              >
+                <TeamLogo team={t} size={16} />
+                {t.name}
+              </button>
+            ))}
+        </nav>
+
+        {/* Phones: team card, games, table (DOM order), so the card that changes sits right under the team picker.
+            Wide screens: games on the left, card and table on the right. */}
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
+          <div ref={cardRef} className="scroll-mt-4 lg:col-start-2 lg:row-start-1">
+            {chosen && <TeamOdds team={chosen} baseline={result ? findIn(baseline.response.teams) : undefined} />}
+          </div>
+
+          <section aria-label="Upcoming games" className="lg:col-start-1 lg:row-span-2 lg:row-start-1">
+            <h2 className={`mb-2 ${kicker}`}>
+              Next {GAMES} games
+            </h2>
+            {games === null ? (
+              <p className="py-6 text-sm text-muted-foreground">Loading games…</p>
+            ) : (
+              <GamePicks games={games} teams={allTeams} picks={picks} onPick={pick} />
+            )}
+
+            <div className="sticky bottom-0 mt-3 flex flex-wrap items-center gap-3 border-t bg-background/95 py-3 backdrop-blur">
+              <button
+                type="button"
+                onClick={run}
+                disabled={running}
+                className={primaryButton}
+              >
+                {running ? "Simulating…" : "Simulate"}
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                disabled={running || (pickCount === 0 && !result)}
+                className={secondaryButton}
+              >
+                Reset
+              </button>
+              <span className="text-xs text-muted-foreground">
+                {pickCount === 0 ? "No results picked" : `${pickCount} result${pickCount === 1 ? "" : "s"} picked`}
+                {stale && result && " · press Simulate to update"}
+              </span>
+            </div>
+            {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
+          </section>
+
+          <section aria-label="Simulated odds" className="flex flex-col gap-4 lg:col-start-2 lg:row-start-2">
+            <div className="rounded-2xl border bg-card p-3 shadow-sm">
+              <div className="flex items-baseline justify-between px-2 pb-1">
+                <h2 className="text-sm font-semibold">{result ? "With your picks" : "Today's odds"}</h2>
+                <span className="text-xs text-muted-foreground">Model estimate</span>
+              </div>
+              <OddsTable
+                teams={shown.response.teams}
+                baseline={result ? baseline.response.teams : undefined}
+                selectedTeam={team}
+                onTeamClick={chooseTeam}
+              />
+            </div>
+            <p className="px-1 text-xs text-muted-foreground">
+              {shown.response.runs.toLocaleString("en-US")} simulated seasons · answered in {shown.seconds.toFixed(1)} s
+              {result && " · Change is against the odds with no picks"}
+            </p>
+          </section>
+        </div>
+      </Paywall>
     </main>
+  );
+}
+
+function Paywall({ on, children }: { on: boolean; children: ReactNode }) {
+  if (!on) return <>{children}</>;
+  return (
+    <SubscriberLock
+      title="The scenario explorer is for subscribers"
+      text="Pick results for your team's next games and see how its playoff chances change, as many times as you like."
+    >
+      {children}
+    </SubscriberLock>
   );
 }
