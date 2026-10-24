@@ -18,12 +18,28 @@ import type { Match } from "@/lib/types";
 import { useReportHeight } from "./report-height";
 import { withTeamColors } from "./team-colors";
 
+/**
+ * The match as it stood at event `idx`, for the live state of the Kaleva mock-up: later events and stories are
+ * left out, and there is no final score yet (so no goal is labelled a winner), so nothing shows how it ended.
+ */
+function liveUntil(match: Match, idx: number): Match {
+  const last = Math.max(0, Math.min(match.events.length - 1, idx));
+  return {
+    ...match,
+    match: { ...match.match, final_score: "" },
+    events: match.events.slice(0, last + 1),
+    stories: match.stories.filter((s) => s.event_idx <= last),
+  };
+}
+
 export function EmbedWidget() {
   const params = useSearchParams();
   const id = params.get("match") ?? "mock";
   // ?frame=1: inside a host page (the Kaleva mock-up). The host sets the width and margins, so the widget
   // drops its own; 4 px of padding keeps the card shadows from being cut off at the frame edge.
   const framed = params.get("frame") === "1";
+  // ?live=IDX: the game is still on, at event IDX (the Kaleva mock-up's live state).
+  const live = params.get("live");
   const [match, setMatch] = useState<Match | null>(null);
   const [error, setError] = useState<string | null>(null);
   const mainRef = useRef<HTMLElement>(null);
@@ -31,9 +47,12 @@ export function EmbedWidget() {
 
   useEffect(() => {
     getMatch(id)
-      .then((r) => setMatch(withTeamColors(r.data)))
+      .then((r) => {
+        const m = withTeamColors(r.data);
+        setMatch(live === null ? m : liveUntil(m, Number(live) || 0));
+      })
       .catch((e: Error) => setError(e.message));
-  }, [id]);
+  }, [id, live]);
 
   // Opened as a page of its own (from the home page), not inside the Kaleva article: give it a way back.
   const nav = framed ? null : <PageNav />;
@@ -56,7 +75,8 @@ export function EmbedWidget() {
   return (
     <main ref={mainRef} className={shell}>
       {nav}
-      <PlaybackProvider match={match}>
+      {/* Live: open on the latest moment ("now"), not on the key goal. */}
+      <PlaybackProvider match={match} start={live === null ? undefined : "full-time"}>
         <div className="grid gap-4 lg:grid-cols-[1fr_460px] lg:grid-rows-[auto_1fr]">
           <Matchstake match={match} compact className="lg:col-start-1 lg:row-start-1" />
           <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">

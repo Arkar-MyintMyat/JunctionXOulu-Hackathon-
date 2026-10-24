@@ -45,6 +45,23 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
   .stakes-embed--promo, .stakes-embed--poll { margin-top: -16px; }
   .stakes-embed--poll iframe { height: 260px; }
   .stakes-embed--promo iframe { height: 420px; }
+  .stakes-embed--stakes iframe { height: 480px; }
+  /* One article URL through the evening, as Kaleva runs it: preview -> live -> match report. body[data-phase]
+     picks the version; elements marked data-show="..." appear only in those phases. Hiding (not showing) keeps
+     each element's own Kaleva display value. */
+  body[data-phase="before"] [data-show]:not([data-show~="before"]),
+  body[data-phase="live"] [data-show]:not([data-show~="live"]),
+  body[data-phase="after"] [data-show]:not([data-show~="after"]) { display: none !important; }
+  .stakes-phase { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin-top: 6px; }
+  .stakes-phase__label { color: var(--stakes-muted); margin-right: 2px; }
+  .stakes-phase button { font: 600 13px/1 "Geist", system-ui, sans-serif; color: var(--stakes-text); background: #fff;
+    border: 1px solid var(--stakes-line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+  .stakes-phase button:hover { background: var(--stakes-surface); }
+  .stakes-phase button[aria-pressed="true"] { background: var(--stakes-text); border-color: var(--stakes-text); color: #fff; }
+  .stakes-phase .stakes-phase__arrow { padding: 6px 10px; }
+  /* Kaleva's live label red (host branding, like the ad unit below). */
+  .stakes-live-badge { display: inline-block; margin: 0 0 12px; padding: 4px 8px; border-radius: 3px; background: #e2231a; color: #fff;
+    font: 700 13px/1 "Geist", system-ui, sans-serif; letter-spacing: .04em; }
   .stakes-embed__note { margin: 8px 0 0; font: 13px/1.4 "Geist", system-ui, sans-serif; color: var(--stakes-muted); }
   .stakes-continue { margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--stakes-line);
     font: 15px/1.5 "Geist", system-ui, sans-serif; color: var(--stakes-muted); }
@@ -75,10 +92,18 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
   }
 </style>
 </head>
-  <body class="">
+  <body class="" data-phase="after">
 <div class="stakes-mockup-banner" role="note">
   <strong>Local mock-up. Kaleva's site is not changed.</strong> A saved copy of a kaleva.fi article with the Stakes widget added for the Junction x Oulu demo.
   <a href="https://www.kaleva.fi/karpille-dramaattinen-tappio-jatkoajalla-karppavah/12512831">Original article ↗</a>
+  <div class="stakes-phase" role="group" aria-label="Demo: the same article over the evening">
+    <span class="stakes-phase__label">Demo:</span>
+    <button type="button" class="stakes-phase__arrow" data-phase-step="-1" aria-label="Previous state">‹</button>
+    <button type="button" data-phase-to="before">Before the game</button>
+    <button type="button" data-phase-to="live">Live</button>
+    <button type="button" data-phase-to="after">After the game</button>
+    <button type="button" class="stakes-phase__arrow" data-phase-step="1" aria-label="Next state">›</button>
+  </div>
 </div>
     <div class="drawer-menu-guardian">
       <div class="mdc-drawer-scrim"></div>
@@ -255,7 +280,10 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
 </div>
       <div>
 </div>
-      <h1 class="article__headline">Kär­pil­le dra­maat­ti­nen tappio jat­koa­jal­la, kärp­pä­vah­ti Rubin paiskoi mai­lan­sa pä­reik­si – lue kolme nostoa pelistä</h1>
+      <span class="stakes-live-badge" data-show="live">LIVE</span>
+      <h1 class="article__headline" data-show="before">Kärpät kohtaa tänään Pelicansin – pudotuspelipaikka on vaakalaudalla</h1>
+      <h1 class="article__headline" data-show="live">Kärpät–Pelicans: seuraa ottelua ja pudotuspelikamppailua maali maalilta</h1>
+      <h1 class="article__headline" data-show="after">Kär­pil­le dra­maat­ti­nen tappio jat­koa­jal­la, kärp­pä­vah­ti Rubin paiskoi mai­lan­sa pä­reik­si – lue kolme nostoa pelistä</h1>
       <h2 class="article__lead"></h2>
     </div>
   </header>
@@ -270,11 +298,15 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
         </div>
       </div>
       <div class="article__byline-content-item article__byline-info">
-        <div class="article__byline_content-info--created">
+        <div class="article__byline_content-info--created" data-show="before">
+          <i class="article__byline-icon -time"></i>
+          <time datetime="2026-01-28T12:00:00+02:00">28.1.2026 12:00</time>
+        </div>
+        <div class="article__byline_content-info--created" data-show="live after">
           <i class="article__byline-icon -time"></i>
           <time class="js-asset-time" data-asset-datetime datetime="2026-01-28T19:13:58.678786+02:00">28.1.2026 19:13</time>
         </div>
-          <div class="article__byline_content-info--modified">
+          <div class="article__byline_content-info--modified" data-show="after">
             Päivitetty: <time class="js-asset-time" data-asset-datetime data-anchor-datetime="2026-01-28T19:13:58.678786+02:00" datetime="2026-01-28T21:14:46.523562+02:00">28.1.2026 21:14</time>
           </div>
       </div>
@@ -284,21 +316,35 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
     </div>
     <div class="article__byline-separator"></div>
   </section>
-<section class="stakes-embed" aria-label="Stakes widget">
+<section class="stakes-embed stakes-embed--stakes" aria-label="Before the game: what tonight is worth" data-show="before">
+  <div class="stakes-embed__label"><span>Stakes · What tonight is worth</span><span class="stakes-embed__estimate">Model estimate</span></div>
+  <iframe src="/embed/stakes?match=345" title="Stakes: what tonight is worth before face-off" loading="eager" scrolling="no"></iframe>
+  <p class="stakes-embed__note">Local mock-up. Kaleva's site is not changed.</p>
+</section>
+<section class="stakes-embed" aria-label="Stakes widget, live" data-show="live">
+  <div class="stakes-embed__label"><span>Stakes · Live · What every goal is worth</span><span class="stakes-embed__estimate">Model estimate</span></div>
+  <iframe src="/embed?match=345&amp;frame=1&amp;live=3" title="Stakes live: what every goal is worth" loading="eager" scrolling="no"></iframe>
+  <p class="stakes-embed__note">Local mock-up. Kaleva's site is not changed.</p>
+</section>
+<section class="stakes-embed" aria-label="Stakes widget" data-show="after">
   <div class="stakes-embed__label"><span>Stakes · What every goal was worth</span><span class="stakes-embed__estimate">Model estimate</span></div>
   <iframe id="stakes-frame" src="/embed?match=345&amp;frame=1" title="Stakes: what every goal was worth" loading="eager" scrolling="no"></iframe>
   <p class="stakes-embed__note">Local mock-up. Kaleva's site is not changed.</p>
 </section>
-<section class="stakes-embed stakes-embed--poll" aria-label="Reader poll">
+<section class="stakes-embed stakes-embed--poll" aria-label="Reader poll" data-show="after">
   <iframe src="/embed/reader-poll?match=345&amp;team=KAR" title="Reader poll: will Kärpät make the playoffs?" loading="eager" scrolling="no"></iframe>
 </section>
-<section class="stakes-embed stakes-embed--promo" aria-label="Stakes scenario explorer">
+<section class="stakes-embed stakes-embed--promo" aria-label="Stakes scenario explorer" data-show="before live after">
   <iframe src="/embed/explorer-promo?locked=1" title="Stakes: try your own what-if in the scenario explorer" loading="eager" scrolling="no"></iframe>
 </section>
     <section class="mdc-layout-grid__inner">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-7-desktop mdc-layout-grid__cell--span-12-tablet">
   <main id="article-body" class="article__body js-lyta-content ">
-    <div style="position: relative;">
+    <p class="article__paragraph" data-show="before">
+      Kärpät ja Pelicans kohtaavat tänään Raksilassa kello 18.30. Molemmat taistelevat pudotuspelipaikasta, ja yllä oleva laskelma näyttää, kuinka paljon illan tulos on kummallekin joukkueelle arvoinen.</p>
+    <p class="article__paragraph" data-show="live">
+      Ottelu on käynnissä. Yllä oleva Stakes päivittyy jokaisen maalin jälkeen ja näyttää, mitä maali oli arvoinen pudotuspelipaikan kannalta – myös joukkueille, jotka eivät pelaa tänään.</p>
+    <div style="position: relative;" data-show="after">
     <div>
       <div class="article__image -size_full">
   <div class="responsive-image-wrapper aspect-box -ratio_original " style="padding-top: 71.2320067739204%">
@@ -321,7 +367,7 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
     </div>
     <p class="article__paragraph">
       Kärpät kärsi kirvelevän tappion tärkeässä pelissä Pelicansille. Vajaat pari minuuttia ennen loppusummeria johtoon noussut Kärpät hävisi lopulta jatkoajalla maalein 3-2.</p></div>
-<p class="stakes-continue">The rest of this article is for Kaleva subscribers. <a href="https://www.kaleva.fi/karpille-dramaattinen-tappio-jatkoajalla-karppavah/12512831">Read it on kaleva.fi ↗</a></p>
+<p class="stakes-continue" data-show="after">The rest of this article is for Kaleva subscribers. <a href="https://www.kaleva.fi/karpille-dramaattinen-tappio-jatkoajalla-karppavah/12512831">Read it on kaleva.fi ↗</a></p>
 </main>
   <div class="asset__bottom-meta">
           <div class="asset__bottom-meta-row -icons">
@@ -580,12 +626,54 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
 <script>
   window.addEventListener("message", function (e) {
     if (e.origin !== window.location.origin || !e.data || e.data.type !== "stakes:height") return;
-    // Two Stakes frames (widget, explorer card): resize the one that sent the message.
+    // Several Stakes frames: resize the one that sent the message. A frame hidden by the phase reports 0; skip
+    // that, it reports again when it is shown.
+    if (!(e.data.height > 0)) return;
     var frames = document.querySelectorAll(".stakes-embed iframe");
     for (var i = 0; i < frames.length; i++) {
       if (frames[i].contentWindow === e.source) frames[i].style.height = Math.ceil(e.data.height) + 2 + "px";
     }
   });
+
+  // Demo: the same article before, during and after the game. #before / #live / #after in the URL picks one;
+  // the buttons in the banner and the ← / → keys move between them. No hash = after the game, as published.
+  (function () {
+    var phases = ["before", "live", "after"];
+    var titles = {
+      before: "Kärpät kohtaa tänään Pelicansin – pudotuspelipaikka on vaakalaudalla | Kaleva",
+      live: "Kärpät–Pelicans: seuraa ottelua ja pudotuspelikamppailua maali maalilta | Kaleva",
+      after: document.title
+    };
+    var tabs = document.querySelectorAll("[data-phase-to]");
+    function current() { return document.body.getAttribute("data-phase"); }
+    function show(phase) {
+      if (phases.indexOf(phase) < 0) phase = "after";
+      document.body.setAttribute("data-phase", phase);
+      document.title = titles[phase];
+      for (var i = 0; i < tabs.length; i++) tabs[i].setAttribute("aria-pressed", String(tabs[i].getAttribute("data-phase-to") === phase));
+    }
+    function go(phase) {
+      show(phase);
+      history.replaceState(null, "", "#" + phase);
+    }
+    function step(by) {
+      var i = phases.indexOf(current()) + by;
+      if (i >= 0 && i < phases.length) go(phases[i]);
+    }
+    document.querySelector(".stakes-phase").addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      if (b.hasAttribute("data-phase-to")) go(b.getAttribute("data-phase-to"));
+      else step(Number(b.getAttribute("data-phase-step")));
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+      if (e.key === "ArrowLeft") step(-1);
+      if (e.key === "ArrowRight") step(1);
+    });
+    window.addEventListener("hashchange", function () { show(location.hash.slice(1)); });
+    show(location.hash.slice(1) || "after");
+  })();
 </script>
 </body>
 </html>

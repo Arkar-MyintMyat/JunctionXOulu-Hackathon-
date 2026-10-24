@@ -133,6 +133,8 @@ class Match(BaseModel):
     events: list[Event]
     facts: dict[str, dict[str, FactSheet]]  # event idx (as string) -> team code -> sheet
     stories: list[Story]
+    # Optional: before face-off, odds for every team if this game ends in each result ("what tonight is worth").
+    stakes: dict[Result, dict[str, Odds]] | None = None
 
 
 class UpcomingGame(BaseModel):

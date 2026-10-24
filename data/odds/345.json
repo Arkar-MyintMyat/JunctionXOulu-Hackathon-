@@ -952,5 +952,271 @@
     }
    }
   }
- ]
+ ],
+ "stakes": {
+  "HOME_REG": {
+   "TAP": {
+    "direct": 0.9936,
+    "playoff": 0.9999
+   },
+   "KOO": {
+    "direct": 0.6035,
+    "playoff": 0.9999
+   },
+   "SAI": {
+    "direct": 0.7326,
+    "playoff": 0.9999
+   },
+   "ILV": {
+    "direct": 0.222,
+    "playoff": 0.9999
+   },
+   "LUK": {
+    "direct": 0.2324,
+    "playoff": 0.9999
+   },
+   "JYP": {
+    "direct": 0.8214,
+    "playoff": 0.9999
+   },
+   "KAL": {
+    "direct": 0.2176,
+    "playoff": 0.9998
+   },
+   "ASS": {
+    "direct": 0.1768,
+    "playoff": 0.9999
+   },
+   "KES": {
+    "direct": 0.0001,
+    "playoff": 0.6361
+   },
+   "IFK": {
+    "direct": 0.0001,
+    "playoff": 0.6312
+   },
+   "PEL": {
+    "direct": 0.0001,
+    "playoff": 0.6106
+   },
+   "HPK": {
+    "direct": 0.0001,
+    "playoff": 0.364
+   },
+   "TPS": {
+    "direct": 0.0001,
+    "playoff": 0.7052
+   },
+   "KAR": {
+    "direct": 0.0001,
+    "playoff": 0.4227
+   },
+   "JUK": {
+    "direct": 0.0001,
+    "playoff": 0.6298
+   },
+   "SPO": {
+    "direct": 0.0001,
+    "playoff": 0.0007
+   }
+  },
+  "HOME_OT": {
+   "TAP": {
+    "direct": 0.9936,
+    "playoff": 0.9999
+   },
+   "KOO": {
+    "direct": 0.6035,
+    "playoff": 0.9999
+   },
+   "SAI": {
+    "direct": 0.7326,
+    "playoff": 0.9999
+   },
+   "ILV": {
+    "direct": 0.222,
+    "playoff": 0.9999
+   },
+   "LUK": {
+    "direct": 0.2324,
+    "playoff": 0.9999
+   },
+   "JYP": {
+    "direct": 0.8214,
+    "playoff": 0.9999
+   },
+   "KAL": {
+    "direct": 0.2176,
+    "playoff": 0.9998
+   },
+   "ASS": {
+    "direct": 0.1768,
+    "playoff": 0.9999
+   },
+   "KES": {
+    "direct": 0.0001,
+    "playoff": 0.6405
+   },
+   "IFK": {
+    "direct": 0.0001,
+    "playoff": 0.6361
+   },
+   "PEL": {
+    "direct": 0.0001,
+    "playoff": 0.6729
+   },
+   "HPK": {
+    "direct": 0.0001,
+    "playoff": 0.3638
+   },
+   "TPS": {
+    "direct": 0.0001,
+    "playoff": 0.7071
+   },
+   "KAR": {
+    "direct": 0.0001,
+    "playoff": 0.3474
+   },
+   "JUK": {
+    "direct": 0.0001,
+    "playoff": 0.6319
+   },
+   "SPO": {
+    "direct": 0.0001,
+    "playoff": 0.0006
+   }
+  },
+  "AWAY_OT": {
+   "TAP": {
+    "direct": 0.9936,
+    "playoff": 0.9999
+   },
+   "KOO": {
+    "direct": 0.6035,
+    "playoff": 0.9999
+   },
+   "SAI": {
+    "direct": 0.7326,
+    "playoff": 0.9999
+   },
+   "ILV": {
+    "direct": 0.222,
+    "playoff": 0.9999
+   },
+   "LUK": {
+    "direct": 0.2324,
+    "playoff": 0.9999
+   },
+   "JYP": {
+    "direct": 0.8214,
+    "playoff": 0.9999
+   },
+   "KAL": {
+    "direct": 0.2176,
+    "playoff": 0.9999
+   },
+   "ASS": {
+    "direct": 0.1768,
+    "playoff": 0.9999
+   },
+   "KES": {
+    "direct": 0.0001,
+    "playoff": 0.6405
+   },
+   "IFK": {
+    "direct": 0.0001,
+    "playoff": 0.6359
+   },
+   "PEL": {
+    "direct": 0.0001,
+    "playoff": 0.7335
+   },
+   "HPK": {
+    "direct": 0.0001,
+    "playoff": 0.3623
+   },
+   "TPS": {
+    "direct": 0.0001,
+    "playoff": 0.7076
+   },
+   "KAR": {
+    "direct": 0.0001,
+    "playoff": 0.2857
+   },
+   "JUK": {
+    "direct": 0.0001,
+    "playoff": 0.6341
+   },
+   "SPO": {
+    "direct": 0.0001,
+    "playoff": 0.0006
+   }
+  },
+  "AWAY_REG": {
+   "TAP": {
+    "direct": 0.9936,
+    "playoff": 0.9999
+   },
+   "KOO": {
+    "direct": 0.6035,
+    "playoff": 0.9999
+   },
+   "SAI": {
+    "direct": 0.7326,
+    "playoff": 0.9999
+   },
+   "ILV": {
+    "direct": 0.222,
+    "playoff": 0.9999
+   },
+   "LUK": {
+    "direct": 0.2324,
+    "playoff": 0.9999
+   },
+   "JYP": {
+    "direct": 0.8214,
+    "playoff": 0.9999
+   },
+   "KAL": {
+    "direct": 0.2176,
+    "playoff": 0.9998
+   },
+   "ASS": {
+    "direct": 0.1768,
+    "playoff": 0.9999
+   },
+   "KES": {
+    "direct": 0.0001,
+    "playoff": 0.642
+   },
+   "IFK": {
+    "direct": 0.0001,
+    "playoff": 0.6345
+   },
+   "PEL": {
+    "direct": 0.0001,
+    "playoff": 0.7922
+   },
+   "HPK": {
+    "direct": 0.0001,
+    "playoff": 0.359
+   },
+   "TPS": {
+    "direct": 0.0001,
+    "playoff": 0.7065
+   },
+   "KAR": {
+    "direct": 0.0001,
+    "playoff": 0.2306
+   },
+   "JUK": {
+    "direct": 0.0001,
+    "playoff": 0.6349
+   },
+   "SPO": {
+    "direct": 0.0001,
+    "playoff": 0.0006
+   }
+  }
+ }
 }

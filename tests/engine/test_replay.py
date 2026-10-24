@@ -29,6 +29,17 @@ def test_every_event_has_every_team(replays):
             assert all(0 <= o["direct"] <= o["playoff"] <= 1 for o in e["odds"].values())
 
 
+def test_stakes_order_results(replays):
+    """Before face-off: every result has every team, and a better result is never worse for the home side."""
+    for data in replays.values():
+        stakes, m = data["stakes"], data["match"]
+        assert list(stakes) == ["HOME_REG", "HOME_OT", "AWAY_OT", "AWAY_REG"]
+        assert all(set(odds) == {t["code"] for t in data["teams"]} for odds in stakes.values())
+        home = [stakes[r][m["home"]]["playoff"] for r in stakes]
+        away = [stakes[r][m["away"]]["playoff"] for r in stakes]
+        assert home == sorted(home, reverse=True) and away == sorted(away)
+
+
 def test_goal_never_hurts_scorer(replays):
     """At the same clock, scoring never lowers the scorer's playoff odds by more than 0.02."""
     for data in replays.values():
