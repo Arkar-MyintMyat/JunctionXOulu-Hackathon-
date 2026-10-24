@@ -83,6 +83,18 @@ def test_overtime_goal_is_flagged_and_written_as_overtime(odds):
     assert "in overtime" in text and "{{e3.KAR.clock}}" not in text
 
 
+def test_default_schedule_path_follows_loader_layout(tmp_path, monkeypatch):
+    from newsroom import config
+    from newsroom.factsheet import default_schedule_path
+
+    monkeypatch.setattr(config, "RAW_DIR", tmp_path)
+    assert default_schedule_path(2026) is None
+    (tmp_path / "2026").mkdir()
+    (tmp_path / "2026" / "schedule.json").write_text("[]", encoding="utf-8")
+    assert default_schedule_path(2026) == tmp_path / "2026" / "schedule.json"
+    assert default_schedule_path(2027) is None
+
+
 def test_formatting():
     assert fmt_pct(0.414) == "41%"
     assert fmt_points(-0.18) == "18 percentage points"

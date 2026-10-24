@@ -187,9 +187,9 @@ def write_json_atomic(path: Path, obj: Any) -> None:
 
 
 def default_schedule_path(season: int) -> Path | None:
-    # TODO(B): confirm the raw schedule file name with A once engine/loader.py lands.
-    candidates = sorted(config.RAW_DIR.glob(f"*schedule*{season}*.json")) + sorted(config.RAW_DIR.glob("*schedule*.json"))
-    return candidates[0] if candidates else None
+    """A's loader writes the raw schedule to data/raw/{season}/schedule.json."""
+    path = config.RAW_DIR / str(season) / "schedule.json"
+    return path if path.exists() else None
 
 
 def main(argv: list[str] | None = None) -> int:
