@@ -34,8 +34,7 @@ const ui = {
   card: "#ffffff",
   panel: "#f8fafc",
   border: "#e2e8f0",
-  gridMinor: "#eef2f7",
-  gridMajor: "#dbe3ee",
+  grid: "#eef1f5",
   text: "#0f172a",
   muted: "#64748b",
   neutral: "#475569",
@@ -173,8 +172,6 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   const y = (p: number) => TOP + ((hi - p) / (hi - lo)) * (BOTTOM - TOP);
   const ticks: number[] = [];
   for (let t = lo; t <= hi + 1e-9; t += step) ticks.push(Math.round(t * 100) / 100);
-  const minorTicks: number[] = [];
-  for (let t = lo; t <= hi + 1e-9; t += step / 5) minorTicks.push(t);
   const minutes: number[] = [];
   for (let s = 0; s <= endSeconds; s += 60) minutes.push(s);
 
@@ -205,7 +202,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
 
   useEffect(() => {
     if (!big || reduceMotion || !shakeScope.current) return;
-    shake(shakeScope.current, { x: [0, -7, 7, -4, 4, -1, 0] }, { duration: 0.45, ease: "easeOut" });
+    shake(shakeScope.current, { x: [0, -3, 3, -1.5, 0] }, { duration: 0.3, ease: "easeOut" });
   }, [big, pb.eventIdx, team.code, reduceMotion, shake, shakeScope]);
 
   // Callouts sit at each beat's settle point. Never on the beat itself: above after a drop, below after
@@ -288,8 +285,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       </div>
 
       {/* The heartbeat chart. */}
-      <div ref={shakeScope} className="relative mx-3 mt-4 rounded-xl border sm:mx-5"
-           style={{ borderColor: ui.border, background: "#fcfdff" }}>
+      <div ref={shakeScope} className="relative mx-3 mt-4 sm:mx-5">
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full select-none" role="img"
              aria-label={`${team.name} playoff chance: ${pct(prob(current))} at ${current.clock}`}>
           <defs>
@@ -301,11 +297,11 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             <clipPath id={`above-${uid}`}><rect x={0} y={0} width={W} height={Math.max(0, baseY - 4.5)} /></clipPath>
             <clipPath id={`below-${uid}`}><rect x={0} y={baseY + 4.5} width={W} height={H} /></clipPath>
             <linearGradient id={`fillUp-${uid}`} x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor={ui.better} stopOpacity={0.16} />
+              <stop offset="0%" stopColor={ui.better} stopOpacity={0.1} />
               <stop offset="100%" stopColor={ui.better} stopOpacity={0.01} />
             </linearGradient>
             <linearGradient id={`fillDown-${uid}`} x1="0" x2="0" y1="1" y2="0">
-              <stop offset="0%" stopColor={ui.worse} stopOpacity={0.16} />
+              <stop offset="0%" stopColor={ui.worse} stopOpacity={0.1} />
               <stop offset="100%" stopColor={ui.worse} stopOpacity={0.01} />
             </linearGradient>
             <filter id={`glow-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
@@ -314,19 +310,15 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             </filter>
           </defs>
 
-          {/* ECG-paper grid: fine lines every minute and fifth of a step, stronger on the labels. */}
-          {minorTicks.map((p) => (
-            <line key={`hm-${p}`} x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.gridMinor} />
-          ))}
-          {minutes.map((s) => (
-            <line key={`vm-${s}`} x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM}
-                  stroke={s % 600 === 0 ? ui.gridMajor : ui.gridMinor} />
-          ))}
+          {/* Clean grid: faint horizontal lines on the labels, period breaks only. */}
           {ticks.map((p) => (
             <g key={p}>
-              <line x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.gridMajor} />
+              <line x1={PAD_L} x2={W - PAD_R} y1={y(p)} y2={y(p)} stroke={ui.grid} />
               <text x={PAD_L - 12} y={y(p) + 5} textAnchor="end" fontSize={16} fill={ui.muted}>{pct(p)}</text>
             </g>
+          ))}
+          {[1200, 2400].map((s) => (
+            <line key={`period-${s}`} x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM} stroke={ui.grid} strokeDasharray="4 6" />
           ))}
           {minutes.filter((s) => s % 600 === 0).map((s) => (
             <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} textAnchor="middle" fontSize={16} fill={ui.muted}>{fmtClock(s)}</text>
@@ -423,7 +415,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             {big && !reduceMotion && (
               <motion.rect key={`flash-${pb.eventIdx}-${team.code}`} x={PAD_L} y={TOP} width={PLOT_W}
                            height={BOTTOM - TOP} fill={tone(delta)}
-                           initial={{ opacity: 0.14 }} animate={{ opacity: 0 }} exit={{ opacity: 0 }}
+                           initial={{ opacity: 0.08 }} animate={{ opacity: 0 }} exit={{ opacity: 0 }}
                            transition={{ duration: 0.9, ease: "easeOut" }} pointerEvents="none" />
             )}
           </AnimatePresence>
