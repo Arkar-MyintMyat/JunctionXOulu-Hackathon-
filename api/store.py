@@ -71,14 +71,17 @@ def list_matches(odds_dir: Path = config.ODDS) -> list[dict]:
 
 @lru_cache(maxsize=1)
 def explorer_season() -> tuple[list[Game], SeasonState]:
-    """Current-season games + state 'now' (every finished game counted). Built once per process."""
+    """Current-season games + state 'now' (every finished game counted). Built once per process.
+
+    Uses the explorer's stronger shrinkage (config.SHRINKAGE_GAMES_EXPLORER), not the replay's.
+    """
     season = config.CURRENT_SEASON
     teams = load_teams()
     standings = _read(raw_path(season, "standings"))
     codes = [teams[i["teamId"]]["code"] for i in standings["items"]]
     lines = tuple(standings["playoffsLines"][:2])
     games = load_games(season)
-    return games, season_state(games, codes, lines)
+    return games, season_state(games, codes, lines, shrinkage=config.SHRINKAGE_GAMES_EXPLORER)
 
 
 def upcoming(team: str, n: int) -> list[dict] | None:

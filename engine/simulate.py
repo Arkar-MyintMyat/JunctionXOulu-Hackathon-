@@ -46,13 +46,14 @@ class TeamOdds:
 
 
 def season_state(games: list[Game], codes: list[str], lines: tuple[int, int], before: str | None = None,
-                 skip_game: int | None = None) -> SeasonState:
+                 skip_game: int | None = None, shrinkage: int | None = None) -> SeasonState:
     """State at a moment: table + rates from games before `before`, fixtures = everything else.
 
     `skip_game` leaves one game out of the fixtures (replay adds it back as a game in progress).
+    `shrinkage` overrides config.SHRINKAGE_GAMES (the explorer uses config.SHRINKAGE_GAMES_EXPLORER).
     """
     table = build_table(games, codes, before)
-    attack, defence, league_avg = team_rates(games, codes, before)
+    attack, defence, league_avg = team_rates(games, codes, before, shrinkage)
     fixtures = [
         Fixture(g.id, g.home, g.away)
         for g in games
