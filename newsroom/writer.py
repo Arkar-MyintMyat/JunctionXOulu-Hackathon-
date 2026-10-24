@@ -90,6 +90,9 @@ def template_story(team_facts: dict[str, Any], audience: str) -> tuple[str, list
         parts.append(f"Next up: {nxt_opp} on {nxt_date}.")
     elif ctx.get("season_over"):
         parts.append("Your regular season is over." if you else f"{possessive(team)} regular season is over.")
+    elif ctx.get("last_game"):
+        parts.append("This is your last regular-season game." if you
+                     else f"This is {possessive(team)} last regular-season game.")
     text = " ".join(parts)
     return text, verifier.placeholders(text)
 
