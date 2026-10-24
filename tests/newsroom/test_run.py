@@ -68,6 +68,24 @@ def test_playing_team_with_nothing_at_stake_gets_no_story(odds):
     assert any(team == "KAR" for _, team in targets)
 
 
+def test_retry_blocked_rewrites_held_stories_but_keeps_the_injected_one(facts_file, tmp_path, monkeypatch):
+    out = tmp_path / "s.json"
+    run.run("9001", ["fan"], "mock", inject=True, workers=1, facts_path=facts_file, out_path=out)
+    data = load(out)
+    held = next(s for s in data["stories"] if not s.get("injected"))
+    held.update(problems=["fact 'x' listed in facts_used but not in the text"], status="blocked")
+    out.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+
+    written = []
+    real = writer.write_story
+    monkeypatch.setattr(writer, "write_story", lambda *a, **k: written.append(a[0]) or real(*a, **k))
+    result = run.run("9001", ["fan"], "mock", inject=True, workers=1, facts_path=facts_file, out_path=out,
+                     retry_blocked=True)
+    assert len(written) == 1                                              # only the held story
+    assert sum(bool(s.get("injected")) for s in result["stories"]) == 1   # demo error kept
+    assert [s["status"] for s in result["stories"] if not s.get("injected")].count("blocked") == 0
+
+
 def test_injection_skips_stories_that_already_failed(facts):
     good = {"event_idx": 3, "team": "TPS", "audience": "fan", "text": "ok", "problems": []}
     failed = {"event_idx": 3, "team": "HPK", "audience": "fan", "text": "", "problems": ["writer failed: 404"]}
