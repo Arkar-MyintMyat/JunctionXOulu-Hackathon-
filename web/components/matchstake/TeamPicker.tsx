@@ -8,7 +8,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import type { Team, TeamCode } from "@/lib/types";
 
-const ui = { border: "#e2e8f0", text: "#0f172a", muted: "#64748b", hover: "#f1f5f9" };
+const ui = { border: "#e5e5e5", text: "#171717", muted: "#737373", hover: "#f5f5f5" }; // ARCHITECTURE.md 4.10
 
 export function TeamLogo({ team, size = 24 }: { team: Team | undefined; size?: number }) {
   const [broken, setBroken] = useState(false);
