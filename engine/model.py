@@ -121,6 +121,7 @@ class Story(BaseModel):
     facts_used: list[str]
     status: Literal["verified", "blocked"]
     problems: list[str]
+    review: Literal["auto", "editor"] | None = None  # optional: B's publishing route
 
 
 class Match(BaseModel):

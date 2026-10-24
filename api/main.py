@@ -1,6 +1,7 @@
 """FastAPI app: the 5 routes from AGENTS.md section 5.
 
-Level 1 stub: every route serves the mock files. Real data swaps in through api/store.py later.
+/api/matches, /api/match/{id} and /api/queue serve real merged data via api/store.py
+(/api/match/mock still serves the mock). /api/upcoming and /api/simulate are still stubs.
 """
 import json
 import os
@@ -9,6 +10,7 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+from api import store
 from engine import config
 from engine.model import Match, MatchSummary, QueueItem, SimulateRequest, SimulateResponse, UpcomingGame
 
@@ -26,15 +28,15 @@ def _read(path: Path):
 
 @app.get("/api/matches", response_model=list[MatchSummary])
 def matches():
-    return _read(config.CONTRACTS / "matches.example.json")
+    return store.list_matches()
 
 
 @app.get("/api/match/{match_id}", response_model=Match)
 def match(match_id: str):
-    # TODO(A): serve merged real data from api/store.py once data/odds exists.
-    if match_id not in ("mock", "12345"):
+    data = store.get_match(match_id)
+    if data is None:
         raise HTTPException(404, f"match {match_id} not found")
-    return _read(config.MOCK / "match-mock.json")
+    return data
 
 
 @app.get("/api/upcoming", response_model=list[UpcomingGame])
@@ -52,9 +54,4 @@ def simulate(req: SimulateRequest):
 
 @app.get("/api/queue", response_model=list[QueueItem])
 def queue():
-    data = _read(config.MOCK / "match-mock.json")
-    return [
-        {"match_id": data["match"]["id"], "event_idx": s["event_idx"], "team": s["team"],
-         "text": s["text"], "problems": s["problems"]}
-        for s in data["stories"] if s["status"] == "blocked"
-    ]
+    return store.queue()
