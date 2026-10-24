@@ -37,7 +37,10 @@ RUNS_FINAL = 10_000
 RUNS_SIMULATE_API = 5_000
 
 # Model (AGENTS.md, Person A, Level 1)
-SHRINKAGE_GAMES = 5
+# 25 (not 5 as first written in AGENTS.md): with 5, early-season odds were overconfident
+# (replaying 2026 from game 136: HIFK 0.5% and Pelicans 9.5% both made the playoffs).
+# Late-season per-goal swings are the same at 5 and 25.
+SHRINKAGE_GAMES = 25
 HOME_FACTOR = 1.08
 GAME_SECONDS = 3600
 PTS_REG_WIN = 3

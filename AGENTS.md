@@ -100,7 +100,8 @@ odds swing), xG in team strength, `engine/backtest.py` (Brier score on last seas
 
 **Model (Level 1 — do exactly this, improve later):**
 - Team attack = goals for per game, defence = goals against per game, from games played before the moment
-  being simulated. Shrink toward league average: `rate = (team_total + 5 * league_avg) / (games + 5)`.
+  being simulated. Shrink toward league average: `rate = (team_total + 25 * league_avg) / (games + 25)`.
+  (25, not 5: with 5, early-season odds were overconfident when replayed on season 2026.)
 - Expected goals home = `home_attack * away_defence / league_avg * 1.08`; away = `away_attack * home_defence / league_avg / 1.08`.
 - Goals ~ Poisson. Regulation win = 3 pts, loser 0. Tie → overtime/shootout: 50/50, winner 2, loser 1.
   (Confirm with the standings test; if it fails, fix the rule, not the test.)
