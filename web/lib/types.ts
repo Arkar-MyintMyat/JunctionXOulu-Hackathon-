@@ -135,6 +135,7 @@ export interface SimulateTeam {
   code: TeamCode;
   name: string;
   color: string;
+  logo?: string; // optional: Liiga logo URL, as on Team
   points_now: number;
   rank_now: number;
   direct: number;
