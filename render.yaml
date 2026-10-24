@@ -1,0 +1,23 @@
+# Render blueprint for the Stakes API (backend deploy, A).
+# Everything the API reads (data/raw, data/teams.json, data/odds, data/facts, data/stories) is in git,
+# so the server needs no Liiga key and no build step beyond pip install.
+# Free plan: sleeps after 15 min idle; open /api/matches a minute before the demo to wake it.
+services:
+  - type: web
+    name: stakes-api
+    runtime: python
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/matches
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+      - key: CURRENT_SEASON
+        value: "2027"
+      - key: SEED
+        value: "42"
+      - key: FRONTEND_URL  # C's Vercel URL, e.g. https://stakes.vercel.app (CORS); set in the Render dashboard
+        sync: false
