@@ -62,9 +62,61 @@ def season_state(games: list[Game], codes: list[str], lines: tuple[int, int], be
     return SeasonState(table, fixtures, attack, defence, league_avg, lines, codes)
 
 
+PICK_POINTS: dict[Result, tuple[int, int]] = {  # (home, away) points for a forced result
+    "HOME_REG": (config.PTS_REG_WIN, 0),
+    "HOME_OT": (config.PTS_OT_WIN, config.PTS_OT_LOSS),
+    "AWAY_OT": (config.PTS_OT_LOSS, config.PTS_OT_WIN),
+    "AWAY_REG": (0, config.PTS_REG_WIN),
+}
+
+
+def decided(state: SeasonState, picks: dict[int, Result] | None = None) -> dict[str, dict[str, bool | None]]:
+    """Per team and line ("direct", "playoff"): True = in whatever happens, False = out whatever happens, None = open.
+
+    Points only: a team is in when too few rivals can even reach its current points (a tie counts against it), out
+    when enough rivals already have more points than it can still reach. Rivals who play each other cannot all win,
+    so a team that is really through can still show as open; never the other way round.
+    """
+    picks = picks or {}
+    codes = state.codes or [r.code for r in state.table]
+    low = {r.code: r.points for r in state.table}
+    high = dict(low)
+    for f in state.fixtures:
+        if f.game_id in picks:
+            home_pts, away_pts = PICK_POINTS[picks[f.game_id]]
+            low[f.home] += home_pts
+            low[f.away] += away_pts
+            high[f.home] += home_pts
+            high[f.away] += away_pts
+        else:
+            high[f.home] += config.PTS_REG_WIN
+            high[f.away] += config.PTS_REG_WIN
+
+    out = {}
+    for c in codes:
+        rivals = [o for o in codes if o != c]
+        can_reach = sum(high[o] >= low[c] for o in rivals)
+        surely_above = sum(low[o] > high[c] for o in rivals)
+        out[c] = {name: True if can_reach < line else False if surely_above >= line else None
+                  for name, line in zip(("direct", "playoff"), state.lines)}
+    return out
+
+
+def settle(p: float, sure: bool | None, n_runs: int) -> float:
+    """Exactly 1 or 0 only when decided(); when every run agreed but the maths has not, one run the other way."""
+    if p == 1.0 and sure is not True:
+        return 1 - 1 / n_runs
+    if p == 0.0 and sure is not False:
+        return 1 / n_runs
+    return p
+
+
 def simulate(state: SeasonState, n_runs: int, seed: int = config.SEED,
              picks: dict[int, Result] | None = None) -> dict[str, TeamOdds]:
-    """Odds of finishing rank <= direct line and <= playoff line, plus average rank, per team."""
+    """Odds of finishing rank <= direct line and <= playoff line, plus average rank, per team.
+
+    1.0 / 0.0 means mathematically decided (see `settle`), so the UI can tell "certain" from ">99%".
+    """
     picks = picks or {}
     codes = state.codes or [r.code for r in state.table]
     idx = {c: i for i, c in enumerate(codes)}
@@ -135,9 +187,10 @@ def simulate(state: SeasonState, n_runs: int, seed: int = config.SEED,
     rank[np.arange(n_runs)[:, None], order] = np.arange(1, n_teams + 1)
 
     direct_line, playoff_line = state.lines
+    sure = decided(state, picks)
     return {
-        c: TeamOdds(direct=float((rank[:, i] <= direct_line).mean()),
-                    playoff=float((rank[:, i] <= playoff_line).mean()),
+        c: TeamOdds(direct=settle(float((rank[:, i] <= direct_line).mean()), sure[c]["direct"], n_runs),
+                    playoff=settle(float((rank[:, i] <= playoff_line).mean()), sure[c]["playoff"], n_runs),
                     avg_rank=float(rank[:, i].mean()))
         for c, i in idx.items()
     }

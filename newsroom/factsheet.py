@@ -58,7 +58,17 @@ class TeamFacts(BaseModel):
 # ---------- formatting (display strings) ----------
 
 def fmt_pct(p: float) -> str:
-    return f"{round(p * 100)}%"
+    """"100%" / "0%" only when the engine says the line is decided (exactly 1 / 0); otherwise ">99%" / "<1%"."""
+    if p >= 1:
+        return "100%"
+    if p <= 0:
+        return "0%"
+    n = round(p * 100)
+    if n >= 100:
+        return ">99%"
+    if n <= 0:
+        return "<1%"
+    return f"{n}%"
 
 
 def fmt_points(delta: float) -> str:

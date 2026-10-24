@@ -206,7 +206,7 @@ function Bar({ label, value, className }: { label: string; value: number; classN
         <dd className="font-bold tabular-nums">{pct(value)}</dd>
       </div>
       <div className="mt-1 h-2.5 overflow-hidden rounded-full bg-muted">
-        <div className={`h-full rounded-full transition-[width] duration-500 ${className}`} style={{ width: pct(value) }} />
+        <div className={`h-full rounded-full transition-[width] duration-500 ${className}`} style={{ width: `${value * 100}%` }} />
       </div>
     </div>
   );

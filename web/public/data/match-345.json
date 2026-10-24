@@ -121,27 +121,27 @@
    "odds": {
     "TAP": {
      "direct": 0.9936,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6035,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7326,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.222,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2324,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8214,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2176,
@@ -152,27 +152,27 @@
      "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.638
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6304
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6848
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3617
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7071
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3447
     },
     "JUK": {
@@ -180,7 +180,7 @@
      "playoff": 0.6329
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0006
     }
    }
@@ -197,42 +197,42 @@
    "odds": {
     "TAP": {
      "direct": 0.9934,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.611,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.721,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2117,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2385,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8217,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2236,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ASS": {
      "direct": 0.179,
      "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6401
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6385
     },
     "PEL": {
@@ -240,65 +240,65 @@
      "playoff": 0.7177
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3602
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7116
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3018
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6293
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0009
     }
    },
    "odds_before": {
     "TAP": {
      "direct": 0.9934,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.611,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.721,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2117,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2385,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8217,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2236,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ASS": {
      "direct": 0.179,
      "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6399
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6395
     },
     "PEL": {
@@ -306,23 +306,23 @@
      "playoff": 0.6827
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3606
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7105
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3372
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6288
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0009
     }
    }
@@ -339,27 +339,27 @@
    "odds": {
     "TAP": {
      "direct": 0.9916,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6061,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7297,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2137,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2384,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8274,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.222,
@@ -374,58 +374,58 @@
      "playoff": 0.6429
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6322
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6892
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.36
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7169
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3354
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6233
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0005
     }
    },
    "odds_before": {
     "TAP": {
      "direct": 0.9916,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6061,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7297,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2137,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2384,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8274,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.222,
@@ -440,31 +440,31 @@
      "playoff": 0.6432
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.634
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7365
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3583
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7174
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.2857
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6248
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0005
     }
    }
@@ -481,27 +481,27 @@
    "odds": {
     "TAP": {
      "direct": 0.993,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6049,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7352,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2208,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2358,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8226,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2121,
@@ -509,14 +509,14 @@
     },
     "ASS": {
      "direct": 0.1755,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6317
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6289
     },
     "PEL": {
@@ -524,50 +524,50 @@
      "playoff": 0.6102
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3637
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7159
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.4267
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6228
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0002
     }
    },
    "odds_before": {
     "TAP": {
      "direct": 0.993,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6049,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7352,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2208,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2358,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8226,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2121,
@@ -575,14 +575,14 @@
     },
     "ASS": {
      "direct": 0.1755,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6339
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6358
     },
     "PEL": {
@@ -590,23 +590,23 @@
      "playoff": 0.6895
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3662
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7197
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3292
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6253
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0005
     }
    }
@@ -623,19 +623,19 @@
    "odds": {
     "TAP": {
      "direct": 0.9943,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6028,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7316,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2104,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2383,
@@ -643,22 +643,22 @@
     },
     "JYP": {
      "direct": 0.8231,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2196,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ASS": {
      "direct": 0.1798,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6432
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6304
     },
     "PEL": {
@@ -666,42 +666,42 @@
      "playoff": 0.7005
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3657
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7197
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3196
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6207
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0003
     }
    },
    "odds_before": {
     "TAP": {
      "direct": 0.9943,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6028,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.7316,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2104,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2384,
@@ -709,46 +709,46 @@
     },
     "JYP": {
      "direct": 0.8231,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2196,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ASS": {
      "direct": 0.1798,
      "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6397
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6278
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6098
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3648
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7147
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.423
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6201
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0003
     }
    }
@@ -765,27 +765,27 @@
    "odds": {
     "TAP": {
      "direct": 0.992,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6104,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.735,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2153,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2295,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8245,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2243,
@@ -793,65 +793,65 @@
     },
     "ASS": {
      "direct": 0.169,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6473
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6312
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7289
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3614
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7172
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.2876
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6262
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0003
     }
    },
    "odds_before": {
     "TAP": {
      "direct": 0.992,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6104,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.735,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2153,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2295,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8245,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2243,
@@ -859,38 +859,38 @@
     },
     "ASS": {
      "direct": 0.169,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6464
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6313
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6991
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3618
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7163
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3185
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6263
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0004
     }
    }
@@ -904,27 +904,27 @@
    "odds": {
     "TAP": {
      "direct": 0.992,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KOO": {
      "direct": 0.6104,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "SAI": {
      "direct": 0.735,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "ILV": {
      "direct": 0.2153,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "LUK": {
      "direct": 0.2295,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "JYP": {
      "direct": 0.8245,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KAL": {
      "direct": 0.2243,
@@ -932,38 +932,38 @@
     },
     "ASS": {
      "direct": 0.169,
-     "playoff": 1.0
+     "playoff": 0.9999
     },
     "KES": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6473
     },
     "IFK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6312
     },
     "PEL": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7289
     },
     "HPK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.3614
     },
     "TPS": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.7172
     },
     "KAR": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.2876
     },
     "JUK": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.6262
     },
     "SPO": {
-     "direct": 0.0,
+     "direct": 0.0001,
      "playoff": 0.0003
     }
    }
@@ -995,15 +995,15 @@
     "facts": [
      {
       "id": "e0.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -1068,15 +1068,15 @@
     "facts": [
      {
       "id": "e0.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -1141,15 +1141,15 @@
     "facts": [
      {
       "id": "e0.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -1214,15 +1214,15 @@
     "facts": [
      {
       "id": "e0.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -1287,15 +1287,15 @@
     "facts": [
      {
       "id": "e0.LUK.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.LUK.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -1360,15 +1360,15 @@
     "facts": [
      {
       "id": "e0.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -1434,14 +1434,14 @@
      {
       "id": "e0.KAL.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.KAL.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -1507,14 +1507,14 @@
      {
       "id": "e0.ASS.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.ASS.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
@@ -1600,8 +1600,8 @@
      },
      {
       "id": "e0.KES.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -1673,8 +1673,8 @@
      },
      {
       "id": "e0.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -1745,8 +1745,8 @@
      },
      {
       "id": "e0.PEL.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -1818,8 +1818,8 @@
      },
      {
       "id": "e0.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -1891,8 +1891,8 @@
      },
      {
       "id": "e0.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -1963,8 +1963,8 @@
      },
      {
       "id": "e0.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -2036,7 +2036,7 @@
      {
       "id": "e0.JUK.direct_after",
       "value": 0.0001,
-      "display": "0%",
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -2088,14 +2088,14 @@
      {
       "id": "e0.SPO.playoff_before",
       "value": 0.0006,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e0.SPO.playoff_after",
       "value": 0.0006,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -2108,8 +2108,8 @@
      },
      {
       "id": "e0.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -2163,15 +2163,15 @@
     "facts": [
      {
       "id": "e1.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -2244,15 +2244,15 @@
     "facts": [
      {
       "id": "e1.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -2325,15 +2325,15 @@
     "facts": [
      {
       "id": "e1.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -2406,15 +2406,15 @@
     "facts": [
      {
       "id": "e1.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -2487,15 +2487,15 @@
     "facts": [
      {
       "id": "e1.LUK.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.LUK.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -2568,15 +2568,15 @@
     "facts": [
      {
       "id": "e1.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -2649,15 +2649,15 @@
     "facts": [
      {
       "id": "e1.KAL.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.KAL.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -2731,14 +2731,14 @@
      {
       "id": "e1.ASS.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.ASS.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
@@ -2832,8 +2832,8 @@
      },
      {
       "id": "e1.KES.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -2913,8 +2913,8 @@
      },
      {
       "id": "e1.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3008,7 +3008,7 @@
      {
       "id": "e1.PEL.direct_after",
       "value": 0.0001,
-      "display": "0%",
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3088,8 +3088,8 @@
      },
      {
       "id": "e1.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3169,8 +3169,8 @@
      },
      {
       "id": "e1.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3249,8 +3249,8 @@
      },
      {
       "id": "e1.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3343,8 +3343,8 @@
      },
      {
       "id": "e1.JUK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3404,14 +3404,14 @@
      {
       "id": "e1.SPO.playoff_before",
       "value": 0.0009,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e1.SPO.playoff_after",
       "value": 0.0009,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -3424,8 +3424,8 @@
      },
      {
       "id": "e1.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -3486,15 +3486,15 @@
     "facts": [
      {
       "id": "e2.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -3567,15 +3567,15 @@
     "facts": [
      {
       "id": "e2.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -3648,15 +3648,15 @@
     "facts": [
      {
       "id": "e2.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -3729,15 +3729,15 @@
     "facts": [
      {
       "id": "e2.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -3810,15 +3810,15 @@
     "facts": [
      {
       "id": "e2.LUK.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.LUK.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -3891,15 +3891,15 @@
     "facts": [
      {
       "id": "e2.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -3973,14 +3973,14 @@
      {
       "id": "e2.KAL.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.KAL.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -4054,14 +4054,14 @@
      {
       "id": "e2.ASS.playoff_before",
       "value": 0.9997,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.ASS.playoff_after",
       "value": 0.9997,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
@@ -4156,7 +4156,7 @@
      {
       "id": "e2.KES.direct_after",
       "value": 0.0001,
-      "display": "0%",
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4236,8 +4236,8 @@
      },
      {
       "id": "e2.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4316,8 +4316,8 @@
      },
      {
       "id": "e2.PEL.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4411,8 +4411,8 @@
      },
      {
       "id": "e2.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4492,8 +4492,8 @@
      },
      {
       "id": "e2.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4586,8 +4586,8 @@
      },
      {
       "id": "e2.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4680,8 +4680,8 @@
      },
      {
       "id": "e2.JUK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4741,14 +4741,14 @@
      {
       "id": "e2.SPO.playoff_before",
       "value": 0.0005,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e2.SPO.playoff_after",
       "value": 0.0005,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -4761,8 +4761,8 @@
      },
      {
       "id": "e2.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -4823,15 +4823,15 @@
     "facts": [
      {
       "id": "e3.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -4904,15 +4904,15 @@
     "facts": [
      {
       "id": "e3.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -4985,15 +4985,15 @@
     "facts": [
      {
       "id": "e3.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -5066,15 +5066,15 @@
     "facts": [
      {
       "id": "e3.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -5147,15 +5147,15 @@
     "facts": [
      {
       "id": "e3.LUK.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.LUK.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -5228,15 +5228,15 @@
     "facts": [
      {
       "id": "e3.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -5310,14 +5310,14 @@
      {
       "id": "e3.KAL.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.KAL.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -5390,15 +5390,15 @@
     "facts": [
      {
       "id": "e3.ASS.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.ASS.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
@@ -5492,8 +5492,8 @@
      },
      {
       "id": "e3.KES.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -5587,8 +5587,8 @@
      },
      {
       "id": "e3.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -5668,7 +5668,7 @@
      {
       "id": "e3.PEL.direct_after",
       "value": 0.0001,
-      "display": "0%",
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -5748,8 +5748,8 @@
      },
      {
       "id": "e3.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -5843,8 +5843,8 @@
      },
      {
       "id": "e3.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -5923,8 +5923,8 @@
      },
      {
       "id": "e3.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -6017,8 +6017,8 @@
      },
      {
       "id": "e3.JUK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -6078,14 +6078,14 @@
      {
       "id": "e3.SPO.playoff_before",
       "value": 0.0005,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e3.SPO.playoff_after",
       "value": 0.0002,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -6098,8 +6098,8 @@
      },
      {
       "id": "e3.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -6160,15 +6160,15 @@
     "facts": [
      {
       "id": "e4.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -6241,15 +6241,15 @@
     "facts": [
      {
       "id": "e4.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -6322,15 +6322,15 @@
     "facts": [
      {
       "id": "e4.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -6403,15 +6403,15 @@
     "facts": [
      {
       "id": "e4.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -6485,14 +6485,14 @@
      {
       "id": "e4.LUK.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.LUK.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -6565,15 +6565,15 @@
     "facts": [
      {
       "id": "e4.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -6646,15 +6646,15 @@
     "facts": [
      {
       "id": "e4.KAL.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.KAL.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -6728,20 +6728,20 @@
      {
       "id": "e4.ASS.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.ASS.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
      {
       "id": "e4.ASS.playoff_delta",
-      "value": 0.0001,
+      "value": 0.0,
       "display": "less than 1 percentage point",
       "label": "Change in Ässät playoff chance",
       "source": "simulation"
@@ -6829,8 +6829,8 @@
      },
      {
       "id": "e4.KES.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -6924,8 +6924,8 @@
      },
      {
       "id": "e4.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7005,7 +7005,7 @@
      {
       "id": "e4.PEL.direct_after",
       "value": 0.0001,
-      "display": "0%",
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7085,8 +7085,8 @@
      },
      {
       "id": "e4.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7166,8 +7166,8 @@
      },
      {
       "id": "e4.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7246,8 +7246,8 @@
      },
      {
       "id": "e4.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7326,8 +7326,8 @@
      },
      {
       "id": "e4.JUK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7387,14 +7387,14 @@
      {
       "id": "e4.SPO.playoff_before",
       "value": 0.0003,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e4.SPO.playoff_after",
       "value": 0.0003,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -7407,8 +7407,8 @@
      },
      {
       "id": "e4.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -7469,15 +7469,15 @@
     "facts": [
      {
       "id": "e5.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -7550,15 +7550,15 @@
     "facts": [
      {
       "id": "e5.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -7631,15 +7631,15 @@
     "facts": [
      {
       "id": "e5.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -7712,15 +7712,15 @@
     "facts": [
      {
       "id": "e5.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -7793,15 +7793,15 @@
     "facts": [
      {
       "id": "e5.LUK.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.LUK.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -7874,15 +7874,15 @@
     "facts": [
      {
       "id": "e5.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -7956,14 +7956,14 @@
      {
       "id": "e5.KAL.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.KAL.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -8036,15 +8036,15 @@
     "facts": [
      {
       "id": "e5.ASS.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.ASS.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
@@ -8138,8 +8138,8 @@
      },
      {
       "id": "e5.KES.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8219,8 +8219,8 @@
      },
      {
       "id": "e5.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8299,8 +8299,8 @@
      },
      {
       "id": "e5.PEL.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8380,8 +8380,8 @@
      },
      {
       "id": "e5.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8461,8 +8461,8 @@
      },
      {
       "id": "e5.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8541,8 +8541,8 @@
      },
      {
       "id": "e5.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8621,8 +8621,8 @@
      },
      {
       "id": "e5.JUK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8696,14 +8696,14 @@
      {
       "id": "e5.SPO.playoff_before",
       "value": 0.0004,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e5.SPO.playoff_after",
       "value": 0.0003,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -8716,8 +8716,8 @@
      },
      {
       "id": "e5.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -8777,15 +8777,15 @@
     "facts": [
      {
       "id": "e6.TAP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.TAP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Tappara playoff chance after this moment",
       "source": "simulation"
      },
@@ -8850,15 +8850,15 @@
     "facts": [
      {
       "id": "e6.KOO.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.KOO.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "KooKoo playoff chance after this moment",
       "source": "simulation"
      },
@@ -8923,15 +8923,15 @@
     "facts": [
      {
       "id": "e6.SAI.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.SAI.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "SaiPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -8996,15 +8996,15 @@
     "facts": [
      {
       "id": "e6.ILV.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.ILV.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ilves playoff chance after this moment",
       "source": "simulation"
      },
@@ -9069,15 +9069,15 @@
     "facts": [
      {
       "id": "e6.LUK.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.LUK.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Lukko playoff chance after this moment",
       "source": "simulation"
      },
@@ -9142,15 +9142,15 @@
     "facts": [
      {
       "id": "e6.JYP.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.JYP.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "JYP playoff chance after this moment",
       "source": "simulation"
      },
@@ -9216,14 +9216,14 @@
      {
       "id": "e6.KAL.playoff_before",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.KAL.playoff_after",
       "value": 0.9999,
-      "display": "100%",
+      "display": ">99%",
       "label": "KalPa playoff chance after this moment",
       "source": "simulation"
      },
@@ -9288,15 +9288,15 @@
     "facts": [
      {
       "id": "e6.ASS.playoff_before",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.ASS.playoff_after",
-      "value": 1.0,
-      "display": "100%",
+      "value": 0.9999,
+      "display": ">99%",
       "label": "Ässät playoff chance after this moment",
       "source": "simulation"
      },
@@ -9382,8 +9382,8 @@
      },
      {
       "id": "e6.KES.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "K-Espoo chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9455,8 +9455,8 @@
      },
      {
       "id": "e6.IFK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HIFK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9527,8 +9527,8 @@
      },
      {
       "id": "e6.PEL.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Pelicans chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9600,8 +9600,8 @@
      },
      {
       "id": "e6.HPK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "HPK chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9673,8 +9673,8 @@
      },
      {
       "id": "e6.TPS.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "TPS chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9745,8 +9745,8 @@
      },
      {
       "id": "e6.KAR.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Kärpät chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9817,8 +9817,8 @@
      },
      {
       "id": "e6.JUK.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Jukurit chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
@@ -9870,14 +9870,14 @@
      {
       "id": "e6.SPO.playoff_before",
       "value": 0.0003,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance just before this moment",
       "source": "simulation"
      },
      {
       "id": "e6.SPO.playoff_after",
       "value": 0.0003,
-      "display": "0%",
+      "display": "<1%",
       "label": "Sport playoff chance after this moment",
       "source": "simulation"
      },
@@ -9890,8 +9890,8 @@
      },
      {
       "id": "e6.SPO.direct_after",
-      "value": 0.0,
-      "display": "0%",
+      "value": 0.0001,
+      "display": "<1%",
       "label": "Sport chance of finishing in the top 4 (straight to the quarterfinals)",
       "source": "simulation"
      },
