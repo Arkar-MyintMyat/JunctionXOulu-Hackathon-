@@ -1,0 +1,87 @@
+{
+ "679171680:ässät": {
+  "code": "ASS",
+  "name": "Ässät",
+  "color": "#888888"
+ },
+ "55786244:hpk": {
+  "code": "HPK",
+  "name": "HPK",
+  "color": "#888888"
+ },
+ "168761288:hifk": {
+  "code": "IFK",
+  "name": "HIFK",
+  "color": "#888888"
+ },
+ "951626834:ilves": {
+  "code": "ILV",
+  "name": "Ilves",
+  "color": "#888888"
+ },
+ "238306801:jokerit": {
+  "code": "JOK",
+  "name": "Jokerit",
+  "color": "#888888"
+ },
+ "292293444:jukurit": {
+  "code": "JUK",
+  "name": "Jukurit",
+  "color": "#888888"
+ },
+ "219244634:jyp": {
+  "code": "JYP",
+  "name": "JYP",
+  "color": "#888888"
+ },
+ "859884935:kalpa": {
+  "code": "KAL",
+  "name": "KalPa",
+  "color": "#888888"
+ },
+ "495643563:kärpät": {
+  "code": "KAR",
+  "name": "Kärpät",
+  "color": "#888888"
+ },
+ "1368624751:k-espoo": {
+  "code": "KES",
+  "name": "K-Espoo",
+  "color": "#888888"
+ },
+ "461765763:kookoo": {
+  "code": "KOO",
+  "name": "KooKoo",
+  "color": "#888888"
+ },
+ "624554857:lukko": {
+  "code": "LUK",
+  "name": "Lukko",
+  "color": "#888888"
+ },
+ "875886777:pelicans": {
+  "code": "PEL",
+  "name": "Pelicans",
+  "color": "#888888"
+ },
+ "933686567:saipa": {
+  "code": "SAI",
+  "name": "SaiPa",
+  "color": "#888888"
+ },
+ "626537494:sport": {
+  "code": "SPO",
+  "name": "Sport",
+  "color": "#888888"
+ },
+ "362185137:tappara": {
+  "code": "TAP",
+  "name": "Tappara",
+  "color": "#888888"
+ },
+ "651304385:tps": {
+  "code": "TPS",
+  "name": "TPS",
+  "color": "#888888"
+ }
+}

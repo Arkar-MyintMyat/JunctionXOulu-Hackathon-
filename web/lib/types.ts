@@ -96,6 +96,12 @@ export interface Story {
   injected?: boolean; // optional extra: the demo's deliberate error
 }
 
+/** Optional extra: odds sampled between events (e.g. every minute), so the line can drift for real. */
+export interface TimelinePoint {
+  seconds: number;
+  odds: Record<TeamCode, TeamOdds>;
+}
+
 export interface Match {
   schema_version: number;
   match: MatchInfo;
@@ -104,6 +110,7 @@ export interface Match {
   events: MatchEvent[];
   facts: Record<string, Record<TeamCode, TeamFacts>>;
   stories: Story[];
+  timeline?: TimelinePoint[]; // optional extra; without it the line is flat between events
 }
 
 export interface UpcomingGame {
