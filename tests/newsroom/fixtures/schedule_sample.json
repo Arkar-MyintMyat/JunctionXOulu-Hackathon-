@@ -1,0 +1,82 @@
+[
+  {
+    "id": 9001,
+    "season": 2026,
+    "start": "2026-03-14T16:30:00Z",
+    "homeTeamId": "6:karpat",
+    "awayTeamId": "5:pelicans",
+    "ended": true
+  },
+  {
+    "id": 9002,
+    "season": 2026,
+    "start": "2026-03-14T16:30:00Z",
+    "homeTeamId": "3:ilves",
+    "awayTeamId": "7:tps",
+    "ended": true
+  },
+  {
+    "id": 9010,
+    "season": 2026,
+    "start": "2026-03-16T16:30:00Z",
+    "homeTeamId": "3:ilves",
+    "awayTeamId": "6:karpat",
+    "ended": false
+  },
+  {
+    "id": 9011,
+    "season": 2026,
+    "start": "2026-03-17T16:30:00Z",
+    "homeTeamId": "5:pelicans",
+    "awayTeamId": "55786244:hpk",
+    "ended": false
+  },
+  {
+    "id": 9012,
+    "season": 2026,
+    "start": "2026-03-17T16:30:00Z",
+    "homeTeamId": "7:tps",
+    "awayTeamId": "8:jyp",
+    "ended": false
+  },
+  {
+    "id": 9013,
+    "season": 2026,
+    "start": "2026-03-18T16:30:00Z",
+    "homeTeamId": "933686567:saipa",
+    "awayTeamId": "624554857:lukko",
+    "ended": false
+  },
+  {
+    "id": 9014,
+    "season": 2026,
+    "start": "2026-03-18T16:30:00Z",
+    "homeTeamId": "4:kalpa",
+    "awayTeamId": "1:tappara",
+    "ended": false
+  },
+  {
+    "id": 9015,
+    "season": 2026,
+    "start": "2026-03-19T16:30:00Z",
+    "homeTeamId": "2:hifk",
+    "awayTeamId": "292293444:jukurit",
+    "ended": false
+  },
+  {
+    "id": 9016,
+    "season": 2026,
+    "start": "2026-03-19T16:30:00Z",
+    "homeTeamId": "9:assat",
+    "awayTeamId": "10:sport",
+    "ended": false
+  },
+  {
+    "id": 9017,
+    "season": 2026,
+    "start": "2026-03-20T16:30:00Z",
+    "homeTeamId": "11:kookoo",
+    "awayTeamId": "12:kiekko-espoo",
+    "ended": false
+  }
+]

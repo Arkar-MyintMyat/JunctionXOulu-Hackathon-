@@ -1,8 +1,15 @@
+# Secrets (AGENTS.md rule 7)
 .env
+
+# Python
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Half-written data files (written to *.tmp, then renamed)
 *.tmp
+
+# Web
 web/node_modules/
 web/.next/

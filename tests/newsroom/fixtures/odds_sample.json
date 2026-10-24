@@ -1,0 +1,474 @@
+{
+  "schema_version": 1,
+  "match": {
+    "id": 9001,
+    "season": 2026,
+    "date": "2026-03-14",
+    "home": "KAR",
+    "away": "PEL",
+    "final_score": "2-1",
+    "finished_type": "REG"
+  },
+  "teams": [
+    {
+      "code": "LUK",
+      "name": "Lukko",
+      "color": "#00468C"
+    },
+    {
+      "code": "TAP",
+      "name": "Tappara",
+      "color": "#F47A20"
+    },
+    {
+      "code": "IFK",
+      "name": "HIFK",
+      "color": "#E30613"
+    },
+    {
+      "code": "ILV",
+      "name": "Ilves",
+      "color": "#FFD200"
+    },
+    {
+      "code": "KAL",
+      "name": "KalPa",
+      "color": "#FFD100"
+    },
+    {
+      "code": "PEL",
+      "name": "Pelicans",
+      "color": "#0098D8"
+    },
+    {
+      "code": "KAR",
+      "name": "Kärpät",
+      "color": "#FFD100"
+    },
+    {
+      "code": "TPS",
+      "name": "TPS",
+      "color": "#000000"
+    },
+    {
+      "code": "HPK",
+      "name": "HPK",
+      "color": "#F37021"
+    },
+    {
+      "code": "JYP",
+      "name": "JYP",
+      "color": "#D71920"
+    },
+    {
+      "code": "SAI",
+      "name": "SaiPa",
+      "color": "#FFE600"
+    },
+    {
+      "code": "JUK",
+      "name": "Jukurit",
+      "color": "#003E7E"
+    },
+    {
+      "code": "ASS",
+      "name": "Ässät",
+      "color": "#C8102E"
+    },
+    {
+      "code": "SPO",
+      "name": "Sport",
+      "color": "#E2001A"
+    },
+    {
+      "code": "KOO",
+      "name": "KooKoo",
+      "color": "#FF6600"
+    },
+    {
+      "code": "KES",
+      "name": "K-Espoo",
+      "color": "#002F6C"
+    }
+  ],
+  "thresholds": {
+    "direct": 4,
+    "playoff": 12
+  },
+  "events": [
+    {
+      "idx": 0,
+      "kind": "start",
+      "clock": "00:00",
+      "seconds": 0,
+      "score": "0-0",
+      "odds": {
+        "LUK": {
+          "direct": 0.93,
+          "playoff": 0.99
+        },
+        "TAP": {
+          "direct": 0.9,
+          "playoff": 0.99
+        },
+        "IFK": {
+          "direct": 0.78,
+          "playoff": 0.97
+        },
+        "ILV": {
+          "direct": 0.52,
+          "playoff": 0.88
+        },
+        "KAL": {
+          "direct": 0.47,
+          "playoff": 0.86
+        },
+        "PEL": {
+          "direct": 0.28,
+          "playoff": 0.7
+        },
+        "KAR": {
+          "direct": 0.12,
+          "playoff": 0.48
+        },
+        "TPS": {
+          "direct": 0.18,
+          "playoff": 0.62
+        },
+        "HPK": {
+          "direct": 0.14,
+          "playoff": 0.57
+        },
+        "JYP": {
+          "direct": 0.16,
+          "playoff": 0.59
+        },
+        "SAI": {
+          "direct": 0.06,
+          "playoff": 0.41
+        },
+        "JUK": {
+          "direct": 0.04,
+          "playoff": 0.33
+        },
+        "ASS": {
+          "direct": 0.01,
+          "playoff": 0.12
+        },
+        "SPO": {
+          "direct": 0.0,
+          "playoff": 0.06
+        },
+        "KOO": {
+          "direct": 0.0,
+          "playoff": 0.02
+        },
+        "KES": {
+          "direct": 0.0,
+          "playoff": 0.01
+        }
+      }
+    },
+    {
+      "idx": 1,
+      "kind": "goal",
+      "clock": "18:40",
+      "seconds": 1120,
+      "period": 1,
+      "team": "KAR",
+      "scorer": "Lehtonen",
+      "score": "1-0",
+      "odds": {
+        "LUK": {
+          "direct": 0.93,
+          "playoff": 0.99
+        },
+        "TAP": {
+          "direct": 0.9,
+          "playoff": 0.99
+        },
+        "IFK": {
+          "direct": 0.78,
+          "playoff": 0.97
+        },
+        "ILV": {
+          "direct": 0.52,
+          "playoff": 0.88
+        },
+        "KAL": {
+          "direct": 0.47,
+          "playoff": 0.86
+        },
+        "PEL": {
+          "direct": 0.257,
+          "playoff": 0.63
+        },
+        "KAR": {
+          "direct": 0.15,
+          "playoff": 0.57
+        },
+        "TPS": {
+          "direct": 0.173,
+          "playoff": 0.6
+        },
+        "HPK": {
+          "direct": 0.13,
+          "playoff": 0.54
+        },
+        "JYP": {
+          "direct": 0.153,
+          "playoff": 0.57
+        },
+        "SAI": {
+          "direct": 0.057,
+          "playoff": 0.4
+        },
+        "JUK": {
+          "direct": 0.04,
+          "playoff": 0.33
+        },
+        "ASS": {
+          "direct": 0.01,
+          "playoff": 0.12
+        },
+        "SPO": {
+          "direct": 0.0,
+          "playoff": 0.06
+        },
+        "KOO": {
+          "direct": 0.0,
+          "playoff": 0.02
+        },
+        "KES": {
+          "direct": 0.0,
+          "playoff": 0.01
+        }
+      }
+    },
+    {
+      "idx": 2,
+      "kind": "goal",
+      "clock": "33:15",
+      "seconds": 1995,
+      "period": 2,
+      "team": "PEL",
+      "scorer": "Sund",
+      "score": "1-1",
+      "odds": {
+        "LUK": {
+          "direct": 0.93,
+          "playoff": 0.99
+        },
+        "TAP": {
+          "direct": 0.9,
+          "playoff": 0.99
+        },
+        "IFK": {
+          "direct": 0.78,
+          "playoff": 0.97
+        },
+        "ILV": {
+          "direct": 0.52,
+          "playoff": 0.88
+        },
+        "KAL": {
+          "direct": 0.47,
+          "playoff": 0.86
+        },
+        "PEL": {
+          "direct": 0.277,
+          "playoff": 0.69
+        },
+        "KAR": {
+          "direct": 0.123,
+          "playoff": 0.49
+        },
+        "TPS": {
+          "direct": 0.18,
+          "playoff": 0.62
+        },
+        "HPK": {
+          "direct": 0.137,
+          "playoff": 0.56
+        },
+        "JYP": {
+          "direct": 0.16,
+          "playoff": 0.59
+        },
+        "SAI": {
+          "direct": 0.06,
+          "playoff": 0.41
+        },
+        "JUK": {
+          "direct": 0.04,
+          "playoff": 0.33
+        },
+        "ASS": {
+          "direct": 0.01,
+          "playoff": 0.12
+        },
+        "SPO": {
+          "direct": 0.0,
+          "playoff": 0.06
+        },
+        "KOO": {
+          "direct": 0.0,
+          "playoff": 0.02
+        },
+        "KES": {
+          "direct": 0.0,
+          "playoff": 0.01
+        }
+      }
+    },
+    {
+      "idx": 3,
+      "kind": "goal",
+      "clock": "58:12",
+      "seconds": 3492,
+      "period": 3,
+      "team": "KAR",
+      "scorer": "Lehtonen",
+      "score": "2-1",
+      "odds": {
+        "LUK": {
+          "direct": 0.93,
+          "playoff": 0.99
+        },
+        "TAP": {
+          "direct": 0.9,
+          "playoff": 0.99
+        },
+        "IFK": {
+          "direct": 0.78,
+          "playoff": 0.97
+        },
+        "ILV": {
+          "direct": 0.51,
+          "playoff": 0.85
+        },
+        "KAL": {
+          "direct": 0.463,
+          "playoff": 0.84
+        },
+        "PEL": {
+          "direct": 0.237,
+          "playoff": 0.57
+        },
+        "KAR": {
+          "direct": 0.2,
+          "playoff": 0.72
+        },
+        "TPS": {
+          "direct": 0.163,
+          "playoff": 0.57
+        },
+        "HPK": {
+          "direct": 0.117,
+          "playoff": 0.5
+        },
+        "JYP": {
+          "direct": 0.143,
+          "playoff": 0.54
+        },
+        "SAI": {
+          "direct": 0.047,
+          "playoff": 0.37
+        },
+        "JUK": {
+          "direct": 0.04,
+          "playoff": 0.33
+        },
+        "ASS": {
+          "direct": 0.01,
+          "playoff": 0.12
+        },
+        "SPO": {
+          "direct": 0.0,
+          "playoff": 0.06
+        },
+        "KOO": {
+          "direct": 0.0,
+          "playoff": 0.02
+        },
+        "KES": {
+          "direct": 0.0,
+          "playoff": 0.01
+        }
+      }
+    },
+    {
+      "idx": 4,
+      "kind": "end",
+      "clock": "60:00",
+      "seconds": 3600,
+      "score": "2-1",
+      "odds": {
+        "LUK": {
+          "direct": 0.93,
+          "playoff": 0.99
+        },
+        "TAP": {
+          "direct": 0.9,
+          "playoff": 0.99
+        },
+        "IFK": {
+          "direct": 0.78,
+          "playoff": 0.97
+        },
+        "ILV": {
+          "direct": 0.51,
+          "playoff": 0.85
+        },
+        "KAL": {
+          "direct": 0.463,
+          "playoff": 0.84
+        },
+        "PEL": {
+          "direct": 0.234,
+          "playoff": 0.56
+        },
+        "KAR": {
+          "direct": 0.21,
+          "playoff": 0.75
+        },
+        "TPS": {
+          "direct": 0.163,
+          "playoff": 0.57
+        },
+        "HPK": {
+          "direct": 0.114,
+          "playoff": 0.49
+        },
+        "JYP": {
+          "direct": 0.143,
+          "playoff": 0.54
+        },
+        "SAI": {
+          "direct": 0.047,
+          "playoff": 0.37
+        },
+        "JUK": {
+          "direct": 0.04,
+          "playoff": 0.33
+        },
+        "ASS": {
+          "direct": 0.01,
+          "playoff": 0.12
+        },
+        "SPO": {
+          "direct": 0.0,
+          "playoff": 0.06
+        },
+        "KOO": {
+          "direct": 0.0,
+          "playoff": 0.02
+        },
+        "KES": {
+          "direct": 0.0,
+          "playoff": 0.01
+        }
+      }
+    }
+  ]
+}
