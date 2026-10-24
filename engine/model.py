@@ -37,12 +37,12 @@ class Team(BaseModel):
 
 
 class Thresholds(BaseModel):
-    top6: int
-    playoff: int
+    direct: int  # rank <= direct: straight to quarterfinals (Liiga playoffsLines[0])
+    playoff: int  # rank <= playoff: makes the playoffs (Liiga playoffsLines[1])
 
 
 class Odds(BaseModel):
-    top6: float = Field(ge=0, le=1)
+    direct: float = Field(ge=0, le=1)
     playoff: float = Field(ge=0, le=1)
 
 
@@ -111,7 +111,7 @@ class TeamOutlook(BaseModel):
     code: str
     points_now: int
     rank_now: int
-    top6: float = Field(ge=0, le=1)
+    direct: float = Field(ge=0, le=1)
     playoff: float = Field(ge=0, le=1)
     avg_rank: float
 

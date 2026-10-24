@@ -105,8 +105,9 @@ odds swing), xG in team strength, `engine/backtest.py` (Brier score on last seas
 - Goals ~ Poisson. Regulation win = 3 pts, loser 0. Tie → overtime/shootout: 50/50, winner 2, loser 1.
   (Confirm with the standings test; if it fails, fix the rule, not the test.)
 - Ranking: points, then goal difference, then goals for, then random.
-- Playoff lines from the standings `playoffsLines` field. `top6` = rank ≤ first line, `playoff` = rank ≤ second line.
-  Print the field once and confirm the meaning; do not hard-code 6 and 10 without checking.
+- Playoff lines from the standings `playoffsLines` field. `direct` = rank ≤ first line (straight to quarterfinals),
+  `playoff` = rank ≤ second line. Confirmed on season 2026: `[4, 12]` (ranks 5–12 play a first round).
+  Season 2027 returns `[4, 12, 14]`; the third line is ignored at Level 1. Never hard-code the numbers.
 - Mid-game state (replay): remaining fraction `f = (3600 - seconds_elapsed) / 3600`; add Poisson goals with
   `expected * f` to the current score, then simulate the rest of the season.
 - Runs: 2,000 while developing, 10,000 for final precompute. Vectorise with NumPy; seed with `SEED=42`.
@@ -192,7 +193,7 @@ so the demo shows it being blocked. Write pytest cases for every rule.
    Badge: "✓ Verified · AI-generated from Liiga data". Blocked → "Held for editor review". [2.5 h]
 6. Scenario explorer `web/app/explorer/page.tsx`: pick a team; list its next 8 games from `/api/upcoming`;
    each game has buttons (Home win, Home OT, Away OT, Away win, Not set); "Simulate" calls `/api/simulate`;
-   show the team's `top6` and `playoff` odds and a sorted table. [3 h]
+   show the team's `direct` and `playoff` odds and a sorted table. [3 h]
 7. Frontend deploy. [1 h]
 8. Recorded backup video of the demo by **04:00**. [1 h]
 
@@ -234,15 +235,15 @@ A commits these as `contracts/*.example.json`. B mirrors them in `web/lib/types.
   "match": { "id": 12345, "season": 2026, "date": "2026-03-14", "home": "KAR", "away": "PEL",
              "final_score": "3-2", "finished_type": "REG" },
   "teams": [ { "code": "KAR", "name": "Kärpät", "color": "#FFD100" } ],
-  "thresholds": { "top6": 6, "playoff": 10 },
+  "thresholds": { "direct": 4, "playoff": 12 },
   "events": [
     { "idx": 0, "kind": "start", "clock": "00:00", "seconds": 0, "score": "0-0",
-      "odds": { "KAR": { "top6": 0.31, "playoff": 0.48 }, "ILV": { "top6": 0.40, "playoff": 0.59 } } },
+      "odds": { "KAR": { "direct": 0.31, "playoff": 0.48 }, "ILV": { "direct": 0.40, "playoff": 0.59 } } },
     { "idx": 3, "kind": "goal", "clock": "58:12", "seconds": 3492, "period": 3, "team": "KAR",
       "scorer": "Lehtonen", "score": "3-2",
-      "odds": { "KAR": { "top6": 0.52, "playoff": 0.71 }, "ILV": { "top6": 0.29, "playoff": 0.41 } } },
+      "odds": { "KAR": { "direct": 0.52, "playoff": 0.71 }, "ILV": { "direct": 0.29, "playoff": 0.41 } } },
     { "idx": 4, "kind": "end", "clock": "60:00", "seconds": 3600, "score": "3-2",
-      "odds": { "KAR": { "top6": 0.55, "playoff": 0.74 }, "ILV": { "top6": 0.29, "playoff": 0.41 } } }
+      "odds": { "KAR": { "direct": 0.55, "playoff": 0.74 }, "ILV": { "direct": 0.29, "playoff": 0.41 } } }
   ],
   "facts": {
     "3": {
@@ -267,6 +268,9 @@ A commits these as `contracts/*.example.json`. B mirrors them in `web/lib/types.
 }
 ```
 Rules: every event, including `start` and `end`, has odds for **every** team (the example shows two to stay short).
+`direct` = chance of finishing rank ≤ `thresholds.direct` (straight to quarterfinals); `playoff` = rank ≤ `thresholds.playoff`.
+The UI reads the line numbers from `thresholds`; never print a hard-coded "top 6" or "top 4".
+Team count is not fixed: season 2026 has 16 teams, season 2027 (current) has 17.
 Probabilities are 0–1 floats. Fact ids follow `e{idx}.{TEAM}.{name}`. `display` is what the reader sees.
 Team names in `allowed_names` include every name a story may use (Level 2 Finnish adds inflected forms).
 
@@ -284,7 +288,7 @@ Request:
 Response:
 ```json
 { "runs": 5000,
-  "teams": [ { "code": "KAR", "points_now": 21, "rank_now": 8, "top6": 0.44, "playoff": 0.77, "avg_rank": 7.1 } ] }
+  "teams": [ { "code": "KAR", "points_now": 21, "rank_now": 8, "direct": 0.44, "playoff": 0.77, "avg_rank": 7.1 } ] }
 ```
 Must answer in under 3 seconds (use 5,000 runs here).
 
