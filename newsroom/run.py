@@ -19,6 +19,8 @@ from pathlib import Path
 from typing import Any
 
 from newsroom import config, verifier, writer
+
+PLAYING_TEAM_MIN_DELTA = 0.005  # half a point: below that the goal did not change the playing team's chance
 from newsroom.factsheet import write_json_atomic
 
 
@@ -45,7 +47,11 @@ def select_targets(facts: dict[str, dict[str, dict[str, Any]]]) -> list[tuple[in
             continue
         swings = sorted(((abs(fact(tf, "playoff_delta")["value"]), code) for code, tf in per_team.items()),
                         reverse=True)
-        playing = [c for c, tf in per_team.items() if tf["context"]["role"] in ("scored", "conceded")]
+        # The two playing teams come first, but only if the goal changed anything for them: a team already
+        # at 100% (or 0%) has nothing at stake and gets no story.
+        playing = [c for c, tf in per_team.items()
+                   if tf["context"]["role"] in ("scored", "conceded")
+                   and abs(fact(tf, "playoff_delta")["value"]) >= PLAYING_TEAM_MIN_DELTA]
         chosen = list(playing)
         for swing, code in swings:
             if len(chosen) >= config.MAX_STORIES_PER_EVENT:

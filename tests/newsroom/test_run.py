@@ -54,6 +54,20 @@ def test_retry_failed_rewrites_only_api_failures(facts_file, tmp_path, monkeypat
     assert not any(run.writer_failed(s) for s in second["stories"])
 
 
+def test_playing_team_with_nothing_at_stake_gets_no_story(odds):
+    """Game 480: KooKoo were already at 100%, so their goals changed nothing for them."""
+    import copy
+
+    from newsroom.factsheet import build_facts
+
+    o = copy.deepcopy(odds)
+    for e in o["events"]:
+        e["odds"]["PEL"]["playoff"] = 1.0
+    targets = run.select_targets(build_facts(o, {}))
+    assert all(team != "PEL" for _, team in targets)
+    assert any(team == "KAR" for _, team in targets)
+
+
 def test_injection_skips_stories_that_already_failed(facts):
     good = {"event_idx": 3, "team": "TPS", "audience": "fan", "text": "ok", "problems": []}
     failed = {"event_idx": 3, "team": "HPK", "audience": "fan", "text": "", "problems": ["writer failed: 404"]}
