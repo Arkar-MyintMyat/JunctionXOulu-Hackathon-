@@ -373,7 +373,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
 
       {/* The heartbeat chart (playing teams only). */}
       <div ref={shakeScope} className={isPlaying ? "relative mx-3 mt-4 sm:mx-5" : "hidden"}>
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full select-none" role="img"
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full select-none overflow-visible" role="img"
              aria-label={`${team.name} playoff chance: ${pct(prob(current))} at ${current.clock}`}>
           <defs>
             <clipPath id={`reveal-${uid}`}>
@@ -457,6 +457,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             const isNow = g.idx === pb.eventIdx && !travelling;
             const c = tone(d);
             const gx = x(settleOf(g));
+            const tagX = Math.min(W - PAD_R - 26, Math.max(PAD_L + 26, gx)); // tags stay inside the plot
             const gy = y(prob(g));
             // The beat sits just left of the dot. Put the box diagonally away from it: to the right of the
             // dot (over the flat line that follows), above it after a gain and below it after a drop.
@@ -493,9 +494,9 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                 ) : (
                   // Earlier goals: a small tag, so many goals stay readable. The cards below have the details.
                   <g>
-                    <rect x={gx - 24} y={d >= 0 ? gy - 34 : gy + 12} width={48} height={22} rx={11} fill="#ffffff"
+                    <rect x={tagX - 24} y={d >= 0 ? gy - 34 : gy + 12} width={48} height={22} rx={11} fill="#ffffff"
                           stroke={c} strokeWidth={1.5} />
-                    <text x={gx} y={d >= 0 ? gy - 18 : gy + 28} textAnchor="middle" fontSize={13} fontWeight={800}
+                    <text x={tagX} y={d >= 0 ? gy - 18 : gy + 28} textAnchor="middle" fontSize={13} fontWeight={800}
                           fill={c}>{signedPct(d)}</text>
                   </g>
                 )}
