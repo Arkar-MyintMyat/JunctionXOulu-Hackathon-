@@ -13,82 +13,98 @@
   {
    "code": "TAP",
    "name": "Tappara",
-   "color": "#888888"
+   "color": "#4A2C8C",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F8bb664ba2392481ebc1091a33ee75513"
   },
   {
    "code": "KOO",
    "name": "KooKoo",
-   "color": "#888888"
+   "color": "#BD5E2E",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F7d933387f498496094d7ef1928e9fa7b"
   },
   {
    "code": "SAI",
    "name": "SaiPa",
-   "color": "#888888"
+   "color": "#A8B820",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F5640db8b21854732baf6afc56fc013b5"
   },
   {
    "code": "ILV",
    "name": "Ilves",
-   "color": "#888888"
+   "color": "#E0B10F",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F079e0e0bde4f43b8b8afa667d3285ebc"
   },
   {
    "code": "LUK",
    "name": "Lukko",
-   "color": "#888888"
+   "color": "#2F62D6",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2Fec75b8794b254061bc4b72cf22c489f4"
   },
   {
    "code": "JYP",
    "name": "JYP",
-   "color": "#888888"
+   "color": "#F2545C",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2Ff4d92d41c1c44d34b6ebb117490966f6"
   },
   {
    "code": "KAL",
    "name": "KalPa",
-   "color": "#888888"
+   "color": "#F7D04A",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F1183427f2aed401184bc2f96bb1a3303"
   },
   {
    "code": "ASS",
    "name": "Ässät",
-   "color": "#888888"
+   "color": "#8C1430",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2Fe4c7031958a043cdb8ca80c3c353f0c6"
   },
   {
    "code": "KES",
    "name": "K-Espoo",
-   "color": "#888888"
+   "color": "#0B84D9",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2Fbf4ab47ce42640ebad139fd11a6a7861"
   },
   {
    "code": "IFK",
    "name": "HIFK",
-   "color": "#888888"
+   "color": "#24488A",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F46a26a5506f543b3a32e0035f260302b"
   },
   {
    "code": "PEL",
    "name": "Pelicans",
-   "color": "#888888"
+   "color": "#7BB8E0",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F269341129a1449ccb0a64345337c3273"
   },
   {
    "code": "HPK",
    "name": "HPK",
-   "color": "#888888"
+   "color": "#F26A1B",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F6020edd6d9bc45b68a50bd191b826deb"
   },
   {
    "code": "TPS",
    "name": "TPS",
-   "color": "#888888"
+   "color": "#5C5C5C",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2Fe07109c96edf4561b8b5021e7fc44526"
   },
   {
    "code": "KAR",
    "name": "Kärpät",
-   "color": "#888888"
+   "color": "#CE930F",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F57b5b1a6c04f43368910ee73822513d8"
   },
   {
    "code": "JUK",
    "name": "Jukurit",
-   "color": "#888888"
+   "color": "#157A86",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F5fa94d44327f46b7b4e30ae58a3be7ca"
   },
   {
    "code": "SPO",
    "name": "Sport",
-   "color": "#888888"
+   "color": "#8A6A3A",
+   "logo": "https://cdn.builder.io/api/v1/image/assets%2Ff11503eeae084753968caac3899a5d78%2F77efd6df129843699ae9a4c2e94efcb2"
   }
  ],
  "thresholds": {

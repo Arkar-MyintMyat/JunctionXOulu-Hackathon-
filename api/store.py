@@ -2,6 +2,7 @@
 
 Match = data/odds/{id}.json (A) + data/facts/{id}.json (B) + data/stories/{id}.json (B).
 Facts and stories are optional: until B's files exist the match is served with empty facts/stories.
+Team colours and logos always come from data/teams.json at serve time, so a change needs no replay.
 """
 import json
 from pathlib import Path
@@ -13,6 +14,11 @@ MOCK_ID = "mock"
 
 def _read(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def team_info(teams_file: Path = config.TEAMS_FILE) -> dict[str, dict]:
+    """Team code -> {code, name, color, logo} from data/teams.json."""
+    return {t["code"]: t for t in _read(teams_file).values()} if teams_file.exists() else {}
 
 
 def match_ids(odds_dir: Path = config.ODDS) -> list[int]:
@@ -28,6 +34,12 @@ def get_match(match_id: str | int, odds_dir: Path = config.ODDS, facts_dir: Path
     if not odds_path.exists():
         return None
     match = _read(odds_path)
+    info = team_info()
+    for t in match["teams"]:
+        current = info.get(t["code"], {})
+        t["color"] = current.get("color", t["color"])
+        if current.get("logo"):
+            t["logo"] = current["logo"]
     facts_path = facts_dir / f"{match_id}.json"
     stories_path = stories_dir / f"{match_id}.json"
     match["facts"] = _read(facts_path)["facts"] if facts_path.exists() else {}

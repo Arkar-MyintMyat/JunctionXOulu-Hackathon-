@@ -52,14 +52,15 @@ def team_code(team_id: str) -> str:
 
 
 def build_teams(seasons: list[int]) -> dict:
-    """teamId -> {code, name, color}. Keeps colours already in data/teams.json (C supplies them)."""
+    """teamId -> {code, name, color, logo}. Keeps colours already in data/teams.json (C supplies them)."""
     old = read_json(config.TEAMS_FILE) if config.TEAMS_FILE.exists() else {}
     teams = {}
     for season in seasons:
         for item in read_json(raw_path(season, "standings"))["items"]:
             tid = item["teamId"]
             teams[tid] = {"code": team_code(tid), "name": item["teamName"],
-                          "color": old.get(tid, {}).get("color", PLACEHOLDER_COLOR)}
+                          "color": old.get(tid, {}).get("color", PLACEHOLDER_COLOR),
+                          "logo": (item.get("teamLogos") or {}).get("lightBg")}
     codes = [t["code"] for t in teams.values()]
     dupes = {c for c in codes if codes.count(c) > 1}
     if dupes:
