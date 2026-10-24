@@ -5,9 +5,13 @@ Facts and stories are optional: until B's files exist the match is served with e
 Team colours and logos always come from data/teams.json at serve time, so a change needs no replay.
 """
 import json
+from functools import lru_cache
 from pathlib import Path
 
 from engine import config
+from engine.loader import load_games, load_teams, raw_path
+from engine.model import Game, Result
+from engine.simulate import SeasonState, season_state, simulate
 
 MOCK_ID = "mock"
 
@@ -61,6 +65,52 @@ def list_matches(odds_dir: Path = config.ODDS) -> list[dict]:
         out.append({"id": m["id"], "season": m["season"], "date": m["date"], "home": m["home"],
                     "away": m["away"], "label": label(match)})
     return out
+
+
+# ---------- scenario explorer (current season) ----------
+
+@lru_cache(maxsize=1)
+def explorer_season() -> tuple[list[Game], SeasonState]:
+    """Current-season games + state 'now' (every finished game counted). Built once per process."""
+    season = config.CURRENT_SEASON
+    teams = load_teams()
+    standings = _read(raw_path(season, "standings"))
+    codes = [teams[i["teamId"]]["code"] for i in standings["items"]]
+    lines = tuple(standings["playoffsLines"][:2])
+    games = load_games(season)
+    return games, season_state(games, codes, lines)
+
+
+def upcoming(team: str, n: int) -> list[dict] | None:
+    """The team's next n unplayed games, or None for an unknown team code."""
+    games, state = explorer_season()
+    if team not in state.codes:
+        return None
+    left = [g for g in games if not g.ended and team in (g.home, g.away)]
+    return [{"game_id": g.id, "date": g.start[:10], "home": g.home, "away": g.away} for g in left[:n]]
+
+
+def unknown_picks(picks: dict[int, Result]) -> list[int]:
+    """Picked game ids that are not unplayed games of the current season."""
+    _, state = explorer_season()
+    open_ids = {f.game_id for f in state.fixtures}
+    return [gid for gid in picks if gid not in open_ids]
+
+
+def run_simulation(picks: dict[int, Result]) -> dict:
+    """SimulateResponse: odds with the fan's picks forced, everything else simulated."""
+    _, state = explorer_season()
+    runs = config.RUNS_SIMULATE_API
+    odds = simulate(state, runs, picks=picks)
+    info = team_info()
+    teams = []
+    for row in state.table:  # ordered by current rank
+        o, t = odds[row.code], info.get(row.code, {})
+        teams.append({"code": row.code, "name": t.get("name", row.code), "color": t.get("color", "#888888"),
+                      "logo": t.get("logo"), "points_now": row.points, "rank_now": row.rank,
+                      "direct": round(o.direct, 4), "playoff": round(o.playoff, 4),
+                      "avg_rank": round(o.avg_rank, 2)})
+    return {"runs": runs, "teams": teams}
 
 
 def queue(stories_dir: Path = config.STORIES) -> list[dict]:

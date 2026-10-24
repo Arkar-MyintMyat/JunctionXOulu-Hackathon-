@@ -1,17 +1,13 @@
-"""FastAPI app: the 5 routes from AGENTS.md section 5.
+"""FastAPI app: the 5 routes from AGENTS.md section 5, all served from data/ via api/store.py.
 
-/api/matches, /api/match/{id} and /api/queue serve real merged data via api/store.py
-(/api/match/mock still serves the mock). /api/upcoming and /api/simulate are still stubs.
+/api/match/mock still serves the mock. /api/upcoming and /api/simulate use the current season.
 """
-import json
 import os
-from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from api import store
-from engine import config
 from engine.model import Match, MatchSummary, QueueItem, SimulateRequest, SimulateResponse, UpcomingGame
 
 app = FastAPI(title="Stakes API")
@@ -20,10 +16,6 @@ origins = ["http://localhost:3000"]
 if os.environ.get("FRONTEND_URL"):
     origins.append(os.environ["FRONTEND_URL"])
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"])
-
-
-def _read(path: Path):
-    return json.loads(path.read_text(encoding="utf-8"))
 
 
 @app.get("/api/matches", response_model=list[MatchSummary])
@@ -41,15 +33,19 @@ def match(match_id: str):
 
 @app.get("/api/upcoming", response_model=list[UpcomingGame])
 def upcoming(team: str, n: int = 8):
-    # TODO(A): real schedule from data/raw.
-    games = _read(config.CONTRACTS / "upcoming.example.json")
-    return [g for g in games if team in (g["home"], g["away"])][:n]
+    games = store.upcoming(team.upper(), n)
+    if games is None:
+        raise HTTPException(404, f"unknown team {team}")
+    return games
 
 
 @app.post("/api/simulate", response_model=SimulateResponse)
 def simulate(req: SimulateRequest):
-    # TODO(A): call engine.simulate with req.picks.
-    return _read(config.MOCK / "simulate-mock.json")
+    picks = {p.game_id: p.result for p in req.picks}
+    bad = store.unknown_picks(picks)
+    if bad:
+        raise HTTPException(422, f"not an unplayed game this season: {bad}")
+    return store.run_simulation(picks)
 
 
 @app.get("/api/queue", response_model=list[QueueItem])

@@ -6,7 +6,7 @@ from engine.model import Match
 from engine.replay import replay
 
 RUNS = 500
-GAMES = {"REG": 480, "OT": 478, "SO": 462}  # season 2026
+GAMES = {"REG": 480, "OT": 478, "SO": 462, "DEMO": 345}  # season 2026
 
 
 @pytest.fixture(scope="module")
@@ -48,8 +48,20 @@ def test_shape_by_finish_type(replays):
     assert [e["idx"] for e in reg["events"]] == list(range(len(reg["events"])))
 
 
-def test_demo_game_story(replays):
+def test_last_day_decides_playoffs(replays):
     """TPS 3-4 KOO: TPS lose on the last day and finish outside the playoffs."""
     end = replays["REG"]["events"][-1]["odds"]
     assert end["TPS"]["playoff"] < 0.05
     assert end["HPK"]["playoff"] > 0.95
+
+
+def test_demo_game_story(replays):
+    """KAR 2-3 PEL (OT): Räty's 2-1 at 58:17 is worth most, Karvinen's 2-2 at 59:22 takes it back."""
+    events = replays["DEMO"]["events"]
+    lead, equaliser = events[3], events[4]
+    assert (lead["team"], lead["score"]) == ("KAR", "2-1")
+    assert (equaliser["team"], equaliser["score"]) == ("PEL", "2-2")
+    assert lead["odds"]["KAR"]["playoff"] - lead["odds_before"]["KAR"]["playoff"] > 0.05
+    assert equaliser["odds"]["PEL"]["playoff"] - equaliser["odds_before"]["PEL"]["playoff"] > 0.05
+    assert equaliser["odds"]["KAR"]["playoff"] < lead["odds"]["KAR"]["playoff"]
+    assert events[-1]["seconds"] > config.GAME_SECONDS  # OT winner
