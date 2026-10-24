@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "match_id": 345,
+  "stories": [
+    {
+      "event_idx": 1,
+      "team": "PEL",
+      "audience": "fan",
+      "text": "When Dudas scored at {{e1.PEL.clock}} to make it {{e1.PEL.score}} against Kärpät, your team's playoff chance rose by {{e1.PEL.playoff_delta}}. That goal pushed your post-season estimate to {{e1.PEL.playoff_after}}.",
+      "facts_used": [
+        "e1.PEL.clock",
+        "e1.PEL.score",
+        "e1.PEL.playoff_delta",
+        "e1.PEL.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 1,
+      "team": "KAR",
+      "audience": "fan",
+      "text": "Your team's playoff estimate fell {{e1.KAR.playoff_delta}} when Dudas made it {{e1.KAR.score}} at {{e1.KAR.clock}}. Before the goal, your chance had already drifted down {{e1.KAR.playoff_drift}} as time passed. You head toward {{e1.KAR.next_date}}'s game against {{e1.KAR.next_opponent}} with an estimate of {{e1.KAR.playoff_after}}.",
+      "facts_used": [
+        "e1.KAR.playoff_delta",
+        "e1.KAR.score",
+        "e1.KAR.clock",
+        "e1.KAR.playoff_drift",
+        "e1.KAR.next_date",
+        "e1.KAR.next_opponent",
+        "e1.KAR.playoff_after"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 2,
+      "team": "PEL",
+      "audience": "fan",
+      "text": "As the clock ran to {{e2.PEL.clock}}, your playoff estimate rose {{e2.PEL.playoff_drift}}. This outlook fell {{e2.PEL.playoff_delta}} to {{e2.PEL.playoff_after}} when Ohtamaa scored for Kärpät to make the score {{e2.PEL.score}}. Your team meets Jukurit on {{e2.PEL.next_date}}.",
+      "facts_used": [
+        "e2.PEL.clock",
+        "e2.PEL.playoff_drift",
+        "e2.PEL.playoff_delta",
+        "e2.PEL.playoff_after",
+        "e2.PEL.score",
+        "e2.PEL.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 2,
+      "team": "KAR",
+      "audience": "fan",
+      "text": "Ohtamaa brought your team level at {{e2.KAR.score}} against Pelicans. Your playoff estimate fell {{e2.KAR.playoff_drift}} while trailing, but this goal at {{e2.KAR.clock}} meant your chance rose by {{e2.KAR.playoff_delta}}. The outlook is {{e2.KAR.playoff_after}} before you face Ässät on {{e2.KAR.next_date}}.",
+      "facts_used": [
+        "e2.KAR.score",
+        "e2.KAR.playoff_drift",
+        "e2.KAR.clock",
+        "e2.KAR.playoff_delta",
+        "e2.KAR.playoff_after",
+        "e2.KAR.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 3,
+      "team": "PEL",
+      "audience": "fan",
+      "text": "After Räty of Kärpät scored at {{e3.PEL.clock}} to make it {{e3.PEL.score}}, your team's playoff chance fell by {{e3.PEL.playoff_delta}} to {{e3.PEL.playoff_after}}. The estimate for a direct quarterfinal spot is now {{e3.PEL.direct_after}}. You face Jukurit next on {{e3.PEL.next_date}}.",
+      "facts_used": [
+        "e3.PEL.clock",
+        "e3.PEL.score",
+        "e3.PEL.playoff_delta",
+        "e3.PEL.playoff_after",
+        "e3.PEL.direct_after",
+        "e3.PEL.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 3,
+      "team": "KAR",
+      "audience": "fan",
+      "text": "Your team's playoff estimate lost {{e3.KAR.playoff_drift}} as the clock ran, but Räty scored at {{e3.KAR.clock}}. This goal to make the score {{e3.KAR.score}} meant your chance rose {{e3.KAR.playoff_delta}} to {{e3.KAR.playoff_after}}. You face Ässät on {{e3.KAR.next_date}}.",
+      "facts_used": [
+        "e3.KAR.playoff_drift",
+        "e3.KAR.clock",
+        "e3.KAR.score",
+        "e3.KAR.playoff_delta",
+        "e3.KAR.playoff_after",
+        "e3.KAR.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 4,
+      "team": "PEL",
+      "audience": "fan",
+      "text": "Karvinen brought your Pelicans level at {{e4.PEL.score}} at {{e4.PEL.clock}}. Your playoff chance rose {{e4.PEL.playoff_delta}} because of the goal, reaching an estimated {{e4.PEL.playoff_after}}. Your team faces {{e4.PEL.next_opponent}} on {{e4.PEL.next_date}}.",
+      "facts_used": [
+        "e4.PEL.score",
+        "e4.PEL.clock",
+        "e4.PEL.playoff_delta",
+        "e4.PEL.playoff_after",
+        "e4.PEL.next_opponent",
+        "e4.PEL.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 4,
+      "team": "KAR",
+      "audience": "fan",
+      "text": "At {{e4.KAR.clock}} in the match against Pelicans with the score at {{e4.KAR.score}}, Karvinen scored for the visitors. Your playoff outlook fell by {{e4.KAR.playoff_delta}}, leaving your chance at {{e4.KAR.playoff_after}}. You look to recover when you face Ässät on {{e4.KAR.next_date}}.",
+      "facts_used": [
+        "e4.KAR.clock",
+        "e4.KAR.score",
+        "e4.KAR.playoff_delta",
+        "e4.KAR.playoff_after",
+        "e4.KAR.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 5,
+      "team": "PEL",
+      "audience": "fan",
+      "text": "Nieminen scored at {{e5.PEL.clock}} in overtime to settle the score at {{e5.PEL.score}} against Kärpät. Your playoff chance rose by {{e5.PEL.playoff_delta}} to reach {{e5.PEL.playoff_after}}. You now prepare to face Jukurit on {{e5.PEL.next_date}}.",
+      "facts_used": [
+        "e5.PEL.clock",
+        "e5.PEL.score",
+        "e5.PEL.playoff_delta",
+        "e5.PEL.playoff_after",
+        "e5.PEL.next_date"
+      ],
+      "problems": [],
+      "writer": "llm",
+      "attempts": 1,
+      "status": "verified",
+      "review": "auto"
+    },
+    {
+      "event_idx": 5,
+      "team": "KAR",
+      "audience": "fan",
+      "text": "Your overtime battle against Pelicans ended when Nieminen scored at {{e5.KAR.clock}} for a {{e5.KAR.score}} score. That blow lost your playoff chance {{e5.KAR.playoff_delta}}, leaving your outlook at 38% before facing Ässät on {{e5.KAR.next_date}}.",
+      "facts_used": [
+        "e5.KAR.clock",
+        "e5.KAR.score",
+        "e5.KAR.playoff_delta",
+        "e5.KAR.playoff_after",
+        "e5.KAR.next_date"
+      ],
+      "problems": [
+        "raw number '38%' not from facts",
+        "fact 'e5.KAR.playoff_after' listed in facts_used but not in the text"
+      ],
+      "writer": "llm",
+      "attempts": 1,
+      "injected": true,
+      "status": "blocked",
+      "review": "editor"
+    }
+  ]
+}

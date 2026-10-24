@@ -142,7 +142,10 @@ function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; s
       const { e, p0, p1 } = item.beat;
       const d = p1 - p0;
       const t = e.seconds;
-      const S = BEAT_SECONDS;
+      // A beat never runs into the next event: two goals 65 s apart (game 345, 58:17 and 59:22) would
+      // otherwise fold the line back on itself.
+      const next = events.find((x) => x.seconds > t);
+      const S = next ? Math.min(BEAT_SECONDS, Math.max(8, (next.seconds - t) * 0.6)) : BEAT_SECONDS;
       points.push({ seconds: t, p: p0 });
       if (Math.abs(d) >= 0.005) points.push({ seconds: t + 0.3 * S, p: clamp(p1) }); // the steep jump
       points.push({ seconds: t + S, p: p1 });
@@ -232,6 +235,27 @@ export function Matchstake({ match, className }: { match: Match; className?: str
     const d = goalImpact(match, g.idx, team.code); // what the goal itself was worth
     return { g, d, label: goalLabel(match, g, prev, i === goals.length - 1), above: d < 0 };
   });
+
+  // Callout box placement. The beat sits just left of the dot, so the box goes diagonally away from it:
+  // to the right of the dot (over the flat line that follows), above it after a gain and below it after
+  // a drop. Near the right edge it goes left of where the beat starts instead. Flip vertically if needed.
+  const boxFor = (g: MatchEvent, above: boolean) => {
+    const GAP = 12;
+    const gx = x(settleOf(g));
+    const gy = y(prob(g));
+    const fitsRight = gx + GAP + BOX_W <= W - PAD_R;
+    const bx = fitsRight ? gx + GAP : Math.max(PAD_L, x(g.seconds) - GAP - BOX_W);
+    const wantAbove = !above; // `above` was set for drops; gains want the box above
+    const fitsAbove = gy - GAP - BOX_H >= TOP + 2;
+    const fitsBelow = gy + GAP + BOX_H <= BOTTOM - 4;
+    const placeAbove = wantAbove ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
+    const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2, placeAbove ? gy - GAP - BOX_H : gy + GAP));
+    return { bx, by, placeAbove, link: { x: fitsRight ? bx : bx + BOX_W, y: placeAbove ? by + BOX_H : by } };
+  };
+  const nowCallout = !travelling ? callouts.find((c) => c.g.idx === pb.eventIdx) : undefined;
+  const nowBox = nowCallout ? boxFor(nowCallout.g, nowCallout.above) : null;
+  const overlaps = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) =>
+    a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
 
   return (
     <section
@@ -485,19 +509,10 @@ export function Matchstake({ match, className }: { match: Match; className?: str
             const gx = x(settleOf(g));
             const tagX = Math.min(W - PAD_R - 26, Math.max(PAD_L + 26, gx)); // tags stay inside the plot
             const gy = y(prob(g));
-            // The beat sits just left of the dot. Put the box diagonally away from it: to the right of the
-            // dot (over the flat line that follows), above it after a gain and below it after a drop.
-            // Near the right edge it goes left of where the beat starts instead. Flip vertically if needed.
-            const GAP = 12;
-            const fitsRight = gx + GAP + BOX_W <= W - PAD_R;
-            const beatStartX = x(g.seconds);
-            const bx = fitsRight ? gx + GAP : Math.max(PAD_L, beatStartX - GAP - BOX_W);
-            const wantAbove = !above; // `above` was set for drops; gains want the box above
-            const fitsAbove = gy - GAP - BOX_H >= TOP + 2;
-            const fitsBelow = gy + GAP + BOX_H <= BOTTOM - 4;
-            const placeAbove = wantAbove ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
-            const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2, placeAbove ? gy - GAP - BOX_H : gy + GAP));
-            const link = { x: fitsRight ? bx : bx + BOX_W, y: placeAbove ? by + BOX_H : by };
+            const { bx, by, placeAbove, link } = boxFor(g, above);
+            // Small tag of an earlier goal; hidden while the current goal's box would cover it.
+            const tagRect = { x: tagX - 24, y: d >= 0 ? gy - 34 : gy + 12, w: 48, h: 22 };
+            const tagHidden = !isNow && nowBox !== null && overlaps(tagRect, { x: nowBox.bx, y: nowBox.by, w: BOX_W, h: BOX_H });
             return (
               <g key={`goal-${g.idx}`} className="cursor-pointer" onClick={() => pb.seek(g.idx)}>
                 <title>{`${g.clock} ${label} ${teamOf(match, g.team)?.name ?? ""}${g.scorer ? `, ${g.scorer}` : ""}`}</title>
@@ -517,7 +532,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                       {fmtScore(g.score)} · {g.team}
                     </text>
                   </motion.g>
-                ) : (
+                ) : tagHidden ? null : (
                   // Earlier goals: a small tag, so many goals stay readable. The cards below have the details.
                   <g>
                     <rect x={tagX - 24} y={d >= 0 ? gy - 34 : gy + 12} width={48} height={22} rx={11} fill="#ffffff"

@@ -102,7 +102,7 @@ def writer_failed(story: dict[str, Any]) -> bool:
 
 def run(match_id: str, audiences: list[str], provider: str, inject: bool, workers: int,
         facts_path: Path | None = None, out_path: Path | None = None,
-        retry_failed: bool = False) -> dict[str, Any]:
+        retry_failed: bool = False, retry_blocked: bool = False) -> dict[str, Any]:
     facts_path = facts_path or config.FACTS_DIR / f"{match_id}.json"
     out_path = out_path or config.STORIES_DIR / f"{match_id}.json"
     sheet = json.loads(facts_path.read_text(encoding="utf-8"))
@@ -111,10 +111,12 @@ def run(match_id: str, audiences: list[str], provider: str, inject: bool, worker
     jobs = [(idx, team, aud) for idx, team in select_targets(facts) for aud in audiences]
 
     # --retry-failed: keep every story from the last run except the ones the API failed to write.
+    # --retry-blocked: also rewrite stories the checker held. The injected demo story is always kept.
     kept: dict[tuple[int, str, str], dict[str, Any]] = {}
-    if retry_failed and out_path.exists():
+    if (retry_failed or retry_blocked) and out_path.exists():
         for s in json.loads(out_path.read_text(encoding="utf-8"))["stories"]:
-            if not writer_failed(s):
+            redo = writer_failed(s) or (retry_blocked and bool(s.get("problems")) and not s.get("injected"))
+            if not redo:
                 kept[(s["event_idx"], s["team"], s["audience"])] = s
 
     todo = sum(job not in kept for job in jobs)
@@ -167,6 +169,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--out", type=Path, help="override the output path")
     ap.add_argument("--retry-failed", action="store_true",
                     help="keep the last run's stories; rewrite only those the API failed to write")
+    ap.add_argument("--retry-blocked", action="store_true",
+                    help="like --retry-failed, and also rewrite stories the checker held (never the injected one)")
     args = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")  # team names like Kärpät on Windows consoles
@@ -177,7 +181,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     audiences = list(config.AUDIENCES) if args.audience == "all" else [args.audience]
     result = run(args.match, audiences, args.provider, args.inject_error, args.workers, facts_path, args.out,
-                 retry_failed=args.retry_failed)
+                 retry_failed=args.retry_failed, retry_blocked=args.retry_blocked)
 
     facts = json.loads(facts_path.read_text(encoding="utf-8"))["facts"]
     for s in result["stories"]:
