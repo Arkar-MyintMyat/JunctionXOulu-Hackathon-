@@ -683,7 +683,7 @@ export function Matchstake({ match, className, compact = false }: { match: Match
         <div className="flex items-center gap-1.5">
           <ControlButton onClick={pb.toggle} label={pb.playing ? "Pause" : "Play"} primary>
             {pb.playing ? <Pause className="size-4" /> : <Play className="size-4" />}
-            {pb.playing ? "Pause" : pb.atEnd ? "Replay" : "Play"}
+            {pb.playing ? "Pause" : pb.atEnd || pb.replayFromStart ? "Replay" : "Play"}
           </ControlButton>
           <ControlButton onClick={pb.prev} label="Previous event" disabled={pb.eventIdx === 0}><SkipBack className="size-4" /></ControlButton>
           <ControlButton onClick={pb.next} label="Next event" disabled={pb.atEnd}><SkipForward className="size-4" /></ControlButton>
