@@ -162,6 +162,20 @@ paths, LLM model. No magic numbers in functions.
 - Embed page: "Local mock-up. Kaleva's site is not changed."
 - Sponsored slots (if shown): "Sponsored", visually separate from editorial content.
 
+### 4.10 Visual style (every page and feature, now and later)
+One look across the whole product. New pages and features reuse it; they never bring their own.
+- **Colours: theme tokens only** (`web/app/globals.css`). One primary colour: `primary` (near-black) for every
+  action — buttons, selected chips, step numbers. Surfaces: `card`, `muted`, `border`. Secondary text: `muted-foreground`.
+- **No gradients and no extra hues** (no indigo, sky, amber, stone, …). The only other colours: green-700 / red-700
+  meaning "better / worse" in data, and team colours marking teams.
+- **Shared classes, not hand-written ones:** `web/components/ui/styles.ts` — `primaryButton` (the main action),
+  `secondaryButton` (any other action), `pageTitle`, `kicker` (small uppercase label), `cardTitle`, `card`, `tag`,
+  `chip(selected, empty)`, `better` / `worse`. If something is missing, add it there once.
+- **Type:** Geist (the app font). Card: `rounded-2xl border bg-card shadow-sm`. Sponsored content: `bg-muted`
+  with a dashed border, so it never looks editorial.
+- **Static pages** (the Kaleva mock-up) use the same theme values as hex: `#171717` text, `#737373` secondary,
+  `#e5e5e5` lines, `#f5f5f5` surfaces. The host page's own branding stays as it is.
+
 ---
 
 ## 5. Naming and formats
