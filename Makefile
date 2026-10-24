@@ -1,7 +1,7 @@
 PY ?= python
 MATCH ?=
 
-.PHONY: setup data precompute facts stories export api web test
+.PHONY: setup data precompute facts stories export api web test backtest
 
 setup:
 	$(PY) -m pip install -r requirements.txt
@@ -30,3 +30,7 @@ web:
 
 test:
 	$(PY) -m pytest -q
+
+backtest:
+	$(PY) -m engine.backtest
+	$(PY) -m engine.backtest --shrinkage 200
