@@ -34,13 +34,20 @@ SEED = int(os.environ.get("SEED", "42"))
 # Monte Carlo run counts
 RUNS_DEV = 2_000
 RUNS_FINAL = 10_000
-RUNS_SIMULATE_API = 5_000
+# /api/simulate must answer in < 3 s; Render's free CPU is ~8x slower than a laptop (5,000 runs took ~4 s there),
+# so the deploy sets RUNS_SIMULATE_API=2000.
+RUNS_SIMULATE_API = int(os.environ.get("RUNS_SIMULATE_API", "5000"))
 
 # Model (AGENTS.md, Person A, Level 1)
 # 25 (not 5 as first written in AGENTS.md): with 5, early-season odds were overconfident
 # (replaying 2026 from game 136: HIFK 0.5% and Pelicans 9.5% both made the playoffs).
 # Late-season per-goal swings are the same at 5 and 25.
 SHRINKAGE_GAMES = 25
+# Scenario explorer only (current season, often early): backtest on 2026 frozen at the same point of the season
+# as today (24% played): K=25 scored worse than giving every team the same chance (Brier 0.232 vs 0.188),
+# K=200 scored 0.179, and its "80-95%" predictions came true 80% of the time instead of 62%.
+# The match replay keeps 25, so the demo odds, facts and stories do not change.
+SHRINKAGE_GAMES_EXPLORER = 200
 HOME_FACTOR = 1.08
 GAME_SECONDS = 3600
 PTS_REG_WIN = 3

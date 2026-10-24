@@ -60,6 +60,17 @@ def test_bad_pick_rejected(client):
     assert r.status_code == 422
 
 
+def test_explorer_uses_its_own_shrinkage(client):
+    """Explorer rates use SHRINKAGE_GAMES_EXPLORER; the replay keeps SHRINKAGE_GAMES (demo odds unchanged)."""
+    from api import store
+    from engine.strength import team_rates
+
+    games, state = store.explorer_season()
+    attack, defence, _ = team_rates(games, state.codes, shrinkage=config.SHRINKAGE_GAMES_EXPLORER)
+    assert state.attack == attack and state.defence == defence
+    assert attack != team_rates(games, state.codes)[0]  # default (replay) shrinkage gives other rates
+
+
 def test_simulate_under_3_seconds(client, kar_games):
     picks = [{"game_id": g.game_id, "result": "HOME_OT"} for g in kar_games]
     t = time.perf_counter()
