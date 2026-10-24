@@ -11,7 +11,8 @@ import type {
   UpcomingGame,
 } from "./types";
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// Trailing slash removed: "https://stakes-api.onrender.com/" + "/api/..." gives "//api/...", which is a 404.
+export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/+$/, "");
 
 export type DataSource = "api" | "offline" | "mock";
 
