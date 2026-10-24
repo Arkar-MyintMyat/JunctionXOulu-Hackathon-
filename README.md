@@ -40,12 +40,12 @@ Built in 22 hours at Junction x Oulu 2026 for Kaleva Media's sports content chal
 
 Run it locally (below), then open:
 
-1. Kaleva article with the widget: http://localhost:3000/kaleva/index.html
+1. Kaleva article with the widget: http://localhost:3000/ (the site opens on it; also `/kaleva/index.html`)
 2. Editor queue: http://localhost:3000/queue
 3. Stakes Alerts: http://localhost:3000/alerts?match=345&team=KAR
 
 More: `/frontpage?match=345` · `/alerts?match=345&team=TPS` (a team that did not play) · `/embed?match=345` ·
-`/explorer` · `/dev?match=345` · `/` (index of everything)
+`/explorer` · `/dev?match=345`
 
 The demo game is **345: Kärpät 2–3 Pelicans (OT), 28 January 2026**. The Kaleva page is a local mock-up of a
 saved kaleva.fi article; Kaleva's site is not changed. Advertisers and subscriptions shown are mock-ups.
