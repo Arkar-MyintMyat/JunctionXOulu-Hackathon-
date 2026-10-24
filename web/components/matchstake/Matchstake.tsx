@@ -11,10 +11,9 @@ import { SPEEDS, usePlayback } from "@/lib/playback";
 import type { Match, MatchEvent, TeamCode } from "@/lib/types";
 
 // Heartbeat-style playoff-chance trace for one team (the selected team).
-// Flat between events; at each goal the trace "beats": a small dip, a sharp spike past the new value,
-// a rebound, then it settles on the new value. The spike size grows with the goal's impact.
-// The beat shape is illustrative; the dots, callouts, cards and header always show the model value.
-// Blue while the team is better off than at kick-off, red while worse off.
+// Between goals the line drifts with the model (odds_before); at each goal it jumps steeply, and only
+// in the direction of the change: a drop never flicks up, a rise never flicks down. Every point on
+// the line is a model value. Blue while the team is better off than at kick-off, red while worse off.
 
 const W = 960;
 const H = 400;
@@ -113,9 +112,10 @@ interface TracePoint {
 }
 
 /**
- * The heartbeat trace for one team: flat between events, a beat at each goal.
- * Beat for a change d from p0 to p1 over BEAT_SECONDS: dip to p0 − 0.15d, spike to p1 + 0.5d,
- * rebound to p1 − 0.2d, settle at p1. Optional real `timeline` samples are used between beats.
+ * The heartbeat trace for one team: drift between events, a steep one-way jump at each goal
+ * (p0 -> p1 within the first third of BEAT_SECONDS, then flat to the settle point).
+ * No overshoot or rebound, so the line never moves against the change. Optional real `timeline`
+ * samples are used between beats.
  */
 function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; settle: Map<number, number> } {
   const events = match.events;
@@ -144,11 +144,7 @@ function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; s
       const t = e.seconds;
       const S = BEAT_SECONDS;
       points.push({ seconds: t, p: p0 });
-      if (Math.abs(d) >= 0.005) {
-        points.push({ seconds: t + 0.15 * S, p: clamp(p0 - 0.15 * d) });
-        points.push({ seconds: t + 0.4 * S, p: clamp(p1 + 0.5 * d) });
-        points.push({ seconds: t + 0.65 * S, p: clamp(p1 - 0.2 * d) });
-      }
+      if (Math.abs(d) >= 0.005) points.push({ seconds: t + 0.3 * S, p: clamp(p1) }); // the steep jump
       points.push({ seconds: t + S, p: p1 });
       settle.set(e.idx, t + S);
     } else {
@@ -213,7 +209,12 @@ export function Matchstake({ match, className }: { match: Match; className?: str
   // Only the two teams on the ice get the heartbeat and goal events; every other team sees the match's
   // impact on it as before/after bars.
   const isPlaying = team.code === match.match.home || team.code === match.match.away;
-  const big = isPlaying && atGoal && Math.abs(delta) >= BIG_SWING;
+  // A playing team whose place was already decided at kick-off (e.g. KooKoo at 100% in game 480): no goal
+  // can move its chance, so a flat graph would look broken. It gets the bars view with an explanation.
+  // Judged from kick-off only, so it never spoils the result.
+  const decided = isPlaying && (baseline >= 0.995 || baseline <= 0.005);
+  const showChart = isPlaying && !decided;
+  const big = showChart && atGoal && Math.abs(delta) >= BIG_SWING;
   const vsKickoff = prob(current) - baseline;
   const [sh, sa] = parseScore(current.score);
   const finished = current.kind === "end" && !travelling;
@@ -251,6 +252,16 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           <div className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
             The heartbeat of the playoff race
           </div>
+          {/* Not playing: the team picker sits right under the title. */}
+          {!isPlaying && (
+            <div className="mt-3 flex flex-col items-start gap-1">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
+                Show team
+              </span>
+              <TeamPicker teams={match.teams} playing={[match.match.home, match.match.away]}
+                          value={pb.selectedTeam} onChange={pb.selectTeam} />
+            </div>
+          )}
         </div>
 
         {/* Playing team: the big scoreboard in the middle. */}
@@ -272,15 +283,19 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           </div>
         )}
 
-        {/* Team picker (with logos); for a team that is not playing, the small current-match line sits under it. */}
-        <div className="ml-auto flex shrink-0 flex-col items-end gap-1">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
-            Show team
-          </span>
-          <TeamPicker teams={match.teams} playing={[match.match.home, match.match.away]}
-                      value={pb.selectedTeam} onChange={pb.selectTeam} />
+        {/* Playing team: the team picker on the right. Not playing: the small current-match line there. */}
+        <div className="ml-auto flex shrink-0 flex-col items-end gap-1 self-end">
+          {isPlaying && (
+            <>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
+                Show team
+              </span>
+              <TeamPicker teams={match.teams} playing={[match.match.home, match.match.away]}
+                          value={pb.selectedTeam} onChange={pb.selectTeam} />
+            </>
+          )}
           {!isPlaying && (
-            <div className="mt-2 flex flex-col items-end gap-0.5">
+            <div className="flex flex-col items-end gap-0.5">
               <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ui.muted }}>
                 Current match
               </span>
@@ -298,7 +313,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
           )}
         </div>
 
-        {!isPlaying && (
+        {!showChart && (
           <div className="basis-full rounded-xl border px-5 py-4"
                style={{ borderColor: team.color, borderLeftWidth: 6, background: ui.panel }}>
             <div className="flex flex-wrap items-center gap-2">
@@ -313,15 +328,25 @@ export function Matchstake({ match, className }: { match: Match; className?: str
                   LIVE
                 </span>
               )}
-              <h2 className="text-2xl font-black tracking-tight sm:text-3xl">{team.name} is not playing</h2>
+              <h2 className="text-2xl font-black tracking-tight sm:text-3xl">
+                {decided ? `${team.name}: nothing at stake` : `${team.name} is not playing`}
+              </h2>
             </div>
             <p className="mt-1 text-base sm:text-lg" style={{ color: ui.neutral }}>
-              {finished ? "This is how " : "Watch how "}<b style={{ color: ui.text }}>{home?.name} – {away?.name}</b>
-              {finished ? " changed " : " changes "}{possessiveName(team.name)} playoff chance.
+              {decided ? (
+                baseline >= 0.995
+                  ? <>{possessiveName(team.name)} playoff place was already decided before this game, so no goal in it can change their chance.</>
+                  : <>{team.name} were already out of the playoff race before this game, so no goal in it can change their chance.</>
+              ) : (
+                <>
+                  {finished ? "This is how " : "Watch how "}<b style={{ color: ui.text }}>{home?.name} – {away?.name}</b>
+                  {finished ? " changed " : " changes "}{possessiveName(team.name)} playoff chance.
+                </>
+              )}
             </p>
           </div>
         )}
-        <div className={isPlaying ? "basis-full" : "hidden"}>
+        <div className={showChart ? "basis-full" : "hidden"}>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border px-4 py-3"
                style={{ borderColor: ui.border, background: ui.panel }}>
             <div className="text-[11px] font-semibold uppercase leading-tight tracking-[0.15em]" style={{ color: ui.muted }}>
@@ -360,8 +385,9 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         </div>
       </div>
 
-      {!isPlaying && (
+      {!showChart && (
         <MatchImpact
+          playing={isPlaying}
           teamName={team.name}
           before={baseline}
           now={prob(current)}
@@ -372,7 +398,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       )}
 
       {/* The heartbeat chart (playing teams only). */}
-      <div ref={shakeScope} className={isPlaying ? "relative mx-3 mt-4 sm:mx-5" : "hidden"}>
+      <div ref={shakeScope} className={showChart ? "relative mx-3 mt-4 sm:mx-5" : "hidden"}>
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full select-none overflow-visible" role="img"
              aria-label={`${team.name} playoff chance: ${pct(prob(current))} at ${current.clock}`}>
           <defs>
@@ -523,7 +549,7 @@ export function Matchstake({ match, className }: { match: Match; className?: str
       </div>
 
       {/* Goal cards: a card drops in only when its goal is scored. No spoilers. Playing teams only. */}
-      <div className={isPlaying ? "mx-3 mt-4 flex min-h-[104px] gap-3 overflow-x-auto pb-1 sm:mx-5" : "hidden"}>
+      <div className={showChart ? "mx-3 mt-4 flex min-h-[104px] gap-3 overflow-x-auto pb-1 sm:mx-5" : "hidden"}>
         {revealedCount === 0 && (
           <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed text-sm"
                style={{ borderColor: ui.border, color: ui.muted }}>
@@ -595,9 +621,9 @@ export function Matchstake({ match, className }: { match: Match; className?: str
         </div>
       </div>
       <div className="px-5 pb-4 text-[11px]" style={{ color: ui.muted }}>
-        {isPlaying
-          ? <>Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · the beat shape is
-            illustrative, dots and numbers show the estimate · blue = better off than at kick-off, red = worse off</>
+        {showChart
+          ? <>Model estimate from simulated seasons · axis zoomed to {pct(lo)}–{pct(hi)} · blue = better off than
+            at kick-off, red = worse off</>
           : <>Model estimate from simulated seasons · blue = better off than before the match, red = worse off</>}
       </div>
     </section>
@@ -609,10 +635,12 @@ function possessiveName(name: string): string {
 }
 
 /**
- * A team that is not playing: two bars, its playoff chance before the match and after it.
+ * A team that is not playing (or a playing team whose place was already decided): two bars, its
+ * playoff chance before the match and after it.
  * During the replay the second bar is "Now" and moves with the match (no spoiler of the result).
  */
-function MatchImpact({ teamName, before, now, finished, clockLabel, tone }: {
+function MatchImpact({ playing, teamName, before, now, finished, clockLabel, tone }: {
+  playing: boolean;
   teamName: string;
   before: number;
   now: number;
@@ -661,7 +689,9 @@ function MatchImpact({ teamName, before, now, finished, clockLabel, tone }: {
         ))}
       </div>
       <div className="mt-4 text-xs" style={{ color: ui.muted }}>
-        Model estimate. {teamName} did not play: this change comes only from the result of the current match.
+        {playing
+          ? <>Model estimate. {teamName} played, but their playoff place was already decided before the game.</>
+          : <>Model estimate. {teamName} did not play: this change comes only from the result of the current match.</>}
       </div>
     </div>
   );
