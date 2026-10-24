@@ -2,9 +2,11 @@ import Link from "next/link";
 
 import { MatchList } from "./match-list";
 
-// C's home page: the featured demo match (opens the Stakes widget), the other results of that week, and
-// team tools (B) at the bottom.
-// TODO(C): link the Kaleva article mock-up once it exists.
+// C's home page: the featured demo match (opens the Stakes widget), the other results of that week, the
+// Kaleva article mock-up and the scenario explorer, and team tools (B) at the bottom.
+const CARD =
+  "mt-3 flex items-center justify-between rounded-2xl border bg-card px-5 py-4 shadow-sm transition-colors hover:bg-muted/60";
+
 const teamLinks = [
   { href: "/queue", label: "Editor queue (B)" },
   { href: "/dev", label: "B dev sandbox" },
@@ -18,10 +20,18 @@ export default function Home() {
 
       <MatchList />
 
-      <Link
-        href="/explorer"
-        className="mt-8 flex items-center justify-between rounded-2xl border bg-card px-5 py-4 shadow-sm transition-colors hover:bg-muted/60"
-      >
+      <h2 className="mt-12 text-sm font-semibold uppercase tracking-wide text-muted-foreground">See it in use</h2>
+      {/* A static page in public/, so a plain link (a full page load), not next/link. */}
+      <a href="/kaleva/index.html" className={CARD}>
+        <span>
+          <span className="block font-semibold">Inside a Kaleva article</span>
+          <span className="block text-sm text-muted-foreground">
+            The widget in a saved copy of a kaleva.fi match report. Local mock-up; Kaleva&apos;s site is not changed.
+          </span>
+        </span>
+        <span aria-hidden className="text-muted-foreground">→</span>
+      </a>
+      <Link href="/explorer" className={CARD}>
         <span>
           <span className="block font-semibold">What if? · Scenario explorer</span>
           <span className="block text-sm text-muted-foreground">

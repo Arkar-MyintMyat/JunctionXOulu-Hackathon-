@@ -21,6 +21,18 @@ export function EmbedWidget() {
   const [match, setMatch] = useState<Match | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Inside an iframe (the Kaleva mock-up), tell the parent page our height so the frame never scrolls.
+  // Measures <main>, not the body: the body is at least as tall as the frame, so it could never shrink.
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (window.parent === window || !match || !main) return;
+    const report = () =>
+      window.parent.postMessage({ type: "stakes:height", height: main.getBoundingClientRect().height }, window.location.origin);
+    const observer = new ResizeObserver(report);
+    observer.observe(main);
+    return () => observer.disconnect();
+  }, [match]);
+
   useEffect(() => {
     getMatch(id)
       .then((r) => setMatch(withTeamColors(r.data)))
