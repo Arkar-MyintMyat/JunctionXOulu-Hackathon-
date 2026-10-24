@@ -1,0 +1,22 @@
+{
+  "runs": 5000,
+  "teams": [
+    { "code": "LUK", "name": "Lukko", "color": "#888888", "points_now": 36, "rank_now": 1, "direct": 0.81, "playoff": 0.99, "avg_rank": 2.1 },
+    { "code": "ILV", "name": "Ilves", "color": "#888888", "points_now": 34, "rank_now": 2, "direct": 0.72, "playoff": 0.98, "avg_rank": 2.8 },
+    { "code": "SAI", "name": "SaiPa", "color": "#888888", "points_now": 32, "rank_now": 3, "direct": 0.61, "playoff": 0.97, "avg_rank": 3.6 },
+    { "code": "JUK", "name": "Jukurit", "color": "#888888", "points_now": 31, "rank_now": 4, "direct": 0.49, "playoff": 0.95, "avg_rank": 4.5 },
+    { "code": "TAP", "name": "Tappara", "color": "#888888", "points_now": 30, "rank_now": 5, "direct": 0.44, "playoff": 0.94, "avg_rank": 5.0 },
+    { "code": "KOO", "name": "KooKoo", "color": "#888888", "points_now": 29, "rank_now": 6, "direct": 0.33, "playoff": 0.91, "avg_rank": 5.9 },
+    { "code": "KAL", "name": "KalPa", "color": "#888888", "points_now": 28, "rank_now": 7, "direct": 0.25, "playoff": 0.88, "avg_rank": 6.7 },
+    { "code": "JYP", "name": "JYP", "color": "#888888", "points_now": 27, "rank_now": 8, "direct": 0.19, "playoff": 0.83, "avg_rank": 7.6 },
+    { "code": "KAR", "name": "Kärpät", "color": "#888888", "points_now": 26, "rank_now": 9, "direct": 0.14, "playoff": 0.77, "avg_rank": 8.4 },
+    { "code": "PEL", "name": "Pelicans", "color": "#888888", "points_now": 25, "rank_now": 10, "direct": 0.10, "playoff": 0.70, "avg_rank": 9.2 },
+    { "code": "IFK", "name": "HIFK", "color": "#888888", "points_now": 24, "rank_now": 11, "direct": 0.07, "playoff": 0.62, "avg_rank": 10.0 },
+    { "code": "ASS", "name": "Ässät", "color": "#888888", "points_now": 23, "rank_now": 12, "direct": 0.05, "playoff": 0.55, "avg_rank": 10.8 },
+    { "code": "KES", "name": "K-Espoo", "color": "#888888", "points_now": 21, "rank_now": 13, "direct": 0.03, "playoff": 0.41, "avg_rank": 12.0 },
+    { "code": "HPK", "name": "HPK", "color": "#888888", "points_now": 20, "rank_now": 14, "direct": 0.02, "playoff": 0.33, "avg_rank": 12.8 },
+    { "code": "TPS", "name": "TPS", "color": "#888888", "points_now": 18, "rank_now": 15, "direct": 0.01, "playoff": 0.22, "avg_rank": 14.0 },
+    { "code": "JOK", "name": "Jokerit", "color": "#888888", "points_now": 16, "rank_now": 16, "direct": 0.00, "playoff": 0.14, "avg_rank": 15.1 },
+    { "code": "SPO", "name": "Sport", "color": "#888888", "points_now": 12, "rank_now": 17, "direct": 0.00, "playoff": 0.05, "avg_rank": 16.4 }
+  ]
+}

@@ -1,0 +1,60 @@
+"""FastAPI app: the 5 routes from AGENTS.md section 5.
+
+Level 1 stub: every route serves the mock files. Real data swaps in through api/store.py later.
+"""
+import json
+import os
+from pathlib import Path
+
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
+from engine import config
+from engine.model import Match, MatchSummary, QueueItem, SimulateRequest, SimulateResponse, UpcomingGame
+
+app = FastAPI(title="Stakes API")
+
+origins = ["http://localhost:3000"]
+if os.environ.get("FRONTEND_URL"):
+    origins.append(os.environ["FRONTEND_URL"])
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"])
+
+
+def _read(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@app.get("/api/matches", response_model=list[MatchSummary])
+def matches():
+    return _read(config.CONTRACTS / "matches.example.json")
+
+
+@app.get("/api/match/{match_id}", response_model=Match)
+def match(match_id: str):
+    # TODO(A): serve merged real data from api/store.py once data/odds exists.
+    if match_id not in ("mock", "12345"):
+        raise HTTPException(404, f"match {match_id} not found")
+    return _read(config.MOCK / "match-mock.json")
+
+
+@app.get("/api/upcoming", response_model=list[UpcomingGame])
+def upcoming(team: str, n: int = 8):
+    # TODO(A): real schedule from data/raw.
+    games = _read(config.CONTRACTS / "upcoming.example.json")
+    return [g for g in games if team in (g["home"], g["away"])][:n]
+
+
+@app.post("/api/simulate", response_model=SimulateResponse)
+def simulate(req: SimulateRequest):
+    # TODO(A): call engine.simulate with req.picks.
+    return _read(config.MOCK / "simulate-mock.json")
+
+
+@app.get("/api/queue", response_model=list[QueueItem])
+def queue():
+    data = _read(config.MOCK / "match-mock.json")
+    return [
+        {"match_id": data["match"]["id"], "event_idx": s["event_idx"], "team": s["team"],
+         "text": s["text"], "problems": s["problems"]}
+        for s in data["stories"] if s["status"] == "blocked"
+    ]

@@ -1,0 +1,9 @@
+[
+  {
+    "match_id": 12345,
+    "event_idx": 5,
+    "team": "KAR",
+    "text": "Lehtonen's late winner lifted Kärpät to 37% and the playoff race just changed.",
+    "problems": ["raw number '37' not from facts"]
+  }
+]
