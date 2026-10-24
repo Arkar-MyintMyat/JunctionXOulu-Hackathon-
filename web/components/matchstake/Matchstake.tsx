@@ -26,6 +26,8 @@ const BOX_W = 136;
 const BOX_H = 66;
 /** Game seconds one heartbeat takes on the time axis. */
 const BEAT_SECONDS = 95;
+/** Narrowest a goal's beat may be drawn, so goals a minute apart stay two readable beats. */
+const MIN_BEAT_PX = 34;
 /** A swing this large flashes and shakes the chart. */
 const BIG_SWING = 0.08;
 
@@ -144,7 +146,9 @@ function heartbeatTrace(match: Match, code: TeamCode): { points: TracePoint[]; s
       // A beat never runs into the next event: two goals 65 s apart (game 345, 58:17 and 59:22) would
       // otherwise fold the line back on itself.
       const next = events.find((x) => x.seconds > t);
-      const S = next ? Math.min(BEAT_SECONDS, Math.max(8, (next.seconds - t) * 0.6)) : BEAT_SECONDS;
+      let S = next ? Math.min(BEAT_SECONDS, Math.max(8, (next.seconds - t) * 0.6)) : BEAT_SECONDS;
+      // A goal in regulation settles by 60:00, so it never drags the axis past the "60:00" label.
+      if (t < 3600) S = Math.min(S, Math.max(4, 3600 - t));
       points.push({ seconds: t, p: p0 });
       if (Math.abs(d) >= 0.005) points.push({ seconds: t + 0.3 * S, p: clamp(p1) }); // the steep jump
       points.push({ seconds: t + S, p: p1 });
@@ -195,18 +199,44 @@ export function Matchstake({ match, className, compact = false }: { match: Match
   // Trace and axes.
   const { points, settle } = heartbeatTrace(match, team.code);
   // The time axis covers regulation, and grows into overtime only once playback gets there (no spoiler).
+  // Not travelling: up to where the last revealed goal settles. A game that ends on an OT goal has its
+  // end event at the goal's clock, while the goal's beat runs on after it.
   const shownUntil = pb.travel
     ? events[pb.travel.to].seconds
-    : settle.get(current.idx) ?? current.seconds;
+    : Math.max(current.seconds, ...goals.filter((g) => g.idx <= current.idx).map((g) => settle.get(g.idx) ?? g.seconds));
   const endSeconds = Math.max(3600, shownUntil);
   const otShown = (pb.travel ? events[pb.travel.to].seconds : current.seconds) > 3600;
-  const x = (sec: number) => PAD_L + (sec / endSeconds) * PLOT_W;
+  // Goals close together (58:17 and 59:22 in game 345) would share a few pixels and read as one thin
+  // spike. Every goal's beat gets at least MIN_BEAT_PX, and the rest of the match gives up that room
+  // evenly. Time labels stay at their true minutes, only spaced a little unevenly around goals.
+  const spans = goals
+    .map((g) => ({ a: g.seconds, b: Math.min(endSeconds, settle.get(g.idx) ?? g.seconds) }))
+    .filter((s) => s.a < endSeconds && s.b > s.a);
+  let virtualEnd = endSeconds;
+  let extra = spans.map(() => 0);
+  for (let i = 0; i < 4; i++) {
+    const need = (MIN_BEAT_PX * virtualEnd) / PLOT_W; // seconds that fill MIN_BEAT_PX at the current scale
+    extra = spans.map((s) => Math.max(0, need - (s.b - s.a)));
+    virtualEnd = endSeconds + extra.reduce((sum, e) => sum + e, 0);
+  }
+  const warp = (sec: number) =>
+    sec + spans.reduce((sum, s, i) => sum + extra[i] * Math.min(1, Math.max(0, (sec - s.a) / (s.b - s.a))), 0);
+  const x = (sec: number) => PAD_L + (warp(sec) / virtualEnd) * PLOT_W;
   const { lo, hi, step } = zoomedDomain(points.map((p) => p.p));
   const y = (p: number) => TOP + ((hi - p) / (hi - lo)) * (BOTTOM - TOP);
   const ticks: number[] = [];
   for (let t = lo; t <= hi + 1e-9; t += step) ticks.push(Math.round(t * 100) / 100);
-  const minutes: number[] = [];
-  for (let s = 0; s <= endSeconds; s += 60) minutes.push(s);
+  // Axis labels every 10 minutes (20 on phones), skipping one that would touch its neighbour after the
+  // stretch above; the last label always stays.
+  const labelStep = W < 560 ? 1200 : 600;
+  const axisLabels: number[] = [];
+  for (let s = 0; s <= endSeconds; s += labelStep) {
+    if (axisLabels.length && x(s) - x(axisLabels[axisLabels.length - 1]) < 52) {
+      if (s + labelStep > endSeconds) axisLabels.pop(); // keep the last one, drop its neighbour
+      else continue;
+    }
+    axisLabels.push(s);
+  }
 
   const baseline = prob(events[0]); // kick-off: above it the team is better off, below it worse off
   const baseY = y(baseline);
@@ -216,7 +246,7 @@ export function Matchstake({ match, className, compact = false }: { match: Match
   // Reveal like a heart monitor: the sweep runs with the game clock; arriving at a goal beats through it.
   const travelling = pb.travel !== null;
   const settleOf = (e: MatchEvent) => settle.get(e.idx) ?? e.seconds;
-  const revealSeconds = travelling ? events[pb.travel!.to].seconds : settleOf(current);
+  const revealSeconds = travelling ? events[pb.travel!.to].seconds : shownUntil;
   const revealX = x(revealSeconds) + (travelling ? -2 : 3);
   const revealMs = travelling ? pb.travel!.ms : current.kind === "goal" ? 420 : 450;
   const clockSeconds = travelling ? events[pb.travel!.to].seconds : current.seconds;
@@ -255,26 +285,79 @@ export function Matchstake({ match, className, compact = false }: { match: Match
     return { g, d, label: goalLabel(match, g, prev, i === goals.length - 1), above: d < 0 };
   });
 
+  const overlaps = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) =>
+    a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+
   // Callout box placement. The beat sits just left of the dot, so the box goes diagonally away from it:
   // to the right of the dot (over the flat line that follows), above it after a gain and below it after
-  // a drop. Near the right edge it goes left of where the beat starts instead. Flip vertically if needed.
+  // a drop. When that spot covers the line or other goals (late goals close together, OT), it tries spots
+  // further left and at the top / bottom of the plot, and takes the one that covers the least.
+  const screenPts = points.filter((pt) => pt.seconds <= shownUntil + 1).map((pt) => ({ x: x(pt.seconds), y: y(pt.p) }));
   const boxFor = (g: MatchEvent, above: boolean) => {
     const GAP = 12;
     const gx = x(settleOf(g));
     const gy = y(prob(g));
+    const clampY = (v: number) => Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2, v));
+    const clampX = (v: number) => Math.min(W - PAD_R - BOX_W, Math.max(PAD_L, v));
     const fitsRight = gx + GAP + BOX_W <= W - PAD_R;
-    const bx = fitsRight ? gx + GAP : Math.max(PAD_L, x(g.seconds) - GAP - BOX_W);
     const wantAbove = !above; // `above` was set for drops; gains want the box above
-    const fitsAbove = gy - GAP - BOX_H >= TOP + 2;
-    const fitsBelow = gy + GAP + BOX_H <= BOTTOM - 4;
-    const placeAbove = wantAbove ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
-    const by = Math.min(BOTTOM - BOX_H - 4, Math.max(TOP + 2, placeAbove ? gy - GAP - BOX_H : gy + GAP));
-    return { bx, by, placeAbove, link: { x: fitsRight ? bx : bx + BOX_W, y: placeAbove ? by + BOX_H : by } };
+    const ys = wantAbove
+      ? [gy - GAP - BOX_H, gy + GAP, TOP + 2, BOTTOM - BOX_H - 4]
+      : [gy + GAP, gy - GAP - BOX_H, BOTTOM - BOX_H - 4, TOP + 2];
+    const xs = [
+      ...(fitsRight ? [gx + GAP] : []),
+      ...Array.from({ length: 10 }, (_, k) => x(g.seconds) - GAP - BOX_W - k * 24),
+    ];
+    // What a spot covers: line segments (with a little air) and the dots of other revealed goals.
+    const cost = (bx: number, by: number) => {
+      const r = { x: bx - 4, y: by - 4, w: BOX_W + 8, h: BOX_H + 8 };
+      let hits = 0;
+      for (let i = 1; i < screenPts.length; i++) {
+        const a = screenPts[i - 1];
+        const c = screenPts[i];
+        const seg = { x: Math.min(a.x, c.x), y: Math.min(a.y, c.y), w: Math.abs(c.x - a.x) + 1, h: Math.abs(c.y - a.y) + 1 };
+        if (overlaps(seg, r)) hits += 1;
+      }
+      for (const o of goals) {
+        if (o.idx === g.idx || o.idx > pb.eventIdx) continue;
+        if (overlaps({ x: x(settleOf(o)) - 8, y: y(prob(o)) - 8, w: 16, h: 16 }, r)) hits += 3;
+      }
+      return hits;
+    };
+    let best = { bx: clampX(xs[0]), by: clampY(ys[0]), score: Infinity };
+    xs.forEach((cx, i) =>
+      ys.forEach((cy, j) => {
+        const bx = clampX(cx);
+        const by = clampY(cy);
+        const score = cost(bx, by) * 100 + i * 2 + j; // fewest hits, then closest to the dot
+        if (score < best.score) best = { bx, by, score };
+      }),
+    );
+    const { bx, by } = best;
+    const placeAbove = by + BOX_H / 2 < gy;
+    // The link runs from the box edge nearest the dot.
+    const link = { x: Math.min(bx + BOX_W, Math.max(bx, gx)), y: Math.min(by + BOX_H, Math.max(by, gy)) };
+    return { bx, by, placeAbove, link };
   };
   const nowCallout = !travelling ? callouts.find((c) => c.g.idx === pb.eventIdx) : undefined;
   const nowBox = nowCallout ? boxFor(nowCallout.g, nowCallout.above) : null;
-  const overlaps = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) =>
-    a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  // Small tags of earlier goals. Where two would overlap (58:17 / 59:22, or 59:22 / the OT goal), the more
+  // recent one stays; any tag the current goal's box would cover is hidden too.
+  const tagRectOf = (g: MatchEvent, d: number) => {
+    const tagX = Math.min(W - PAD_R - 26, Math.max(PAD_L + 26, x(settleOf(g)))); // tags stay inside the plot
+    const gy = y(prob(g));
+    return { tagX, x: tagX - 24, y: d >= 0 ? gy - 34 : gy + 12, w: 48, h: 22 };
+  };
+  const hiddenTags = new Set<number>();
+  const keptTags: { x: number; y: number; w: number; h: number }[] = [];
+  if (nowBox) keptTags.push({ x: nowBox.bx, y: nowBox.by, w: BOX_W, h: BOX_H });
+  for (const { g, d } of [...callouts].reverse()) {
+    if (g.idx > pb.eventIdx || (g.idx === pb.eventIdx && !travelling)) continue;
+    const r = tagRectOf(g, d);
+    const padded = { x: r.x - 3, y: r.y - 3, w: r.w + 6, h: r.h + 6 };
+    if (keptTags.some((k) => overlaps(padded, k))) hiddenTags.add(g.idx);
+    else keptTags.push(r);
+  }
 
   return (
     <section
@@ -501,8 +584,7 @@ export function Matchstake({ match, className, compact = false }: { match: Match
           {[1200, 2400].map((s) => (
             <line key={`period-${s}`} x1={x(s)} x2={x(s)} y1={TOP} y2={BOTTOM} stroke={ui.grid} strokeDasharray="4 6" />
           ))}
-          {/* Phone widths: a label every 20 minutes instead of every 10, so they keep their size without colliding. */}
-          {minutes.filter((s) => s % (W < 560 ? 1200 : 600) === 0).map((s) => (
+          {axisLabels.map((s) => (
             <text key={`xl-${s}`} x={x(s)} y={AXIS_Y} fontSize={16} fill={ui.muted}
                   textAnchor={s === 0 ? "start" : s >= endSeconds - 1 ? "end" : "middle"}>{fmtClock(s)}</text>
           ))}
@@ -553,12 +635,10 @@ export function Matchstake({ match, className, compact = false }: { match: Match
             const isNow = g.idx === pb.eventIdx && !travelling;
             const c = tone(d);
             const gx = x(settleOf(g));
-            const tagX = Math.min(W - PAD_R - 26, Math.max(PAD_L + 26, gx)); // tags stay inside the plot
+            const { tagX } = tagRectOf(g, d);
             const gy = y(prob(g));
             const { bx, by, placeAbove, link } = boxFor(g, above);
-            // Small tag of an earlier goal; hidden while the current goal's box would cover it.
-            const tagRect = { x: tagX - 24, y: d >= 0 ? gy - 34 : gy + 12, w: 48, h: 22 };
-            const tagHidden = !isNow && nowBox !== null && overlaps(tagRect, { x: nowBox.bx, y: nowBox.by, w: BOX_W, h: BOX_H });
+            const tagHidden = hiddenTags.has(g.idx);
             return (
               <g key={`goal-${g.idx}`} className="cursor-pointer" onClick={() => pb.seek(g.idx)}>
                 <title>{`${g.clock} ${label} ${teamOf(match, g.team)?.name ?? ""}${g.scorer ? `, ${g.scorer}` : ""}`}</title>
