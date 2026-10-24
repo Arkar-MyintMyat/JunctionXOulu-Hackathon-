@@ -5,11 +5,11 @@
 //   what exactly is wrong (the raw number next to the fact sheet's value),
 //   a suggested fix built from the fact, and Publish / Reject (mock-up: nothing is published),
 //   the publishing rules: when a story goes out alone and when a human looks.
-//   Edit: change a story yourself (type a wrong number, delete a fact, insert one) and the checker runs on
-//   every key, with the same five rules as newsroom/verifier.py (web/lib/verify.ts).
+//   Edit: a plain text box; type any number and the checker runs on every key, with the same five rules as
+//   newsroom/verifier.py (web/lib/verify.ts).
 
-import { Check, Pencil, RotateCcw, ShieldAlert, X } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Check, Pencil, ShieldAlert, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 import { TeamLogo } from "@/components/matchstake/TeamPicker";
 import { PageNav } from "@/components/ui/page-nav";
@@ -237,7 +237,7 @@ function HeldStory({ item, match }: { item: QueueItem; match?: Match }) {
 
       {editing && match && story ? (
         <div className="mt-3">
-          <LiveCheck match={match} story={{ ...story, text: item.text }} onResult={setEditOk} />
+          <SimpleEditor match={match} story={{ ...story, text: item.text }} onResult={setEditOk} />
         </div>
       ) : (
       <>
@@ -279,9 +279,6 @@ function HeldStory({ item, match }: { item: QueueItem; match?: Match }) {
               <Check aria-hidden className="size-4" /> Publish edited story
             </button>
             <button type="button" onClick={() => setEditing(false)} className={secondaryButton}>Cancel</button>
-            <span className="text-xs text-muted-foreground">
-              {editOk ? "Passes every check." : "It can be published once it passes every check."}
-            </span>
           </>
         ) : decision === null ? (
           <>
@@ -317,141 +314,89 @@ function HeldStory({ item, match }: { item: QueueItem; match?: Match }) {
   );
 }
 
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** A story as plain readable text: every {{fact}} replaced by the value readers see. */
+function plainText(text: string, facts: Map<string, Fact>): string {
+  return storyParts(text, facts).map((p) => (p.kind === "text" ? p.text : p.fact?.display ?? `[${p.id}]`)).join("");
+}
+
 /**
- * The story text, editable. Facts are fixed chips (delete them, but not change their number); anything typed is
- * plain text. Reports the text back with {{fact_id}} placeholders, the form the checker reads.
- * Uncontrolled on purpose: built once per mount (remount with a new `key` to reset), so typing keeps the caret.
+ * Back from plain text to what the checker reads: every value that matches a fact of this moment becomes that
+ * fact's {{placeholder}}; any other number stays a raw number and is caught. When two facts show the same value,
+ * the one the story already uses wins. "2-3" is read as "2–3".
  */
-function StoryEditor({ text, facts, onChange, insertRef }: {
-  text: string;
-  facts: Map<string, Fact>;
-  onChange: (text: string) => void;
-  /** Filled with a function that inserts a fact chip at the caret (or at the end). */
-  insertRef: { current: ((id: string) => void) | null };
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const chip = (id: string) => {
-      const f = facts.get(id);
-      const node = document.createElement("span");
-      node.contentEditable = "false";
-      node.dataset.fact = id;
-      node.title = f ? `${f.label} · source: ${f.source}` : id;
-      node.className = "mx-0.5 rounded bg-muted px-1 font-semibold underline decoration-dotted underline-offset-4";
-      node.textContent = f?.display ?? id;
-      return node;
-    };
-    const read = (): string => {
-      let out = "";
-      const walk = (n: Node) => {
-        if (n.nodeType === Node.TEXT_NODE) out += n.textContent ?? "";
-        else if (n instanceof HTMLElement) {
-          if (n.dataset.fact) out += `{{${n.dataset.fact}}}`;
-          else if (n.tagName === "BR") out += " ";
-          else n.childNodes.forEach(walk);
-        }
-      };
-      el.childNodes.forEach(walk);
-      return out.replace(/ /g, " ");
-    };
-    el.replaceChildren(...storyParts(text, facts).map((p) => (p.kind === "text" ? document.createTextNode(p.text) : chip(p.id))));
-    const onInput = () => onChange(read());
-    el.addEventListener("input", onInput);
-    insertRef.current = (id: string) => {
-      const sel = window.getSelection();
-      const range = sel && sel.rangeCount > 0 ? sel.getRangeAt(0) : null;
-      const node = chip(id);
-      if (range && el.contains(range.startContainer)) {
-        range.deleteContents();
-        range.insertNode(node);
-        range.setStartAfter(node);
-        range.collapse(true);
-        sel!.removeAllRanges();
-        sel!.addRange(range);
-      } else {
-        el.append(" ", node);
-      }
-      onChange(read());
-    };
-    return () => el.removeEventListener("input", onInput);
-    // Built once per mount; the parent remounts (key) to start over.
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return (
-    <div
-      ref={ref}
-      role="textbox"
-      aria-multiline="true"
-      aria-label="Story text"
-      contentEditable
-      suppressContentEditableWarning
-      onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-      onPaste={(e) => {
-        e.preventDefault();
-        document.execCommand("insertText", false, e.clipboardData.getData("text/plain"));
-      }}
-      className="min-h-24 rounded-xl border bg-card p-3 leading-relaxed outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-    />
-  );
+function toPlaceholders(plain: string, facts: Map<string, Fact>, preferred: string[]): string {
+  const byDisplay = new Map<string, string>();
+  for (const f of facts.values()) {
+    if (!byDisplay.has(f.display) || preferred.includes(f.id)) byDisplay.set(f.display, f.id);
+  }
+  const displays = [...byDisplay.keys()].filter(Boolean).sort((a, b) => b.length - a.length);
+  if (displays.length === 0) return plain;
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])(${displays.map(escapeRe).join("|")})(?![\\p{L}\\p{N}])`, "giu");
+  const normalised = plain.replace(/(\d)\s*-\s*(\d)/g, "$1–$2");
+  return normalised.replace(re, (m) => {
+    const id = byDisplay.get(m) ?? [...byDisplay.entries()].find(([d]) => d.toLowerCase() === m.toLowerCase())?.[1];
+    return id ? `{{${id}}}` : m;
+  });
 }
 
 const PLACEHOLDER = /\{\{\s*([^{}\s]+)\s*\}\}/g;
 
+/** The checker's verdict on an edited story, in one short line per problem. */
+function shortProblems(problems: string[], facts: Map<string, Fact>): string[] {
+  return problems.map((p) => {
+    const raw = p.match(/^raw number '(.+)' not from facts$/)?.[1];
+    if (raw) return `${raw} is not in the fact sheet.`;
+    const listed = p.match(/^fact '(.+)' listed in facts_used but not in the text$/)?.[1];
+    if (listed) return `Missing: ${facts.get(listed)?.label ?? listed}.`;
+    const name = p.match(/^name '(.+)' is not in the fact sheet$/)?.[1];
+    if (name) return `${name} is not part of this story.`;
+    const words = p.match(/^(\d+) words \(max (\d+)\)$/);
+    if (words) return `Too long: ${words[1]} words (max ${words[2]}).`;
+    const banned = p.match(/^banned word '(.+)'$/)?.[1];
+    if (banned) return `Not allowed: "${banned}".`;
+    if (p === "malformed placeholder") return "Remove the { or }.";
+    return p;
+  });
+}
+
 /**
- * Edit a story and see the checker's verdict on every key. facts_used is the story's own list plus any fact the
- * editor inserts (an editor adding a fact declares it); deleting one of the story's facts is still caught.
+ * A plain text box with the story; type anything, any number. Every value is matched against this moment's fact
+ * sheet and the five checker rules (web/lib/verify.ts, same as newsroom/verifier.py) run on every key.
  */
-function LiveCheck({ match, story, onResult }: { match: Match; story: Story; onResult?: (ok: boolean) => void }) {
+function SimpleEditor({ match, story, onResult }: { match: Match; story: Story; onResult?: (ok: boolean) => void }) {
   const facts = useMemo(() => factsFor(match, story.event_idx, story.team), [match, story.event_idx, story.team]);
   const known = useMemo(() => knownNames(match), [match]);
   const sheet = match.facts[String(story.event_idx)]?.[story.team];
-  const [text, setText] = useState(story.text);
-  const [round, setRound] = useState(0);
-  const insertRef = useRef<((id: string) => void) | null>(null);
+  const [plain, setPlain] = useState(() => plainText(story.text, facts));
 
+  const text = toPlaceholders(plain, facts, story.facts_used);
   const present = [...text.matchAll(PLACEHOLDER)].map((m) => m[1]);
-  const factsUsed = [...new Set([...story.facts_used, ...present.filter((id) => facts.has(id))])];
+  const factsUsed = [...new Set([...story.facts_used, ...present])];
   const problems = sheet ? verifyStory(text, factsUsed, sheet, known) : ["no fact sheet for this moment"];
-  const found = explain(problems, facts, { ...story, text, facts_used: factsUsed });
   const ok = problems.length === 0;
   useEffect(() => onResult?.(ok), [ok, onResult]);
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-2">
-        <div className={kicker}>Edit the story · checked on every key</div>
-        <button type="button" onClick={() => { setRound((r) => r + 1); setText(story.text); }}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground">
-          <RotateCcw aria-hidden className="size-3.5" /> Start over
-        </button>
-      </div>
-      <div className="mt-1">
-        <StoryEditor key={round} text={story.text} facts={facts} onChange={setText} insertRef={insertRef} />
-      </div>
-      <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
-        <span className="text-muted-foreground">Insert a fact:</span>
-        {[...facts.values()].map((f) => (
-          <button key={f.id} type="button" title={`${f.label} · source: ${f.source}`}
-                  onMouseDown={(e) => e.preventDefault()} onClick={() => insertRef.current?.(f.id)}
-                  className="rounded-md border bg-card px-1.5 py-0.5 font-semibold hover:bg-muted">
-            {f.display}
-          </button>
-        ))}
-      </div>
-      <div className="mt-3" aria-live="polite">
+      <textarea
+        value={plain}
+        onChange={(e) => setPlain(e.target.value)}
+        rows={4}
+        aria-label="Story text"
+        className="w-full resize-y rounded-xl border bg-card p-3 leading-relaxed outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      />
+      <div className="mt-2 text-sm" aria-live="polite">
         {ok ? (
-          <p className="flex items-center gap-2 rounded-xl border border-green-700/30 bg-green-700/5 p-3 text-sm font-semibold text-green-700">
-            <Check aria-hidden className="size-4" /> Passes every check: this would be published.
+          <p className="flex items-center gap-1.5 font-semibold text-green-700">
+            <Check aria-hidden className="size-4" /> Passes the checker
           </p>
         ) : (
-          <ul className="space-y-1.5 rounded-xl border border-red-700/30 bg-red-700/5 p-3 text-sm">
-            {found.map((f) => (
-              <li key={f.text} className="flex gap-2">
-                <X aria-hidden className="mt-0.5 size-4 shrink-0 text-red-700" />
-                <span>{f.text}</span>
+          <ul className="space-y-1">
+            {shortProblems(problems, facts).map((t) => (
+              <li key={t} className="flex items-center gap-1.5 font-semibold text-red-700">
+                <X aria-hidden className="size-4 shrink-0" /> {t}
               </li>
             ))}
           </ul>
@@ -461,7 +406,7 @@ function LiveCheck({ match, story, onResult }: { match: Match; story: Story; onR
   );
 }
 
-/** A story that passed and was published: a judge can try to slip a wrong number past the checker. */
+/** A published story anyone can edit, to see the checker catch a wrong number. */
 function TryIt({ match }: { match: Match }) {
   const [editing, setEditing] = useState(false);
   // The published story with the biggest swing: the one the widget opens on.
@@ -474,38 +419,30 @@ function TryIt({ match }: { match: Match }) {
   }, [match]);
   if (!story) return null;
   const facts = factsFor(match, story.event_idx, story.team);
-  const team = teamOf(match, story.team);
-  const event = match.events[story.event_idx];
 
   return (
     <article className={card}>
-      <div className="flex flex-wrap items-center gap-2">
-        <h2 className={cardTitle}>Try it: slip a wrong number past the checker</h2>
-        <span className="ml-auto flex items-center gap-1.5 text-sm text-muted-foreground">
-          <TeamLogo team={team} size={18} />
-          {team?.name ?? story.team} fans · {event?.clock}
-        </span>
+      <div className="flex items-center justify-between gap-2">
+        <h2 className={cardTitle}>Try it yourself</h2>
+        {!editing && (
+          <button type="button" onClick={() => setEditing(true)} className={secondaryButton}>
+            <Pencil aria-hidden className="size-4" /> Edit
+          </button>
+        )}
       </div>
-      <p className="mt-1 text-sm text-muted-foreground">
-        This story passed and was published. Type a number into it (say 45%), name a team that is not in it, write
-        &ldquo;bet&rdquo;, or delete a fact: the same five rules the newsroom runs check it as you type.
-      </p>
-      {editing ? (
-        <div className="mt-3">
-          <LiveCheck match={match} story={story} />
-          <button type="button" onClick={() => setEditing(false)} className={`${secondaryButton} mt-3`}>Done</button>
-        </div>
-      ) : (
-        <>
-          <div className="mt-3 rounded-xl border bg-muted/50 p-3">
-            <p className="mb-1 text-xs font-medium text-green-700">✓ Verified · AI-generated from Liiga data</p>
+      <p className="mt-1 text-sm text-muted-foreground">A published story. Change any number and see if it gets through.</p>
+      <div className="mt-3">
+        {editing ? (
+          <>
+            <SimpleEditor match={match} story={story} />
+            <button type="button" onClick={() => setEditing(false)} className={`${secondaryButton} mt-3`}>Done</button>
+          </>
+        ) : (
+          <div className="rounded-xl border bg-muted/50 p-3">
             <StoryText text={story.text} facts={facts} />
           </div>
-          <button type="button" onClick={() => setEditing(true)} className={`${primaryButton} mt-3`}>
-            <Pencil aria-hidden className="size-4" /> Edit this story
-          </button>
-        </>
-      )}
+        )}
+      </div>
     </article>
   );
 }
