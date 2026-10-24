@@ -272,6 +272,9 @@ A commits these as `contracts/*.example.json`. B mirrors them in `web/lib/types.
 Rules: every event, including `start` and `end`, has odds for **every** team (the example shows two to stay short).
 `direct` = chance of finishing rank ≤ `thresholds.direct` (straight to quarterfinals); `playoff` = rank ≤ `thresholds.playoff`.
 The UI reads the line numbers from `thresholds`; never print a hard-coded "top 6" or "top 4".
+Optional on goal events: `odds_before` (same shape as `odds`) = odds at the same clock with the score
+before the goal. `odds - odds_before` is what the goal itself was worth; `odds - previous event's odds`
+also includes time passing (a team trailing for 20 minutes drifts down before it equalises).
 Team count is not fixed: season 2026 has 16 teams, season 2027 (current) has 17.
 Probabilities are 0–1 floats. Fact ids follow `e{idx}.{TEAM}.{name}`. `display` is what the reader sees.
 Team names in `allowed_names` include every name a story may use (Level 2 Finnish adds inflected forms).

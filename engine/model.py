@@ -95,6 +95,9 @@ class Event(BaseModel):
     team: str | None = None
     scorer: str | None = None
     odds: dict[str, Odds]
+    # Optional (goal events): odds at the same clock with the score before the goal.
+    # odds - odds_before = what the goal itself was worth, excluding time drift since the last event.
+    odds_before: dict[str, Odds] | None = None
 
 
 class Fact(BaseModel):
