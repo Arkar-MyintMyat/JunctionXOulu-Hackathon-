@@ -18,6 +18,7 @@ def gemini(monkeypatch):
     """Point the provider at a fake server; returns the list of requests it received and a way to script replies."""
     monkeypatch.setattr(config, "LLM_BASE_URL", "https://example.test/v1beta/openai")
     monkeypatch.setattr(config, "LLM_MODEL_SET", "gemini-test")
+    monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", [])  # independent of the developer's .env
     monkeypatch.setenv("LLM_API_KEY", "test-key")
     monkeypatch.setattr(llm.time, "sleep", lambda s: None)
     seen, replies = [], []
@@ -101,6 +102,20 @@ def test_retired_model_404_falls_back_immediately(gemini, monkeypatch):
     assert [r["body"]["model"] for r in seen] == ["gemini-test", "gemini-backup"]
 
 
+def test_daily_quota_skips_to_next_model_without_waiting(gemini, monkeypatch):
+    seen, replies = gemini
+    monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", ["gemini-lite"])
+    waits = []
+    monkeypatch.setattr(llm.time, "sleep", lambda s: waits.append(s))
+    used_up = [{"error": {"code": 429, "message": "You exceeded your current quota",
+                          "details": [{"violations": [{"quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]},
+                                      {"retryDelay": "75793s"}]}}]
+    replies += [(429, used_up), (200, completion(json.dumps(STORY)))]
+    assert ask() == STORY
+    assert [r["body"]["model"] for r in seen] == ["gemini-test", "gemini-lite"]
+    assert waits == []  # no pointless waiting on a daily quota
+
+
 def test_bad_key_is_not_retried(gemini):
     seen, replies = gemini
     replies.append((401, {"error": {"message": "API key not valid"}}))
@@ -112,6 +127,7 @@ def test_bad_key_is_not_retried(gemini):
 def test_timeout_is_retried(monkeypatch):
     monkeypatch.setattr(config, "LLM_BASE_URL", "https://example.test/v1beta/openai")
     monkeypatch.setattr(config, "LLM_MODEL_SET", "gemini-test")
+    monkeypatch.setattr(config, "LLM_FALLBACK_MODELS", [])
     monkeypatch.setenv("LLM_API_KEY", "test-key")
     monkeypatch.setattr(llm.time, "sleep", lambda s: None)
     calls = []

@@ -134,6 +134,17 @@ def _short_error(response: httpx.Response) -> str:
     return str(err)[:160] or response.text[:160]
 
 
+def _quota_used_up(response: httpx.Response) -> bool:
+    """A 429 for a used-up daily quota (Gemini free tier: requests per day per model). Waiting won't help."""
+    if response.status_code != 429:
+        return False
+    text = response.text
+    if "PerDay" in text:
+        return True
+    match = re.search(r'"retryDelay"\s*:\s*"(\d+)', text)
+    return bool(match and int(match.group(1)) > 300)
+
+
 def _post_with_retries(client: httpx.Client, url: str, headers: dict[str, str], body: dict[str, Any]):
     """One model: retry rate limits, overload and timeouts. Returns (response or None, last problem)."""
     response: httpx.Response | None = None
@@ -152,6 +163,8 @@ def _post_with_retries(client: httpx.Client, url: str, headers: dict[str, str], 
                 continue
             if response.status_code not in RETRYABLE:
                 return response, ""
+            if _quota_used_up(response):
+                return response, "daily free-tier quota used up for this model"
             problem = f"{response.status_code} {_short_error(response)}"
         if attempt < config.LLM_RATE_LIMIT_RETRIES:
             time.sleep(_retry_after(response, attempt))
