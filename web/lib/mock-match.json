@@ -1,0 +1,6660 @@
+{
+ "schema_version": 1,
+ "match": {
+  "id": 9001,
+  "season": 2026,
+  "date": "2026-03-14",
+  "home": "KAR",
+  "away": "PEL",
+  "final_score": "2-1",
+  "finished_type": "REG"
+ },
+ "teams": [
+  {
+   "code": "LUK",
+   "name": "Lukko",
+   "color": "#00468C"
+  },
+  {
+   "code": "TAP",
+   "name": "Tappara",
+   "color": "#F47A20"
+  },
+  {
+   "code": "IFK",
+   "name": "HIFK",
+   "color": "#E30613"
+  },
+  {
+   "code": "ILV",
+   "name": "Ilves",
+   "color": "#FFD200"
+  },
+  {
+   "code": "KAL",
+   "name": "KalPa",
+   "color": "#FFD100"
+  },
+  {
+   "code": "PEL",
+   "name": "Pelicans",
+   "color": "#0098D8"
+  },
+  {
+   "code": "KAR",
+   "name": "Kärpät",
+   "color": "#FFD100"
+  },
+  {
+   "code": "TPS",
+   "name": "TPS",
+   "color": "#000000"
+  },
+  {
+   "code": "HPK",
+   "name": "HPK",
+   "color": "#F37021"
+  },
+  {
+   "code": "JYP",
+   "name": "JYP",
+   "color": "#D71920"
+  },
+  {
+   "code": "SAI",
+   "name": "SaiPa",
+   "color": "#FFE600"
+  },
+  {
+   "code": "JUK",
+   "name": "Jukurit",
+   "color": "#003E7E"
+  },
+  {
+   "code": "ASS",
+   "name": "Ässät",
+   "color": "#C8102E"
+  },
+  {
+   "code": "SPO",
+   "name": "Sport",
+   "color": "#E2001A"
+  },
+  {
+   "code": "KOO",
+   "name": "KooKoo",
+   "color": "#FF6600"
+  },
+  {
+   "code": "KES",
+   "name": "K-Espoo",
+   "color": "#002F6C"
+  }
+ ],
+ "thresholds": {
+  "top6": 6,
+  "playoff": 10
+ },
+ "events": [
+  {
+   "idx": 0,
+   "kind": "start",
+   "clock": "00:00",
+   "seconds": 0,
+   "score": "0-0",
+   "odds": {
+    "LUK": {
+     "top6": 0.93,
+     "playoff": 0.99
+    },
+    "TAP": {
+     "top6": 0.9,
+     "playoff": 0.99
+    },
+    "IFK": {
+     "top6": 0.78,
+     "playoff": 0.97
+    },
+    "ILV": {
+     "top6": 0.52,
+     "playoff": 0.88
+    },
+    "KAL": {
+     "top6": 0.47,
+     "playoff": 0.86
+    },
+    "PEL": {
+     "top6": 0.28,
+     "playoff": 0.7
+    },
+    "KAR": {
+     "top6": 0.12,
+     "playoff": 0.48
+    },
+    "TPS": {
+     "top6": 0.18,
+     "playoff": 0.62
+    },
+    "HPK": {
+     "top6": 0.14,
+     "playoff": 0.57
+    },
+    "JYP": {
+     "top6": 0.16,
+     "playoff": 0.59
+    },
+    "SAI": {
+     "top6": 0.06,
+     "playoff": 0.41
+    },
+    "JUK": {
+     "top6": 0.04,
+     "playoff": 0.33
+    },
+    "ASS": {
+     "top6": 0.01,
+     "playoff": 0.12
+    },
+    "SPO": {
+     "top6": 0.0,
+     "playoff": 0.06
+    },
+    "KOO": {
+     "top6": 0.0,
+     "playoff": 0.02
+    },
+    "KES": {
+     "top6": 0.0,
+     "playoff": 0.01
+    }
+   }
+  },
+  {
+   "idx": 1,
+   "kind": "goal",
+   "clock": "18:40",
+   "seconds": 1120,
+   "period": 1,
+   "team": "KAR",
+   "scorer": "Lehtonen",
+   "score": "1-0",
+   "odds": {
+    "LUK": {
+     "top6": 0.93,
+     "playoff": 0.99
+    },
+    "TAP": {
+     "top6": 0.9,
+     "playoff": 0.99
+    },
+    "IFK": {
+     "top6": 0.78,
+     "playoff": 0.97
+    },
+    "ILV": {
+     "top6": 0.52,
+     "playoff": 0.88
+    },
+    "KAL": {
+     "top6": 0.47,
+     "playoff": 0.86
+    },
+    "PEL": {
+     "top6": 0.257,
+     "playoff": 0.63
+    },
+    "KAR": {
+     "top6": 0.15,
+     "playoff": 0.57
+    },
+    "TPS": {
+     "top6": 0.173,
+     "playoff": 0.6
+    },
+    "HPK": {
+     "top6": 0.13,
+     "playoff": 0.54
+    },
+    "JYP": {
+     "top6": 0.153,
+     "playoff": 0.57
+    },
+    "SAI": {
+     "top6": 0.057,
+     "playoff": 0.4
+    },
+    "JUK": {
+     "top6": 0.04,
+     "playoff": 0.33
+    },
+    "ASS": {
+     "top6": 0.01,
+     "playoff": 0.12
+    },
+    "SPO": {
+     "top6": 0.0,
+     "playoff": 0.06
+    },
+    "KOO": {
+     "top6": 0.0,
+     "playoff": 0.02
+    },
+    "KES": {
+     "top6": 0.0,
+     "playoff": 0.01
+    }
+   }
+  },
+  {
+   "idx": 2,
+   "kind": "goal",
+   "clock": "33:15",
+   "seconds": 1995,
+   "period": 2,
+   "team": "PEL",
+   "scorer": "Sund",
+   "score": "1-1",
+   "odds": {
+    "LUK": {
+     "top6": 0.93,
+     "playoff": 0.99
+    },
+    "TAP": {
+     "top6": 0.9,
+     "playoff": 0.99
+    },
+    "IFK": {
+     "top6": 0.78,
+     "playoff": 0.97
+    },
+    "ILV": {
+     "top6": 0.52,
+     "playoff": 0.88
+    },
+    "KAL": {
+     "top6": 0.47,
+     "playoff": 0.86
+    },
+    "PEL": {
+     "top6": 0.277,
+     "playoff": 0.69
+    },
+    "KAR": {
+     "top6": 0.123,
+     "playoff": 0.49
+    },
+    "TPS": {
+     "top6": 0.18,
+     "playoff": 0.62
+    },
+    "HPK": {
+     "top6": 0.137,
+     "playoff": 0.56
+    },
+    "JYP": {
+     "top6": 0.16,
+     "playoff": 0.59
+    },
+    "SAI": {
+     "top6": 0.06,
+     "playoff": 0.41
+    },
+    "JUK": {
+     "top6": 0.04,
+     "playoff": 0.33
+    },
+    "ASS": {
+     "top6": 0.01,
+     "playoff": 0.12
+    },
+    "SPO": {
+     "top6": 0.0,
+     "playoff": 0.06
+    },
+    "KOO": {
+     "top6": 0.0,
+     "playoff": 0.02
+    },
+    "KES": {
+     "top6": 0.0,
+     "playoff": 0.01
+    }
+   }
+  },
+  {
+   "idx": 3,
+   "kind": "goal",
+   "clock": "58:12",
+   "seconds": 3492,
+   "period": 3,
+   "team": "KAR",
+   "scorer": "Lehtonen",
+   "score": "2-1",
+   "odds": {
+    "LUK": {
+     "top6": 0.93,
+     "playoff": 0.99
+    },
+    "TAP": {
+     "top6": 0.9,
+     "playoff": 0.99
+    },
+    "IFK": {
+     "top6": 0.78,
+     "playoff": 0.97
+    },
+    "ILV": {
+     "top6": 0.51,
+     "playoff": 0.85
+    },
+    "KAL": {
+     "top6": 0.463,
+     "playoff": 0.84
+    },
+    "PEL": {
+     "top6": 0.237,
+     "playoff": 0.57
+    },
+    "KAR": {
+     "top6": 0.2,
+     "playoff": 0.72
+    },
+    "TPS": {
+     "top6": 0.163,
+     "playoff": 0.57
+    },
+    "HPK": {
+     "top6": 0.117,
+     "playoff": 0.5
+    },
+    "JYP": {
+     "top6": 0.143,
+     "playoff": 0.54
+    },
+    "SAI": {
+     "top6": 0.047,
+     "playoff": 0.37
+    },
+    "JUK": {
+     "top6": 0.04,
+     "playoff": 0.33
+    },
+    "ASS": {
+     "top6": 0.01,
+     "playoff": 0.12
+    },
+    "SPO": {
+     "top6": 0.0,
+     "playoff": 0.06
+    },
+    "KOO": {
+     "top6": 0.0,
+     "playoff": 0.02
+    },
+    "KES": {
+     "top6": 0.0,
+     "playoff": 0.01
+    }
+   }
+  },
+  {
+   "idx": 4,
+   "kind": "end",
+   "clock": "60:00",
+   "seconds": 3600,
+   "score": "2-1",
+   "odds": {
+    "LUK": {
+     "top6": 0.93,
+     "playoff": 0.99
+    },
+    "TAP": {
+     "top6": 0.9,
+     "playoff": 0.99
+    },
+    "IFK": {
+     "top6": 0.78,
+     "playoff": 0.97
+    },
+    "ILV": {
+     "top6": 0.51,
+     "playoff": 0.85
+    },
+    "KAL": {
+     "top6": 0.463,
+     "playoff": 0.84
+    },
+    "PEL": {
+     "top6": 0.234,
+     "playoff": 0.56
+    },
+    "KAR": {
+     "top6": 0.21,
+     "playoff": 0.75
+    },
+    "TPS": {
+     "top6": 0.163,
+     "playoff": 0.57
+    },
+    "HPK": {
+     "top6": 0.114,
+     "playoff": 0.49
+    },
+    "JYP": {
+     "top6": 0.143,
+     "playoff": 0.54
+    },
+    "SAI": {
+     "top6": 0.047,
+     "playoff": 0.37
+    },
+    "JUK": {
+     "top6": 0.04,
+     "playoff": 0.33
+    },
+    "ASS": {
+     "top6": 0.01,
+     "playoff": 0.12
+    },
+    "SPO": {
+     "top6": 0.0,
+     "playoff": 0.06
+    },
+    "KOO": {
+     "top6": 0.0,
+     "playoff": 0.02
+    },
+    "KES": {
+     "top6": 0.0,
+     "playoff": 0.01
+    }
+   }
+  }
+ ],
+ "facts": {
+  "0": {
+   "LUK": {
+    "allowed_names": [
+     "Kärpät",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "Lukko",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.LUK.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.LUK.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.LUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Lukko playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.LUK.top6_after",
+      "value": 0.93,
+      "display": "93%",
+      "label": "Lukko chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.LUK.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.LUK.next_opponent",
+      "value": "SAI",
+      "display": "SaiPa",
+      "label": "Lukko next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.LUK.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Lukko next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TAP": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "Tappara",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.TAP.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TAP.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TAP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Tappara playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TAP.top6_after",
+      "value": 0.9,
+      "display": "90%",
+      "label": "Tappara chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TAP.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.TAP.next_opponent",
+      "value": "KAL",
+      "display": "KalPa",
+      "label": "Tappara next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.TAP.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Tappara next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "IFK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HIFK",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.IFK.playoff_before",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.IFK.playoff_after",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.IFK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in HIFK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.IFK.top6_after",
+      "value": 0.78,
+      "display": "78%",
+      "label": "HIFK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.IFK.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.IFK.next_opponent",
+      "value": "JUK",
+      "display": "Jukurit",
+      "label": "HIFK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.IFK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "HIFK next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ILV": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Ilves",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.ILV.playoff_before",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ILV.playoff_after",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ILV.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ilves playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ILV.top6_after",
+      "value": 0.52,
+      "display": "52%",
+      "label": "Ilves chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ILV.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.ILV.next_opponent",
+      "value": "KAR",
+      "display": "Kärpät",
+      "label": "Ilves next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.ILV.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Ilves next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAL": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "KalPa",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.KAL.playoff_before",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAL.playoff_after",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAL.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KalPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAL.top6_after",
+      "value": 0.47,
+      "display": "47%",
+      "label": "KalPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAL.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.KAL.next_opponent",
+      "value": "TAP",
+      "display": "Tappara",
+      "label": "KalPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.KAL.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "KalPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "PEL": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Pelicans",
+     "role": "playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.PEL.playoff_before",
+      "value": 0.7,
+      "display": "70%",
+      "label": "Pelicans playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.PEL.playoff_after",
+      "value": 0.7,
+      "display": "70%",
+      "label": "Pelicans playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.PEL.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Pelicans playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.PEL.top6_after",
+      "value": 0.28,
+      "display": "28%",
+      "label": "Pelicans chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.PEL.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.PEL.next_opponent",
+      "value": "HPK",
+      "display": "HPK",
+      "label": "Pelicans next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.PEL.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "Pelicans next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAR": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Kärpät",
+     "role": "playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.KAR.playoff_before",
+      "value": 0.48,
+      "display": "48%",
+      "label": "Kärpät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAR.playoff_after",
+      "value": 0.48,
+      "display": "48%",
+      "label": "Kärpät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAR.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Kärpät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAR.top6_after",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Kärpät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KAR.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.KAR.next_opponent",
+      "value": "ILV",
+      "display": "Ilves",
+      "label": "Kärpät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.KAR.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Kärpät next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TPS": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "TPS",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.TPS.playoff_before",
+      "value": 0.62,
+      "display": "62%",
+      "label": "TPS playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TPS.playoff_after",
+      "value": 0.62,
+      "display": "62%",
+      "label": "TPS playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TPS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in TPS playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TPS.top6_after",
+      "value": 0.18,
+      "display": "18%",
+      "label": "TPS chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.TPS.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.TPS.next_opponent",
+      "value": "JYP",
+      "display": "JYP",
+      "label": "TPS next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.TPS.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "TPS next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "HPK": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HPK",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.HPK.playoff_before",
+      "value": 0.57,
+      "display": "57%",
+      "label": "HPK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.HPK.playoff_after",
+      "value": 0.57,
+      "display": "57%",
+      "label": "HPK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.HPK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in HPK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.HPK.top6_after",
+      "value": 0.14,
+      "display": "14%",
+      "label": "HPK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.HPK.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.HPK.next_opponent",
+      "value": "PEL",
+      "display": "Pelicans",
+      "label": "HPK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.HPK.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "HPK next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JYP": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "JYP",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.JYP.playoff_before",
+      "value": 0.59,
+      "display": "59%",
+      "label": "JYP playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JYP.playoff_after",
+      "value": 0.59,
+      "display": "59%",
+      "label": "JYP playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JYP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in JYP playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JYP.top6_after",
+      "value": 0.16,
+      "display": "16%",
+      "label": "JYP chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JYP.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.JYP.next_opponent",
+      "value": "TPS",
+      "display": "TPS",
+      "label": "JYP next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.JYP.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "JYP next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SAI": {
+    "allowed_names": [
+     "Kärpät",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "SaiPa",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.SAI.playoff_before",
+      "value": 0.41,
+      "display": "41%",
+      "label": "SaiPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SAI.playoff_after",
+      "value": 0.41,
+      "display": "41%",
+      "label": "SaiPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SAI.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in SaiPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SAI.top6_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "SaiPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SAI.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.SAI.next_opponent",
+      "value": "LUK",
+      "display": "Lukko",
+      "label": "SaiPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.SAI.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "SaiPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JUK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Jukurit",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.JUK.playoff_before",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JUK.playoff_after",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Jukurit playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JUK.top6_after",
+      "value": 0.04,
+      "display": "4%",
+      "label": "Jukurit chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.JUK.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.JUK.next_opponent",
+      "value": "IFK",
+      "display": "HIFK",
+      "label": "Jukurit next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.JUK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Jukurit next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ASS": {
+    "allowed_names": [
+     "Kärpät",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Ässät",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.ASS.playoff_before",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ASS.playoff_after",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ASS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ässät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ASS.top6_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "Ässät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.ASS.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.ASS.next_opponent",
+      "value": "SPO",
+      "display": "Sport",
+      "label": "Ässät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.ASS.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Ässät next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SPO": {
+    "allowed_names": [
+     "Kärpät",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Sport",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.SPO.playoff_before",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SPO.playoff_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SPO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Sport playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SPO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "Sport chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.SPO.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.SPO.next_opponent",
+      "value": "ASS",
+      "display": "Ässät",
+      "label": "Sport next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.SPO.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Sport next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KOO": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "KooKoo",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.KOO.playoff_before",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KOO.playoff_after",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KOO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KooKoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KOO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "KooKoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KOO.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.KOO.next_opponent",
+      "value": "KES",
+      "display": "K-Espoo",
+      "label": "KooKoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.KOO.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "KooKoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KES": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "K-Espoo",
+     "role": "not playing",
+     "event_kind": "start",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e0.KES.playoff_before",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KES.playoff_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KES.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in K-Espoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KES.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "K-Espoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e0.KES.score",
+      "value": "0-0",
+      "display": "0–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e0.KES.next_opponent",
+      "value": "KOO",
+      "display": "KooKoo",
+      "label": "K-Espoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e0.KES.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "K-Espoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   }
+  },
+  "1": {
+   "LUK": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "Lukko",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.LUK.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.LUK.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.LUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Lukko playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.LUK.top6_after",
+      "value": 0.93,
+      "display": "93%",
+      "label": "Lukko chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.LUK.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.LUK.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.LUK.next_opponent",
+      "value": "SAI",
+      "display": "SaiPa",
+      "label": "Lukko next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.LUK.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Lukko next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TAP": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "Tappara",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.TAP.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TAP.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TAP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Tappara playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TAP.top6_after",
+      "value": 0.9,
+      "display": "90%",
+      "label": "Tappara chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TAP.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.TAP.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.TAP.next_opponent",
+      "value": "KAL",
+      "display": "KalPa",
+      "label": "Tappara next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.TAP.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Tappara next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "IFK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HIFK",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.IFK.playoff_before",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.IFK.playoff_after",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.IFK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in HIFK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.IFK.top6_after",
+      "value": 0.78,
+      "display": "78%",
+      "label": "HIFK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.IFK.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.IFK.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.IFK.next_opponent",
+      "value": "JUK",
+      "display": "Jukurit",
+      "label": "HIFK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.IFK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "HIFK next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ILV": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Ilves",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.ILV.playoff_before",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ILV.playoff_after",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ILV.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ilves playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ILV.top6_after",
+      "value": 0.52,
+      "display": "52%",
+      "label": "Ilves chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ILV.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.ILV.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.ILV.next_opponent",
+      "value": "KAR",
+      "display": "Kärpät",
+      "label": "Ilves next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.ILV.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Ilves next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAL": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "KalPa",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.KAL.playoff_before",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAL.playoff_after",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAL.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KalPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAL.top6_after",
+      "value": 0.47,
+      "display": "47%",
+      "label": "KalPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAL.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KAL.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KAL.next_opponent",
+      "value": "TAP",
+      "display": "Tappara",
+      "label": "KalPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.KAL.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "KalPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "PEL": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Pelicans",
+     "role": "conceded",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e1.PEL.playoff_before",
+      "value": 0.7,
+      "display": "70%",
+      "label": "Pelicans playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.PEL.playoff_after",
+      "value": 0.63,
+      "display": "63%",
+      "label": "Pelicans playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.PEL.playoff_delta",
+      "value": -0.07,
+      "display": "7 percentage points",
+      "label": "Change in Pelicans playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.PEL.top6_after",
+      "value": 0.257,
+      "display": "26%",
+      "label": "Pelicans chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.PEL.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.PEL.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.PEL.next_opponent",
+      "value": "HPK",
+      "display": "HPK",
+      "label": "Pelicans next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.PEL.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "Pelicans next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAR": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Kärpät",
+     "role": "scored",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e1.KAR.playoff_before",
+      "value": 0.48,
+      "display": "48%",
+      "label": "Kärpät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAR.playoff_after",
+      "value": 0.57,
+      "display": "57%",
+      "label": "Kärpät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAR.playoff_delta",
+      "value": 0.09,
+      "display": "9 percentage points",
+      "label": "Change in Kärpät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAR.top6_after",
+      "value": 0.15,
+      "display": "15%",
+      "label": "Kärpät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KAR.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KAR.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KAR.next_opponent",
+      "value": "ILV",
+      "display": "Ilves",
+      "label": "Kärpät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.KAR.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Kärpät next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TPS": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "TPS",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e1.TPS.playoff_before",
+      "value": 0.62,
+      "display": "62%",
+      "label": "TPS playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TPS.playoff_after",
+      "value": 0.6,
+      "display": "60%",
+      "label": "TPS playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TPS.playoff_delta",
+      "value": -0.02,
+      "display": "2 percentage points",
+      "label": "Change in TPS playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TPS.top6_after",
+      "value": 0.173,
+      "display": "17%",
+      "label": "TPS chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.TPS.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.TPS.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.TPS.next_opponent",
+      "value": "JYP",
+      "display": "JYP",
+      "label": "TPS next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.TPS.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "TPS next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "HPK": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HPK",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e1.HPK.playoff_before",
+      "value": 0.57,
+      "display": "57%",
+      "label": "HPK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.HPK.playoff_after",
+      "value": 0.54,
+      "display": "54%",
+      "label": "HPK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.HPK.playoff_delta",
+      "value": -0.03,
+      "display": "3 percentage points",
+      "label": "Change in HPK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.HPK.top6_after",
+      "value": 0.13,
+      "display": "13%",
+      "label": "HPK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.HPK.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.HPK.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.HPK.next_opponent",
+      "value": "PEL",
+      "display": "Pelicans",
+      "label": "HPK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.HPK.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "HPK next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JYP": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "JYP",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e1.JYP.playoff_before",
+      "value": 0.59,
+      "display": "59%",
+      "label": "JYP playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JYP.playoff_after",
+      "value": 0.57,
+      "display": "57%",
+      "label": "JYP playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JYP.playoff_delta",
+      "value": -0.02,
+      "display": "2 percentage points",
+      "label": "Change in JYP playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JYP.top6_after",
+      "value": 0.153,
+      "display": "15%",
+      "label": "JYP chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JYP.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.JYP.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.JYP.next_opponent",
+      "value": "TPS",
+      "display": "TPS",
+      "label": "JYP next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.JYP.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "JYP next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SAI": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "SaiPa",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e1.SAI.playoff_before",
+      "value": 0.41,
+      "display": "41%",
+      "label": "SaiPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SAI.playoff_after",
+      "value": 0.4,
+      "display": "40%",
+      "label": "SaiPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SAI.playoff_delta",
+      "value": -0.01,
+      "display": "1 percentage point",
+      "label": "Change in SaiPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SAI.top6_after",
+      "value": 0.057,
+      "display": "6%",
+      "label": "SaiPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SAI.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.SAI.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.SAI.next_opponent",
+      "value": "LUK",
+      "display": "Lukko",
+      "label": "SaiPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.SAI.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "SaiPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JUK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Jukurit",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.JUK.playoff_before",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JUK.playoff_after",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Jukurit playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JUK.top6_after",
+      "value": 0.04,
+      "display": "4%",
+      "label": "Jukurit chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.JUK.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.JUK.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.JUK.next_opponent",
+      "value": "IFK",
+      "display": "HIFK",
+      "label": "Jukurit next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.JUK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Jukurit next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ASS": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Ässät",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.ASS.playoff_before",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ASS.playoff_after",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ASS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ässät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ASS.top6_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "Ässät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.ASS.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.ASS.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.ASS.next_opponent",
+      "value": "SPO",
+      "display": "Sport",
+      "label": "Ässät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.ASS.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Ässät next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SPO": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Sport",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.SPO.playoff_before",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SPO.playoff_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SPO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Sport playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SPO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "Sport chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.SPO.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.SPO.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.SPO.next_opponent",
+      "value": "ASS",
+      "display": "Ässät",
+      "label": "Sport next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.SPO.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Sport next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KOO": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "KooKoo",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.KOO.playoff_before",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KOO.playoff_after",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KOO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KooKoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KOO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "KooKoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KOO.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KOO.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KOO.next_opponent",
+      "value": "KES",
+      "display": "K-Espoo",
+      "label": "KooKoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.KOO.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "KooKoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KES": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "K-Espoo",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e1.KES.playoff_before",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KES.playoff_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KES.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in K-Espoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KES.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "K-Espoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e1.KES.score",
+      "value": "1-0",
+      "display": "1–0",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KES.clock",
+      "value": "18:40",
+      "display": "18:40",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e1.KES.next_opponent",
+      "value": "KOO",
+      "display": "KooKoo",
+      "label": "K-Espoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e1.KES.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "K-Espoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   }
+  },
+  "2": {
+   "LUK": {
+    "allowed_names": [
+     "Kärpät",
+     "Lukko",
+     "Pelicans",
+     "SaiPa",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "Lukko",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.LUK.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.LUK.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.LUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Lukko playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.LUK.top6_after",
+      "value": 0.93,
+      "display": "93%",
+      "label": "Lukko chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.LUK.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.LUK.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.LUK.next_opponent",
+      "value": "SAI",
+      "display": "SaiPa",
+      "label": "Lukko next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.LUK.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Lukko next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TAP": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Pelicans",
+     "Sund",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "Tappara",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.TAP.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TAP.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TAP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Tappara playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TAP.top6_after",
+      "value": 0.9,
+      "display": "90%",
+      "label": "Tappara chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TAP.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.TAP.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.TAP.next_opponent",
+      "value": "KAL",
+      "display": "KalPa",
+      "label": "Tappara next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.TAP.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Tappara next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "IFK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "HIFK",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.IFK.playoff_before",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.IFK.playoff_after",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.IFK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in HIFK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.IFK.top6_after",
+      "value": 0.78,
+      "display": "78%",
+      "label": "HIFK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.IFK.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.IFK.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.IFK.next_opponent",
+      "value": "JUK",
+      "display": "Jukurit",
+      "label": "HIFK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.IFK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "HIFK next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ILV": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "Ilves",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.ILV.playoff_before",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ILV.playoff_after",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ILV.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ilves playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ILV.top6_after",
+      "value": 0.52,
+      "display": "52%",
+      "label": "Ilves chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ILV.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.ILV.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.ILV.next_opponent",
+      "value": "KAR",
+      "display": "Kärpät",
+      "label": "Ilves next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.ILV.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Ilves next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAL": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Pelicans",
+     "Sund",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "KalPa",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.KAL.playoff_before",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAL.playoff_after",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAL.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KalPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAL.top6_after",
+      "value": 0.47,
+      "display": "47%",
+      "label": "KalPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAL.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KAL.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KAL.next_opponent",
+      "value": "TAP",
+      "display": "Tappara",
+      "label": "KalPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.KAL.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "KalPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "PEL": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "Pelicans",
+     "role": "scored",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e2.PEL.playoff_before",
+      "value": 0.63,
+      "display": "63%",
+      "label": "Pelicans playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.PEL.playoff_after",
+      "value": 0.69,
+      "display": "69%",
+      "label": "Pelicans playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.PEL.playoff_delta",
+      "value": 0.06,
+      "display": "6 percentage points",
+      "label": "Change in Pelicans playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.PEL.top6_after",
+      "value": 0.277,
+      "display": "28%",
+      "label": "Pelicans chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.PEL.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.PEL.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.PEL.next_opponent",
+      "value": "HPK",
+      "display": "HPK",
+      "label": "Pelicans next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.PEL.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "Pelicans next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAR": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "Kärpät",
+     "role": "conceded",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e2.KAR.playoff_before",
+      "value": 0.57,
+      "display": "57%",
+      "label": "Kärpät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAR.playoff_after",
+      "value": 0.49,
+      "display": "49%",
+      "label": "Kärpät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAR.playoff_delta",
+      "value": -0.08,
+      "display": "8 percentage points",
+      "label": "Change in Kärpät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAR.top6_after",
+      "value": 0.123,
+      "display": "12%",
+      "label": "Kärpät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KAR.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KAR.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KAR.next_opponent",
+      "value": "ILV",
+      "display": "Ilves",
+      "label": "Kärpät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.KAR.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Kärpät next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TPS": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Pelicans",
+     "Sund",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "TPS",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e2.TPS.playoff_before",
+      "value": 0.6,
+      "display": "60%",
+      "label": "TPS playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TPS.playoff_after",
+      "value": 0.62,
+      "display": "62%",
+      "label": "TPS playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TPS.playoff_delta",
+      "value": 0.02,
+      "display": "2 percentage points",
+      "label": "Change in TPS playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TPS.top6_after",
+      "value": 0.18,
+      "display": "18%",
+      "label": "TPS chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.TPS.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.TPS.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.TPS.next_opponent",
+      "value": "JYP",
+      "display": "JYP",
+      "label": "TPS next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.TPS.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "TPS next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "HPK": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "HPK",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e2.HPK.playoff_before",
+      "value": 0.54,
+      "display": "54%",
+      "label": "HPK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.HPK.playoff_after",
+      "value": 0.56,
+      "display": "56%",
+      "label": "HPK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.HPK.playoff_delta",
+      "value": 0.02,
+      "display": "2 percentage points",
+      "label": "Change in HPK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.HPK.top6_after",
+      "value": 0.137,
+      "display": "14%",
+      "label": "HPK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.HPK.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.HPK.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.HPK.next_opponent",
+      "value": "PEL",
+      "display": "Pelicans",
+      "label": "HPK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.HPK.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "HPK next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JYP": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Pelicans",
+     "Sund",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "JYP",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e2.JYP.playoff_before",
+      "value": 0.57,
+      "display": "57%",
+      "label": "JYP playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JYP.playoff_after",
+      "value": 0.59,
+      "display": "59%",
+      "label": "JYP playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JYP.playoff_delta",
+      "value": 0.02,
+      "display": "2 percentage points",
+      "label": "Change in JYP playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JYP.top6_after",
+      "value": 0.16,
+      "display": "16%",
+      "label": "JYP chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JYP.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.JYP.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.JYP.next_opponent",
+      "value": "TPS",
+      "display": "TPS",
+      "label": "JYP next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.JYP.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "JYP next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SAI": {
+    "allowed_names": [
+     "Kärpät",
+     "Lukko",
+     "Pelicans",
+     "SaiPa",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "SaiPa",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e2.SAI.playoff_before",
+      "value": 0.4,
+      "display": "40%",
+      "label": "SaiPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SAI.playoff_after",
+      "value": 0.41,
+      "display": "41%",
+      "label": "SaiPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SAI.playoff_delta",
+      "value": 0.01,
+      "display": "1 percentage point",
+      "label": "Change in SaiPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SAI.top6_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "SaiPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SAI.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.SAI.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.SAI.next_opponent",
+      "value": "LUK",
+      "display": "Lukko",
+      "label": "SaiPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.SAI.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "SaiPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JUK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "Jukurit",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.JUK.playoff_before",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JUK.playoff_after",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Jukurit playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JUK.top6_after",
+      "value": 0.04,
+      "display": "4%",
+      "label": "Jukurit chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.JUK.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.JUK.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.JUK.next_opponent",
+      "value": "IFK",
+      "display": "HIFK",
+      "label": "Jukurit next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.JUK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Jukurit next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ASS": {
+    "allowed_names": [
+     "Kärpät",
+     "Pelicans",
+     "Sport",
+     "Sund",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Ässät",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.ASS.playoff_before",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ASS.playoff_after",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ASS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ässät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ASS.top6_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "Ässät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.ASS.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.ASS.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.ASS.next_opponent",
+      "value": "SPO",
+      "display": "Sport",
+      "label": "Ässät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.ASS.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Ässät next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SPO": {
+    "allowed_names": [
+     "Kärpät",
+     "Pelicans",
+     "Sport",
+     "Sund",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Sport",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.SPO.playoff_before",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SPO.playoff_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SPO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Sport playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SPO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "Sport chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.SPO.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.SPO.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.SPO.next_opponent",
+      "value": "ASS",
+      "display": "Ässät",
+      "label": "Sport next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.SPO.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Sport next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KOO": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "KooKoo",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.KOO.playoff_before",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KOO.playoff_after",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KOO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KooKoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KOO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "KooKoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KOO.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KOO.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KOO.next_opponent",
+      "value": "KES",
+      "display": "K-Espoo",
+      "label": "KooKoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.KOO.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "KooKoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KES": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Pelicans",
+     "Sund"
+    ],
+    "context": {
+     "team_name": "K-Espoo",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Pelicans",
+     "scorer": "Sund",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e2.KES.playoff_before",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KES.playoff_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KES.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in K-Espoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KES.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "K-Espoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e2.KES.score",
+      "value": "1-1",
+      "display": "1–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KES.clock",
+      "value": "33:15",
+      "display": "33:15",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e2.KES.next_opponent",
+      "value": "KOO",
+      "display": "KooKoo",
+      "label": "K-Espoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e2.KES.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "K-Espoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   }
+  },
+  "3": {
+   "LUK": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "Lukko",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.LUK.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.LUK.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.LUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Lukko playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.LUK.top6_after",
+      "value": 0.93,
+      "display": "93%",
+      "label": "Lukko chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.LUK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.LUK.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.LUK.next_opponent",
+      "value": "SAI",
+      "display": "SaiPa",
+      "label": "Lukko next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.LUK.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Lukko next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TAP": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "Tappara",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.TAP.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TAP.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TAP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Tappara playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TAP.top6_after",
+      "value": 0.9,
+      "display": "90%",
+      "label": "Tappara chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TAP.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.TAP.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.TAP.next_opponent",
+      "value": "KAL",
+      "display": "KalPa",
+      "label": "Tappara next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.TAP.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Tappara next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "IFK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HIFK",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.IFK.playoff_before",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.IFK.playoff_after",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.IFK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in HIFK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.IFK.top6_after",
+      "value": 0.78,
+      "display": "78%",
+      "label": "HIFK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.IFK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.IFK.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.IFK.next_opponent",
+      "value": "JUK",
+      "display": "Jukurit",
+      "label": "HIFK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.IFK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "HIFK next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ILV": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Ilves",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.ILV.playoff_before",
+      "value": 0.88,
+      "display": "88%",
+      "label": "Ilves playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ILV.playoff_after",
+      "value": 0.85,
+      "display": "85%",
+      "label": "Ilves playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ILV.playoff_delta",
+      "value": -0.03,
+      "display": "3 percentage points",
+      "label": "Change in Ilves playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ILV.top6_after",
+      "value": 0.51,
+      "display": "51%",
+      "label": "Ilves chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ILV.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.ILV.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.ILV.next_opponent",
+      "value": "KAR",
+      "display": "Kärpät",
+      "label": "Ilves next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.ILV.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Ilves next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAL": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "KalPa",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.KAL.playoff_before",
+      "value": 0.86,
+      "display": "86%",
+      "label": "KalPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAL.playoff_after",
+      "value": 0.84,
+      "display": "84%",
+      "label": "KalPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAL.playoff_delta",
+      "value": -0.02,
+      "display": "2 percentage points",
+      "label": "Change in KalPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAL.top6_after",
+      "value": 0.463,
+      "display": "46%",
+      "label": "KalPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAL.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KAL.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KAL.next_opponent",
+      "value": "TAP",
+      "display": "Tappara",
+      "label": "KalPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.KAL.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "KalPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "PEL": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Pelicans",
+     "role": "conceded",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.PEL.playoff_before",
+      "value": 0.69,
+      "display": "69%",
+      "label": "Pelicans playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.PEL.playoff_after",
+      "value": 0.57,
+      "display": "57%",
+      "label": "Pelicans playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.PEL.playoff_delta",
+      "value": -0.12,
+      "display": "12 percentage points",
+      "label": "Change in Pelicans playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.PEL.top6_after",
+      "value": 0.237,
+      "display": "24%",
+      "label": "Pelicans chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.PEL.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.PEL.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.PEL.next_opponent",
+      "value": "HPK",
+      "display": "HPK",
+      "label": "Pelicans next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.PEL.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "Pelicans next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAR": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Kärpät",
+     "role": "scored",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e3.KAR.playoff_before",
+      "value": 0.49,
+      "display": "49%",
+      "label": "Kärpät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAR.playoff_after",
+      "value": 0.72,
+      "display": "72%",
+      "label": "Kärpät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAR.playoff_delta",
+      "value": 0.23,
+      "display": "23 percentage points",
+      "label": "Change in Kärpät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAR.top6_after",
+      "value": 0.2,
+      "display": "20%",
+      "label": "Kärpät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KAR.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KAR.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KAR.next_opponent",
+      "value": "ILV",
+      "display": "Ilves",
+      "label": "Kärpät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.KAR.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Kärpät next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TPS": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "TPS",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.TPS.playoff_before",
+      "value": 0.62,
+      "display": "62%",
+      "label": "TPS playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TPS.playoff_after",
+      "value": 0.57,
+      "display": "57%",
+      "label": "TPS playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TPS.playoff_delta",
+      "value": -0.05,
+      "display": "5 percentage points",
+      "label": "Change in TPS playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TPS.top6_after",
+      "value": 0.163,
+      "display": "16%",
+      "label": "TPS chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.TPS.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.TPS.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.TPS.next_opponent",
+      "value": "JYP",
+      "display": "JYP",
+      "label": "TPS next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.TPS.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "TPS next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "HPK": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HPK",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.HPK.playoff_before",
+      "value": 0.56,
+      "display": "56%",
+      "label": "HPK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.HPK.playoff_after",
+      "value": 0.5,
+      "display": "50%",
+      "label": "HPK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.HPK.playoff_delta",
+      "value": -0.06,
+      "display": "6 percentage points",
+      "label": "Change in HPK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.HPK.top6_after",
+      "value": 0.117,
+      "display": "12%",
+      "label": "HPK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.HPK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.HPK.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.HPK.next_opponent",
+      "value": "PEL",
+      "display": "Pelicans",
+      "label": "HPK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.HPK.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "HPK next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JYP": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "JYP",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.JYP.playoff_before",
+      "value": 0.59,
+      "display": "59%",
+      "label": "JYP playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JYP.playoff_after",
+      "value": 0.54,
+      "display": "54%",
+      "label": "JYP playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JYP.playoff_delta",
+      "value": -0.05,
+      "display": "5 percentage points",
+      "label": "Change in JYP playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JYP.top6_after",
+      "value": 0.143,
+      "display": "14%",
+      "label": "JYP chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JYP.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.JYP.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.JYP.next_opponent",
+      "value": "TPS",
+      "display": "TPS",
+      "label": "JYP next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.JYP.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "JYP next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SAI": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "SaiPa",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e3.SAI.playoff_before",
+      "value": 0.41,
+      "display": "41%",
+      "label": "SaiPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SAI.playoff_after",
+      "value": 0.37,
+      "display": "37%",
+      "label": "SaiPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SAI.playoff_delta",
+      "value": -0.04,
+      "display": "4 percentage points",
+      "label": "Change in SaiPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SAI.top6_after",
+      "value": 0.047,
+      "display": "5%",
+      "label": "SaiPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SAI.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.SAI.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.SAI.next_opponent",
+      "value": "LUK",
+      "display": "Lukko",
+      "label": "SaiPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.SAI.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "SaiPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JUK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Jukurit",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.JUK.playoff_before",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JUK.playoff_after",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Jukurit playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JUK.top6_after",
+      "value": 0.04,
+      "display": "4%",
+      "label": "Jukurit chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.JUK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.JUK.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.JUK.next_opponent",
+      "value": "IFK",
+      "display": "HIFK",
+      "label": "Jukurit next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.JUK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Jukurit next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ASS": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Ässät",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.ASS.playoff_before",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ASS.playoff_after",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ASS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ässät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ASS.top6_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "Ässät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.ASS.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.ASS.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.ASS.next_opponent",
+      "value": "SPO",
+      "display": "Sport",
+      "label": "Ässät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.ASS.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Ässät next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SPO": {
+    "allowed_names": [
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Sport",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.SPO.playoff_before",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SPO.playoff_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SPO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Sport playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SPO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "Sport chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.SPO.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.SPO.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.SPO.next_opponent",
+      "value": "ASS",
+      "display": "Ässät",
+      "label": "Sport next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.SPO.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Sport next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KOO": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "KooKoo",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.KOO.playoff_before",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KOO.playoff_after",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KOO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KooKoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KOO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "KooKoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KOO.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KOO.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KOO.next_opponent",
+      "value": "KES",
+      "display": "K-Espoo",
+      "label": "KooKoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.KOO.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "KooKoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KES": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Lehtonen",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "K-Espoo",
+     "role": "not playing",
+     "event_kind": "goal",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": "Kärpät",
+     "scorer": "Lehtonen",
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e3.KES.playoff_before",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KES.playoff_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KES.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in K-Espoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KES.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "K-Espoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e3.KES.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KES.clock",
+      "value": "58:12",
+      "display": "58:12",
+      "label": "Game time of the goal",
+      "source": "game events"
+     },
+     {
+      "id": "e3.KES.next_opponent",
+      "value": "KOO",
+      "display": "KooKoo",
+      "label": "K-Espoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e3.KES.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "K-Espoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   }
+  },
+  "4": {
+   "LUK": {
+    "allowed_names": [
+     "Kärpät",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "Lukko",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.LUK.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.LUK.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Lukko playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.LUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Lukko playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.LUK.top6_after",
+      "value": 0.93,
+      "display": "93%",
+      "label": "Lukko chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.LUK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.LUK.next_opponent",
+      "value": "SAI",
+      "display": "SaiPa",
+      "label": "Lukko next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.LUK.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Lukko next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TAP": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "Tappara",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.TAP.playoff_before",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TAP.playoff_after",
+      "value": 0.99,
+      "display": "99%",
+      "label": "Tappara playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TAP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Tappara playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TAP.top6_after",
+      "value": 0.9,
+      "display": "90%",
+      "label": "Tappara chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TAP.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.TAP.next_opponent",
+      "value": "KAL",
+      "display": "KalPa",
+      "label": "Tappara next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.TAP.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "Tappara next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "IFK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HIFK",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.IFK.playoff_before",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.IFK.playoff_after",
+      "value": 0.97,
+      "display": "97%",
+      "label": "HIFK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.IFK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in HIFK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.IFK.top6_after",
+      "value": 0.78,
+      "display": "78%",
+      "label": "HIFK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.IFK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.IFK.next_opponent",
+      "value": "JUK",
+      "display": "Jukurit",
+      "label": "HIFK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.IFK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "HIFK next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ILV": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Ilves",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.ILV.playoff_before",
+      "value": 0.85,
+      "display": "85%",
+      "label": "Ilves playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ILV.playoff_after",
+      "value": 0.85,
+      "display": "85%",
+      "label": "Ilves playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ILV.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ilves playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ILV.top6_after",
+      "value": 0.51,
+      "display": "51%",
+      "label": "Ilves chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ILV.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.ILV.next_opponent",
+      "value": "KAR",
+      "display": "Kärpät",
+      "label": "Ilves next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.ILV.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Ilves next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAL": {
+    "allowed_names": [
+     "KalPa",
+     "Kärpät",
+     "Pelicans",
+     "Tappara"
+    ],
+    "context": {
+     "team_name": "KalPa",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.KAL.playoff_before",
+      "value": 0.84,
+      "display": "84%",
+      "label": "KalPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAL.playoff_after",
+      "value": 0.84,
+      "display": "84%",
+      "label": "KalPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAL.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KalPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAL.top6_after",
+      "value": 0.463,
+      "display": "46%",
+      "label": "KalPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAL.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.KAL.next_opponent",
+      "value": "TAP",
+      "display": "Tappara",
+      "label": "KalPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.KAL.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "KalPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "PEL": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Pelicans",
+     "role": "playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e4.PEL.playoff_before",
+      "value": 0.57,
+      "display": "57%",
+      "label": "Pelicans playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.PEL.playoff_after",
+      "value": 0.56,
+      "display": "56%",
+      "label": "Pelicans playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.PEL.playoff_delta",
+      "value": -0.01,
+      "display": "1 percentage point",
+      "label": "Change in Pelicans playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.PEL.top6_after",
+      "value": 0.234,
+      "display": "23%",
+      "label": "Pelicans chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.PEL.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.PEL.next_opponent",
+      "value": "HPK",
+      "display": "HPK",
+      "label": "Pelicans next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.PEL.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "Pelicans next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KAR": {
+    "allowed_names": [
+     "Ilves",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Kärpät",
+     "role": "playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "up"
+    },
+    "facts": [
+     {
+      "id": "e4.KAR.playoff_before",
+      "value": 0.72,
+      "display": "72%",
+      "label": "Kärpät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAR.playoff_after",
+      "value": 0.75,
+      "display": "75%",
+      "label": "Kärpät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAR.playoff_delta",
+      "value": 0.03,
+      "display": "3 percentage points",
+      "label": "Change in Kärpät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAR.top6_after",
+      "value": 0.21,
+      "display": "21%",
+      "label": "Kärpät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KAR.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.KAR.next_opponent",
+      "value": "ILV",
+      "display": "Ilves",
+      "label": "Kärpät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.KAR.next_date",
+      "value": "2026-03-16",
+      "display": "Monday",
+      "label": "Kärpät next game date (2026-03-16)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "TPS": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "TPS",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.TPS.playoff_before",
+      "value": 0.57,
+      "display": "57%",
+      "label": "TPS playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TPS.playoff_after",
+      "value": 0.57,
+      "display": "57%",
+      "label": "TPS playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TPS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in TPS playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TPS.top6_after",
+      "value": 0.163,
+      "display": "16%",
+      "label": "TPS chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.TPS.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.TPS.next_opponent",
+      "value": "JYP",
+      "display": "JYP",
+      "label": "TPS next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.TPS.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "TPS next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "HPK": {
+    "allowed_names": [
+     "HPK",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "HPK",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "down"
+    },
+    "facts": [
+     {
+      "id": "e4.HPK.playoff_before",
+      "value": 0.5,
+      "display": "50%",
+      "label": "HPK playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.HPK.playoff_after",
+      "value": 0.49,
+      "display": "49%",
+      "label": "HPK playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.HPK.playoff_delta",
+      "value": -0.01,
+      "display": "1 percentage point",
+      "label": "Change in HPK playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.HPK.top6_after",
+      "value": 0.114,
+      "display": "11%",
+      "label": "HPK chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.HPK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.HPK.next_opponent",
+      "value": "PEL",
+      "display": "Pelicans",
+      "label": "HPK next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.HPK.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "HPK next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JYP": {
+    "allowed_names": [
+     "JYP",
+     "Kärpät",
+     "Pelicans",
+     "TPS"
+    ],
+    "context": {
+     "team_name": "JYP",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.JYP.playoff_before",
+      "value": 0.54,
+      "display": "54%",
+      "label": "JYP playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JYP.playoff_after",
+      "value": 0.54,
+      "display": "54%",
+      "label": "JYP playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JYP.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in JYP playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JYP.top6_after",
+      "value": 0.143,
+      "display": "14%",
+      "label": "JYP chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JYP.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.JYP.next_opponent",
+      "value": "TPS",
+      "display": "TPS",
+      "label": "JYP next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.JYP.next_date",
+      "value": "2026-03-17",
+      "display": "Tuesday",
+      "label": "JYP next game date (2026-03-17)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SAI": {
+    "allowed_names": [
+     "Kärpät",
+     "Lukko",
+     "Pelicans",
+     "SaiPa"
+    ],
+    "context": {
+     "team_name": "SaiPa",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.SAI.playoff_before",
+      "value": 0.37,
+      "display": "37%",
+      "label": "SaiPa playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SAI.playoff_after",
+      "value": 0.37,
+      "display": "37%",
+      "label": "SaiPa playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SAI.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in SaiPa playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SAI.top6_after",
+      "value": 0.047,
+      "display": "5%",
+      "label": "SaiPa chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SAI.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.SAI.next_opponent",
+      "value": "LUK",
+      "display": "Lukko",
+      "label": "SaiPa next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.SAI.next_date",
+      "value": "2026-03-18",
+      "display": "Wednesday",
+      "label": "SaiPa next game date (2026-03-18)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "JUK": {
+    "allowed_names": [
+     "HIFK",
+     "Jukurit",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "Jukurit",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.JUK.playoff_before",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JUK.playoff_after",
+      "value": 0.33,
+      "display": "33%",
+      "label": "Jukurit playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JUK.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Jukurit playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JUK.top6_after",
+      "value": 0.04,
+      "display": "4%",
+      "label": "Jukurit chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.JUK.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.JUK.next_opponent",
+      "value": "IFK",
+      "display": "HIFK",
+      "label": "Jukurit next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.JUK.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Jukurit next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "ASS": {
+    "allowed_names": [
+     "Kärpät",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Ässät",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.ASS.playoff_before",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ASS.playoff_after",
+      "value": 0.12,
+      "display": "12%",
+      "label": "Ässät playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ASS.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Ässät playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ASS.top6_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "Ässät chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.ASS.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.ASS.next_opponent",
+      "value": "SPO",
+      "display": "Sport",
+      "label": "Ässät next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.ASS.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Ässät next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "SPO": {
+    "allowed_names": [
+     "Kärpät",
+     "Pelicans",
+     "Sport",
+     "Ässät"
+    ],
+    "context": {
+     "team_name": "Sport",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.SPO.playoff_before",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SPO.playoff_after",
+      "value": 0.06,
+      "display": "6%",
+      "label": "Sport playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SPO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in Sport playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SPO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "Sport chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.SPO.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.SPO.next_opponent",
+      "value": "ASS",
+      "display": "Ässät",
+      "label": "Sport next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.SPO.next_date",
+      "value": "2026-03-19",
+      "display": "Thursday",
+      "label": "Sport next game date (2026-03-19)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KOO": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "KooKoo",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.KOO.playoff_before",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KOO.playoff_after",
+      "value": 0.02,
+      "display": "2%",
+      "label": "KooKoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KOO.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in KooKoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KOO.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "KooKoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KOO.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.KOO.next_opponent",
+      "value": "KES",
+      "display": "K-Espoo",
+      "label": "KooKoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.KOO.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "KooKoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   },
+   "KES": {
+    "allowed_names": [
+     "K-Espoo",
+     "KooKoo",
+     "Kärpät",
+     "Pelicans"
+    ],
+    "context": {
+     "team_name": "K-Espoo",
+     "role": "not playing",
+     "event_kind": "end",
+     "home_name": "Kärpät",
+     "away_name": "Pelicans",
+     "scoring_team_name": null,
+     "scorer": null,
+     "playoff_direction": "unchanged"
+    },
+    "facts": [
+     {
+      "id": "e4.KES.playoff_before",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance before this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KES.playoff_after",
+      "value": 0.01,
+      "display": "1%",
+      "label": "K-Espoo playoff chance after this moment",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KES.playoff_delta",
+      "value": 0.0,
+      "display": "less than 1 percentage point",
+      "label": "Change in K-Espoo playoff chance",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KES.top6_after",
+      "value": 0.0,
+      "display": "0%",
+      "label": "K-Espoo chance of a top-6 place",
+      "source": "simulation"
+     },
+     {
+      "id": "e4.KES.score",
+      "value": "2-1",
+      "display": "2–1",
+      "label": "Score (Kärpät–Pelicans)",
+      "source": "game events"
+     },
+     {
+      "id": "e4.KES.next_opponent",
+      "value": "KOO",
+      "display": "KooKoo",
+      "label": "K-Espoo next opponent",
+      "source": "schedule"
+     },
+     {
+      "id": "e4.KES.next_date",
+      "value": "2026-03-20",
+      "display": "Friday",
+      "label": "K-Espoo next game date (2026-03-20)",
+      "source": "schedule"
+     }
+    ]
+   }
+  }
+ },
+ "stories": [
+  {
+   "event_idx": 1,
+   "team": "PEL",
+   "audience": "fan",
+   "text": "The goal against you at {{e1.PEL.clock}} made it {{e1.PEL.score}}. Your playoff chance fell by {{e1.PEL.playoff_delta}} to {{e1.PEL.playoff_after}}. Next up: {{e1.PEL.next_opponent}} on {{e1.PEL.next_date}}.",
+   "facts_used": [
+    "e1.PEL.clock",
+    "e1.PEL.score",
+    "e1.PEL.playoff_delta",
+    "e1.PEL.playoff_after",
+    "e1.PEL.next_opponent",
+    "e1.PEL.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 1,
+   "team": "KAR",
+   "audience": "fan",
+   "text": "Lehtonen's goal at {{e1.KAR.clock}} made it {{e1.KAR.score}}. Your playoff chance rose by {{e1.KAR.playoff_delta}} to {{e1.KAR.playoff_after}}. Next up: {{e1.KAR.next_opponent}} on {{e1.KAR.next_date}}.",
+   "facts_used": [
+    "e1.KAR.clock",
+    "e1.KAR.score",
+    "e1.KAR.playoff_delta",
+    "e1.KAR.playoff_after",
+    "e1.KAR.next_opponent",
+    "e1.KAR.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 1,
+   "team": "HPK",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e1.HPK.playoff_delta}} to {{e1.HPK.playoff_after}}. Next up: {{e1.HPK.next_opponent}} on {{e1.HPK.next_date}}.",
+   "facts_used": [
+    "e1.HPK.playoff_delta",
+    "e1.HPK.playoff_after",
+    "e1.HPK.next_opponent",
+    "e1.HPK.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 1,
+   "team": "TPS",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e1.TPS.playoff_delta}} to {{e1.TPS.playoff_after}}. Next up: {{e1.TPS.next_opponent}} on {{e1.TPS.next_date}}.",
+   "facts_used": [
+    "e1.TPS.playoff_delta",
+    "e1.TPS.playoff_after",
+    "e1.TPS.next_opponent",
+    "e1.TPS.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 1,
+   "team": "JYP",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e1.JYP.playoff_delta}} to {{e1.JYP.playoff_after}}. Next up: {{e1.JYP.next_opponent}} on {{e1.JYP.next_date}}.",
+   "facts_used": [
+    "e1.JYP.playoff_delta",
+    "e1.JYP.playoff_after",
+    "e1.JYP.next_opponent",
+    "e1.JYP.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 2,
+   "team": "PEL",
+   "audience": "fan",
+   "text": "Sund's goal at {{e2.PEL.clock}} made it {{e2.PEL.score}}. Your playoff chance rose by {{e2.PEL.playoff_delta}} to {{e2.PEL.playoff_after}}. Next up: {{e2.PEL.next_opponent}} on {{e2.PEL.next_date}}.",
+   "facts_used": [
+    "e2.PEL.clock",
+    "e2.PEL.score",
+    "e2.PEL.playoff_delta",
+    "e2.PEL.playoff_after",
+    "e2.PEL.next_opponent",
+    "e2.PEL.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 2,
+   "team": "KAR",
+   "audience": "fan",
+   "text": "The goal against you at {{e2.KAR.clock}} made it {{e2.KAR.score}}. Your playoff chance fell by {{e2.KAR.playoff_delta}} to {{e2.KAR.playoff_after}}. Next up: {{e2.KAR.next_opponent}} on {{e2.KAR.next_date}}.",
+   "facts_used": [
+    "e2.KAR.clock",
+    "e2.KAR.score",
+    "e2.KAR.playoff_delta",
+    "e2.KAR.playoff_after",
+    "e2.KAR.next_opponent",
+    "e2.KAR.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 2,
+   "team": "TPS",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Pelicans' goal still reached you. Your playoff chance rose by {{e2.TPS.playoff_delta}} to {{e2.TPS.playoff_after}}. Next up: {{e2.TPS.next_opponent}} on {{e2.TPS.next_date}}.",
+   "facts_used": [
+    "e2.TPS.playoff_delta",
+    "e2.TPS.playoff_after",
+    "e2.TPS.next_opponent",
+    "e2.TPS.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 2,
+   "team": "JYP",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Pelicans' goal still reached you. Your playoff chance rose by {{e2.JYP.playoff_delta}} to {{e2.JYP.playoff_after}}. Next up: {{e2.JYP.next_opponent}} on {{e2.JYP.next_date}}.",
+   "facts_used": [
+    "e2.JYP.playoff_delta",
+    "e2.JYP.playoff_after",
+    "e2.JYP.next_opponent",
+    "e2.JYP.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 2,
+   "team": "HPK",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Pelicans' goal still reached you. Your playoff chance rose by {{e2.HPK.playoff_delta}} to {{e2.HPK.playoff_after}}. Next up: {{e2.HPK.next_opponent}} on {{e2.HPK.next_date}}.",
+   "facts_used": [
+    "e2.HPK.playoff_delta",
+    "e2.HPK.playoff_after",
+    "e2.HPK.next_opponent",
+    "e2.HPK.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 3,
+   "team": "PEL",
+   "audience": "fan",
+   "text": "The goal against you at {{e3.PEL.clock}} made it {{e3.PEL.score}}. Your playoff chance fell by {{e3.PEL.playoff_delta}} to {{e3.PEL.playoff_after}}. Next up: {{e3.PEL.next_opponent}} on {{e3.PEL.next_date}}.",
+   "facts_used": [
+    "e3.PEL.clock",
+    "e3.PEL.score",
+    "e3.PEL.playoff_delta",
+    "e3.PEL.playoff_after",
+    "e3.PEL.next_opponent",
+    "e3.PEL.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 3,
+   "team": "KAR",
+   "audience": "fan",
+   "text": "Lehtonen's goal at {{e3.KAR.clock}} made it {{e3.KAR.score}}. Your playoff chance rose by {{e3.KAR.playoff_delta}} to {{e3.KAR.playoff_after}}. Next up: {{e3.KAR.next_opponent}} on {{e3.KAR.next_date}}.",
+   "facts_used": [
+    "e3.KAR.clock",
+    "e3.KAR.score",
+    "e3.KAR.playoff_delta",
+    "e3.KAR.playoff_after",
+    "e3.KAR.next_opponent",
+    "e3.KAR.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 3,
+   "team": "HPK",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e3.HPK.playoff_delta}} to 59%. Next up: {{e3.HPK.next_opponent}} on {{e3.HPK.next_date}}.",
+   "facts_used": [
+    "e3.HPK.playoff_delta",
+    "e3.HPK.playoff_after",
+    "e3.HPK.next_opponent",
+    "e3.HPK.next_date"
+   ],
+   "problems": [
+    "raw number '59%' not from facts",
+    "fact 'e3.HPK.playoff_after' listed in facts_used but not in the text"
+   ],
+   "writer": "template",
+   "attempts": 1,
+   "injected": true,
+   "status": "blocked",
+   "review": "editor"
+  },
+  {
+   "event_idx": 3,
+   "team": "TPS",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e3.TPS.playoff_delta}} to {{e3.TPS.playoff_after}}. Next up: {{e3.TPS.next_opponent}} on {{e3.TPS.next_date}}.",
+   "facts_used": [
+    "e3.TPS.playoff_delta",
+    "e3.TPS.playoff_after",
+    "e3.TPS.next_opponent",
+    "e3.TPS.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 3,
+   "team": "JYP",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e3.JYP.playoff_delta}} to {{e3.JYP.playoff_after}}. Next up: {{e3.JYP.next_opponent}} on {{e3.JYP.next_date}}.",
+   "facts_used": [
+    "e3.JYP.playoff_delta",
+    "e3.JYP.playoff_after",
+    "e3.JYP.next_opponent",
+    "e3.JYP.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  },
+  {
+   "event_idx": 3,
+   "team": "SAI",
+   "audience": "fan",
+   "text": "You didn't play tonight, but Kärpät's goal still reached you. Your playoff chance fell by {{e3.SAI.playoff_delta}} to {{e3.SAI.playoff_after}}. Next up: {{e3.SAI.next_opponent}} on {{e3.SAI.next_date}}.",
+   "facts_used": [
+    "e3.SAI.playoff_delta",
+    "e3.SAI.playoff_after",
+    "e3.SAI.next_opponent",
+    "e3.SAI.next_date"
+   ],
+   "problems": [],
+   "writer": "template",
+   "attempts": 1,
+   "status": "verified",
+   "review": "auto"
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+  "624554857:lukko": {
+    "code": "LUK",
+    "name": "Lukko",
+    "color": "#00468C"
+  },
+  "1:tappara": {
+    "code": "TAP",
+    "name": "Tappara",
+    "color": "#F47A20"
+  },
+  "2:hifk": {
+    "code": "IFK",
+    "name": "HIFK",
+    "color": "#E30613"
+  },
+  "3:ilves": {
+    "code": "ILV",
+    "name": "Ilves",
+    "color": "#FFD200"
+  },
+  "4:kalpa": {
+    "code": "KAL",
+    "name": "KalPa",
+    "color": "#FFD100"
+  },
+  "5:pelicans": {
+    "code": "PEL",
+    "name": "Pelicans",
+    "color": "#0098D8"
+  },
+  "6:karpat": {
+    "code": "KAR",
+    "name": "Kärpät",
+    "color": "#FFD100"
+  },
+  "7:tps": {
+    "code": "TPS",
+    "name": "TPS",
+    "color": "#000000"
+  },
+  "55786244:hpk": {
+    "code": "HPK",
+    "name": "HPK",
+    "color": "#F37021"
+  },
+  "8:jyp": {
+    "code": "JYP",
+    "name": "JYP",
+    "color": "#D71920"
+  },
+  "933686567:saipa": {
+    "code": "SAI",
+    "name": "SaiPa",
+    "color": "#FFE600"
+  },
+  "292293444:jukurit": {
+    "code": "JUK",
+    "name": "Jukurit",
+    "color": "#003E7E"
+  },
+  "9:assat": {
+    "code": "ASS",
+    "name": "Ässät",
+    "color": "#C8102E"
+  },
+  "10:sport": {
+    "code": "SPO",
+    "name": "Sport",
+    "color": "#E2001A"
+  },
+  "11:kookoo": {
+    "code": "KOO",
+    "name": "KooKoo",
+    "color": "#FF6600"
+  },
+  "12:kiekko-espoo": {
+    "code": "KES",
+    "name": "K-Espoo",
+    "color": "#002F6C"
+  }
+}

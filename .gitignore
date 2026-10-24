@@ -1,0 +1,11 @@
+# Secrets (AGENTS.md rule 7)
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Half-written data files (written to *.tmp, then renamed)
+data/**/*.tmp
