@@ -4,7 +4,8 @@ import pytest
 
 from engine import config
 from engine.loader import load_games, load_teams, raw_path, read_json
-from engine.simulate import season_state, simulate
+from engine.model import TableRow
+from engine.simulate import Fixture, SeasonState, decided, season_state, settle, simulate
 
 
 def _setup(season):
@@ -27,9 +28,9 @@ def test_probabilities_valid(current):
     odds = simulate(state, 1000)
     for o in odds.values():
         assert 0 <= o.direct <= o.playoff <= 1
-    # Every run has exactly `line` teams above each line.
-    assert sum(o.direct for o in odds.values()) == pytest.approx(direct_line)
-    assert sum(o.playoff for o in odds.values()) == pytest.approx(playoff_line)
+    # Every run has exactly `line` teams above each line (give or take the one-run nudges from settle()).
+    assert sum(o.direct for o in odds.values()) == pytest.approx(direct_line, abs=len(odds) / 1000)
+    assert sum(o.playoff for o in odds.values()) == pytest.approx(playoff_line, abs=len(odds) / 1000)
 
 
 def test_same_seed_same_result(current):
@@ -46,7 +47,44 @@ def test_picks_move_odds(current):
     assert simulate(state, 2000, picks=win)[code].playoff > simulate(state, 2000, picks=lose)[code].playoff
 
 
+def _tiny(points: dict[str, int], fixtures: list[Fixture]) -> SeasonState:
+    """Four teams, one playoff spot, no direct spot worth testing (lines 1 / 2)."""
+    codes = list(points)
+    table = [TableRow(code=c, points=p) for c, p in points.items()]
+    rates = {c: 3.0 for c in codes}
+    return SeasonState(table, fixtures, rates, dict(rates), 3.0, (1, 2), codes)
+
+
+def test_decided_only_when_the_points_say_so():
+    # One game each left (A-B, C-D): A can drop to 20, nobody else can reach 20 -> A is in.
+    # D has at most 3 + 3 = 6, B and C already have 10 > 6 -> D is out of the top 2. B and C are open.
+    state = _tiny({"A": 20, "B": 10, "C": 10, "D": 3}, [Fixture(1, "A", "B"), Fixture(2, "C", "D")])
+    sure = decided(state)
+    assert sure["A"] == {"direct": True, "playoff": True}
+    assert sure["D"] == {"direct": False, "playoff": False}
+    assert sure["B"]["playoff"] is None and sure["C"]["playoff"] is None
+    # A tie counts against the team: B at 17 + 3 = 20 can draw level with A, so A is no longer certain.
+    assert decided(_tiny({"A": 20, "B": 17, "C": 0, "D": 0}, [Fixture(1, "C", "B")]))["A"]["direct"] is None
+    # A forced result counts as played: B losing in regulation can no longer reach A.
+    assert decided(_tiny({"A": 20, "B": 17, "C": 0, "D": 0}, [Fixture(1, "C", "B")]),
+                   picks={1: "HOME_REG"})["A"]["direct"] is True
+
+
+def test_every_run_agreeing_is_not_certainty():
+    assert settle(1.0, None, 10_000) == pytest.approx(0.9999)
+    assert settle(0.0, None, 10_000) == pytest.approx(0.0001)
+    assert settle(1.0, True, 10_000) == 1.0 and settle(0.0, False, 10_000) == 0.0
+    assert settle(0.4, None, 10_000) == 0.4
+    # C and D play each other 10 times. A (50) is out of reach: certain. B (30) can be tied on points, so the
+    # maths says open, though in practice C would have to win all ten: every run says in, the output stays below 1.
+    state = _tiny({"A": 50, "B": 30, "C": 0, "D": 0}, [Fixture(i, "C", "D") for i in range(10)])
+    odds = simulate(state, 1000)
+    assert odds["A"].direct == 1.0
+    assert odds["B"].playoff == pytest.approx(0.999)
+
+
 def test_api_speed(current):
+
     state, _ = current
     t = time.perf_counter()
     simulate(state, config.RUNS_SIMULATE_API)

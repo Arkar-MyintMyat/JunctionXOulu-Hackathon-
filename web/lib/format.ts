@@ -1,7 +1,13 @@
 // The one place probabilities are formatted. Input is always a 0–1 float (ARCHITECTURE.md 4.8).
 
+/** "100%" / "0%" only when the engine says the line is decided (exactly 1 / 0); otherwise ">99%" / "<1%". */
 export function pct(p: number): string {
-  return `${Math.round(p * 100)}%`;
+  if (p >= 1) return "100%";
+  if (p <= 0) return "0%";
+  const n = Math.round(p * 100);
+  if (n >= 100) return ">99%";
+  if (n <= 0) return "<1%";
+  return `${n}%`;
 }
 
 /** Signed change in percentage points, e.g. "+23" / "−18" / "±0". */

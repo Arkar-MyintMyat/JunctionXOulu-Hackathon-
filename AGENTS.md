@@ -280,7 +280,9 @@ also includes time passing (a team trailing for 20 minutes drifts down before it
 Team count is not fixed: season 2026 has 16 teams, season 2027 (current) has 17.
 Optional on every team (Match `teams[]` and simulate `teams[]`): `logo` = Liiga logo URL (light background).
 Team `color` and `logo` are filled from `data/teams.json` when the API serves the response.
-Probabilities are 0–1 floats. Fact ids follow `e{idx}.{TEAM}.{name}`. `display` is what the reader sees.
+Probabilities are 0–1 floats. Exactly 1 or 0 means mathematically decided on points (`engine/simulate.py`
+`decided()`); when every simulated run agrees but the maths has not, the engine returns one run short of it
+(0.9999 at 10,000 runs), and `pct()` / `fmt_pct()` show ">99%" / "<1%". Fact ids follow `e{idx}.{TEAM}.{name}`. `display` is what the reader sees.
 Team names in `allowed_names` include every name a story may use (Level 2 Finnish adds inflected forms).
 
 ### 5.3 `GET /api/upcoming?team=KAR&n=8` → upcoming games (current season)

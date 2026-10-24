@@ -165,6 +165,7 @@ def test_without_odds_before_there_is_no_drift(facts):
 
 def test_formatting():
     assert fmt_pct(0.414) == "41%"
+    assert (fmt_pct(1.0), fmt_pct(0.9999), fmt_pct(0.0001), fmt_pct(0.0)) == ("100%", ">99%", "<1%", "0%")
     assert fmt_points(-0.18) == "18 percentage points"
     assert fmt_points(0.01) == "1 percentage point"
     assert fmt_points(0.001) == "less than 1 percentage point"
