@@ -105,6 +105,11 @@ def test_season_over_only_when_the_schedule_says_so(odds):
     assert not any(f["id"].endswith(("next_opponent", "next_date")) for f in over["3"]["ILV"]["facts"])
     text, _ = template_story(over["3"]["ILV"], "fan")
     assert "regular season is over" in text and "Next up" not in text
+    # The two playing teams: their last game is still being played, so not "season over".
+    kar = over["3"]["KAR"]["context"]
+    assert kar["season_over"] is False and kar["last_game"] is True
+    text, _ = template_story(over["3"]["KAR"], "fan")
+    assert "last regular-season game" in text and "season is over" not in text
     # No schedule at all: claim nothing.
     unknown = build_facts(odds, {}, schedule_known=False)
     assert unknown["3"]["ILV"]["context"]["season_over"] is False

@@ -47,6 +47,11 @@ export async function getMatches(): Promise<Loaded<MatchSummary[]>> {
   try {
     return { data: await getJson<MatchSummary[]>(`${API_URL}/api/matches`), source: "api" };
   } catch {
+    try {
+      return { data: await getJson<MatchSummary[]>("/data/matches.json"), source: "offline" };
+    } catch {
+      // fall through to the bundled mock
+    }
     const m = MOCK.match;
     const name = (code: string) => MOCK.teams.find((t) => t.code === code)?.name ?? code;
     const label = `${name(m.home)} ${m.final_score.replace("-", "–")} ${name(m.away)}`;
