@@ -59,6 +59,8 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
   .stakes-phase button:hover { background: var(--stakes-surface); }
   .stakes-phase button[aria-pressed="true"] { background: var(--stakes-text); border-color: var(--stakes-text); color: #fff; }
   .stakes-phase .stakes-phase__arrow { padding: 6px 10px; }
+  /* The editor queue is Kaleva's internal view, not for readers: reachable only from this demo bar. */
+  .stakes-phase__editor { margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--stakes-line); white-space: nowrap; }
   /* Kaleva's live label red (host branding, like the ad unit below). */
   .stakes-live-badge { display: inline-block; margin: 0 0 12px; padding: 4px 8px; border-radius: 3px; background: #e2231a; color: #fff;
     font: 700 13px/1 "Geist", system-ui, sans-serif; letter-spacing: .04em; }
@@ -103,6 +105,7 @@ Kärppien maaleista varsinaisella peliajalla vastasivat kapteeni Atte Ohtamaa se
     <button type="button" data-phase-to="live">Live</button>
     <button type="button" data-phase-to="after">After the game</button>
     <button type="button" class="stakes-phase__arrow" data-phase-step="1" aria-label="Next state">›</button>
+    <a class="stakes-phase__editor" href="/queue">Kaleva editors only: review queue →</a>
   </div>
 </div>
     <div class="drawer-menu-guardian">
